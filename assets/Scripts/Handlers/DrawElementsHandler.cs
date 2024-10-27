@@ -1,6 +1,7 @@
 using System;
 using Assets.Scripts.Elements;
 using Assets.Scripts.Models.Elements;
+using Assets.Scripts.Models.Levels;
 using Assets.Scripts.Utils;
 using Assets.Settings;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class DrawElementsHandler : MonoBehaviour
             throw new ArgumentException( "Failed to find a book object" );
         }
 
-        _elementsDataRepository = new ElementsDataRepository();
+        _elementsDataRepository = new ElementsDataRepository( LevelType.Level_0 );
 
         foreach ( var element in ElementsRepository.Elements.Values ) 
         {
