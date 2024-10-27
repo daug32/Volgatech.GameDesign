@@ -1,0 +1,14 @@
+{
+  "earth": {
+    "isDiscovered": false
+  },
+  "fire": {
+    "isDiscovered": true
+  },
+  "water": {
+    "isDiscovered": true
+  },
+  "plant": {
+    "isDiscovered": true
+  }
+}
