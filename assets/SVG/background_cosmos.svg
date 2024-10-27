@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 640">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-3 {
+        fill: #000426;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-5 {
+        clip-path: url(#clippath-4);
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-7 {
+        fill: none;
+      }
+
+      .cls-8 {
+        clip-path: url(#clippath-3);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-7" x="-555.68" y="-570.32" width="2126" height="2102.64" transform="translate(-177.28 622.62) rotate(-55.16)"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-7" x="-275.43" y="-471.54" width="2126" height="2102.64" transform="translate(156.66 1327.02) rotate(-86.18)"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-7" x="-229.75" y="-354.22" width="2102.64" height="2126" transform="translate(-205.04 357.45) rotate(-21.89)"/>
+    </clipPath>
+    <clipPath id="clippath-3">
+      <rect class="cls-7" x="-1012.84" y="327.39" width="2102.64" height="2126" transform="translate(-515.66 114.62) rotate(-21.89)"/>
+    </clipPath>
+    <clipPath id="clippath-4">
+      <rect class="cls-7" x="558.48" y="-342.93" width="2126" height="2102.64" transform="translate(-145.88 622.09) rotate(-20.8)"/>
+    </clipPath>
+  </defs>
+  <rect class="cls-3" x="0" width="960" height="640"/>
+  <g class="cls-6">
+    <g>
+      <g id="_Grid_Repeat_" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="876.22" cy="99.63" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-2" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="187.52" cy="56.49" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-3" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="429.61" cy="224.98" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-4" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="671.7" cy="393.48" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-5" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="913.79" cy="561.98" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-6" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="225.09" cy="518.84" r="2.5"/>
+      </g>
+    </g>
+  </g>
+  <g class="cls-4">
+    <g>
+      <g id="_Grid_Repeat_-7" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="42.18" cy="354.57" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-8" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="423.44" cy="380" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-9" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="804.71" cy="405.43" r="2.5"/>
+      </g>
+    </g>
+  </g>
+  <g class="cls-2">
+    <g>
+      <g id="_Grid_Repeat_-10" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="256.65" cy="294.15" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-11" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="611.21" cy="151.68" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-12" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="768.29" cy="542.55" r="2.5"/>
+      </g>
+    </g>
+  </g>
+  <g class="cls-8">
+    <g>
+      <g id="_Grid_Repeat_-13" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="25.6" cy="299.93" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-14" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="380.16" cy="157.45" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-15" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="734.72" cy="14.97" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-16" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="537.24" cy="548.32" r="2.5"/>
+      </g>
+      <g id="_Grid_Repeat_-17" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="891.79" cy="405.85" r="2.5"/>
+      </g>
+    </g>
+  </g>
+  <g class="cls-5">
+    <g>
+      <g id="_Grid_Repeat_-18" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="729.67" cy="243.12" r="2.5" transform="translate(472.73 968.04) rotate(-88.91)"/>
+      </g>
+      <g id="_Grid_Repeat_-19" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="865.39" cy="600.32" r="2.5" transform="translate(248.73 1454.14) rotate(-88.91)"/>
+      </g>
+      <g id="_Grid_Repeat_-20" data-name="&amp;lt;Grid Repeat&amp;gt;">
+        <circle class="cls-1" cx="335.88" cy="392.74" r="2.5" transform="translate(-63.17 721.09) rotate(-88.91)"/>
+      </g>
+    </g>
+  </g>
+</svg>

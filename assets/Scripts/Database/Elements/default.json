@@ -1,0 +1,30 @@
+[
+  {
+    "id": "earth",
+    "data": {
+      "isDiscovered": true,
+      "parents": []
+    }
+  },
+  {
+    "id": "fire",
+    "data": {
+      "isDiscovered": true,
+      "parents": []
+    }
+  },
+  {
+    "id": "water",
+    "data": {
+      "isDiscovered": true,
+      "parents": []
+    }
+  },
+  {
+    "id": "plant",
+    "data": {
+      "isDiscovered": false,
+      "parents": [ "water", "earth" ]
+    }
+  }
+]
