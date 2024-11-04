@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Domain.Elements
 {
@@ -11,11 +12,9 @@ namespace Assets.Scripts.Domain.Elements
         public readonly string Guid;
 
         public readonly ElementId Id;
-        public readonly string Name;
         public readonly string AssetsPath;
 
         private readonly Lazy<Sprite> _sprite;
-        public Sprite Sprite => _sprite.Value;
 
         public Element( string guid, string path )
         {
@@ -25,9 +24,22 @@ namespace Assets.Scripts.Domain.Elements
             string[] nameParts = Path.GetFileNameWithoutExtension( AssetsPath ).Split( '_' );
             Id = new ElementId( nameParts.Last() );
 
-            _sprite = new Lazy<Sprite>( () => AssetDatabase.LoadAssetAtPath<Sprite>( AssetsPath )  );
+            _sprite = new( AssetDatabase.LoadAssetAtPath<Sprite>( AssetsPath ) );
         }
 
         public override string ToString() => $"Element (id: ${Guid}, path: ${AssetsPath})";
+
+        public GameObject CreateGameObject()
+        {
+            var elementGameObject = new GameObject();
+
+            var elementUiImage = elementGameObject.AddComponent<Image>();
+            elementGameObject.name = $"element_{Id}";
+            elementUiImage.preserveAspect = true;
+            elementUiImage.sprite = _sprite.Value;
+            elementGameObject.SetActive( true );
+
+            return elementGameObject;
+        }
     }
 }
