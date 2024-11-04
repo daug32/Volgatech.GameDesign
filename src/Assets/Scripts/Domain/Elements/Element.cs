@@ -14,17 +14,14 @@ namespace Assets.Scripts.Domain.Elements
         public readonly ElementId Id;
         public readonly string AssetsPath;
 
-        private readonly Lazy<Sprite> _sprite;
+        private readonly Sprite _sprite;
 
-        public Element( string guid, string path )
+        public Element( Sprite sprite )
         {
-            Guid = guid;
-            AssetsPath = path;
-
-            string[] nameParts = Path.GetFileNameWithoutExtension( AssetsPath ).Split( '_' );
+            string[] nameParts = sprite.name.Split( '_' );
             Id = new ElementId( nameParts.Last() );
 
-            _sprite = new( AssetDatabase.LoadAssetAtPath<Sprite>( AssetsPath ) );
+            _sprite = sprite;
         }
 
         public override string ToString() => $"Element (id: ${Guid}, path: ${AssetsPath})";
@@ -38,7 +35,7 @@ namespace Assets.Scripts.Domain.Elements
             var elementUiImage = elementGameObject.AddComponent<Image>();
             elementGameObject.name = BuildName();
             elementUiImage.preserveAspect = true;
-            elementUiImage.sprite = _sprite.Value;
+            elementUiImage.sprite = _sprite;
             elementGameObject.SetActive( true );
 
             return elementGameObject;

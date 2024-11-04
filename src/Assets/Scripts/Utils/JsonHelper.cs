@@ -21,8 +21,8 @@ namespace Assets.Scripts.Utils
 
         public static string Serialize<T>( T obj ) => JsonConvert.SerializeObject( obj, _options );
 
-        public static string LoadJson( string assetPath ) => AssetDatabase
-            .LoadAssetAtPath<TextAsset>( assetPath )
+        public static string LoadJson( string assetPath ) => Resources
+            .Load<TextAsset>( assetPath )
             .ThrowIfNull( message: $"Failed to load asset from path. Path: {assetPath}" )
             .text;
 

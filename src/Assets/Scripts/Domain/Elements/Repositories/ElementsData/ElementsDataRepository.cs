@@ -13,7 +13,7 @@ namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
         public static void LoadForLevel( LevelType levelType )
         {
             string jsonData = JsonHelper.MergeJsons(
-                JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default.json" ),
+                JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default" ),
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/{levelType.ToDatabaseFilename()}" ) );
             _data = LoadData( jsonData ).ToDictionary( x => x.Key, x => x.Value );
         }
