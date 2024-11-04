@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Domain.Elements.Repositories;
+using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
 using Assets.Scripts.Domain.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -7,29 +8,39 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Domain.Elements.Handlers
 {
-    internal static class ElementDnDBehaviourApplier
+    internal static class ElementDndBehaviourApplier
     {
-        public static ElementDnDBehaviour AddDragAndDrop(
+        public static ElementDndBehaviour AddIconDragAndDrop(
             this GameObject obj,
             Element element,
             RectTransform bookRectTransform )
         {
-            var dnd = obj.AddComponent<ElementDnDBehaviour>();
+            var dnd = obj.AddComponent<ElementDndBehaviour>();
             dnd.BookRectTransform = bookRectTransform;
             dnd.Element = element;
             dnd.IsIconElement = true;
+            dnd.InteractiveElementId = null;
 
             return dnd;
-        } 
+        }
+
+        public static ElementDndBehaviour AddInteractiveElementDragAndDrop(
+            this GameObject obj,
+            Element element,
+            RectTransform bookRectTransform,
+            InteractiveElementId interactiveElementId )
+        {
+            var dnd = obj.AddComponent<ElementDndBehaviour>();
+            dnd.BookRectTransform = bookRectTransform;
+            dnd.Element = element;
+            dnd.IsIconElement = false;
+            dnd.InteractiveElementId = interactiveElementId;
+
+            return dnd;
+        }
     }
 
-    internal class ElementDnDBehaviour : 
-        MonoBehaviour,
-        IPointerDownHandler,
-        IBeginDragHandler,
-        IEndDragHandler,
-        IDragHandler,
-        IDropHandler
+    internal class ElementDndBehaviour : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         [SerializeField]
         public RectTransform BookRectTransform;
@@ -38,7 +49,7 @@ namespace Assets.Scripts.Domain.Elements.Handlers
         [SerializeField]
         public bool IsIconElement;
 
-        public Guid InteractiveElementId { get; private set; }
+        public InteractiveElementId InteractiveElementId { get; set; }
 
         private void Start()
         {
@@ -50,15 +61,17 @@ namespace Assets.Scripts.Domain.Elements.Handlers
         { 
             if ( IsIconElement )
             {
-                var interactiveElement = InteractiveElement.Create( Element, gameObject, UiItemRepository.GetCanvas() );
+                var interactiveElement = InteractiveElement.Create(
+                    Element,
+                    gameObject.GetComponent<RectTransform>().sizeDelta );
                 InteractiveElementRepository.Add( interactiveElement );
                 InteractiveElementId = interactiveElement.SceneId;
 
-                ElementDnDBehaviour dnDBehaviour = interactiveElement.DnDBehaviour;
-                dnDBehaviour.BookRectTransform = BookRectTransform;
-                dnDBehaviour.Element = Element;
-                dnDBehaviour.InteractiveElementId = InteractiveElementId;
-                dnDBehaviour.IsIconElement = false;
+                ElementDndBehaviour dndBehaviour = interactiveElement.DndBehaviour;
+                dndBehaviour.BookRectTransform = BookRectTransform;
+                dndBehaviour.Element = Element;
+                dndBehaviour.InteractiveElementId = InteractiveElementId;
+                dndBehaviour.IsIconElement = false;
             }
 
             var element = InteractiveElementRepository.Get( InteractiveElementId );
@@ -93,6 +106,23 @@ namespace Assets.Scripts.Domain.Elements.Handlers
 
         public void OnDrop( PointerEventData eventData )
         {
+            if ( eventData.pointerDrag == null )
+            {
+                return;
+            }
+            
+            if ( IsIconElement )
+            {
+                return;
+            }
+            
+            var anotherDnd = eventData.pointerDrag.GetComponent<ElementDndBehaviour>();
+            if ( anotherDnd == null )
+            {
+                return;
+            }
+            
+            ElementCreator.Create( InteractiveElementId, anotherDnd.InteractiveElementId );
         }
     }
 }

@@ -14,7 +14,12 @@ namespace Assets.Scripts.Domain.Book
                 return;
             }
 
-            ElementDnDBehaviour dndElementBehaviour = eventData.pointerDrag.GetComponent<ElementDnDBehaviour>();
+            ElementDndBehaviour dndElementBehaviour = eventData.pointerDrag.GetComponent<ElementDndBehaviour>();
+            if ( dndElementBehaviour == null )
+            {
+                return;
+            }
+
             InteractiveElementRepository.Remove( dndElementBehaviour.InteractiveElementId );
         }
     }

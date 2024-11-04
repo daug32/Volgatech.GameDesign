@@ -6,12 +6,12 @@ namespace Assets.Scripts.Domain.Elements
     internal class ElementData
     {
         public bool IsDiscovered { get; set; }
-        public HashSet<string> Parents { get; private set; }
+        public HashSet<ElementId> Parents { get; private set; }
 
         public ElementData( IEnumerable<string> parents, bool isDiscovered = false )
         {
             IsDiscovered = isDiscovered;
-            Parents = parents.ToHashSet();
+            Parents = parents.Select( x => new ElementId( x ) ).ToHashSet();
         }
     }
 }

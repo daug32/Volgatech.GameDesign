@@ -1,6 +1,6 @@
 {
   "earth": {
-    "isDiscovered": false
+    "isDiscovered": true
   },
   "fire": {
     "isDiscovered": true
@@ -9,6 +9,6 @@
     "isDiscovered": true
   },
   "plant": {
-    "isDiscovered": true
+    "isDiscovered": false
   }
 }

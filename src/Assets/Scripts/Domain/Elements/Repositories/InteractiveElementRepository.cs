@@ -6,11 +6,11 @@ namespace Assets.Scripts.Domain.Elements.Repositories
 {
     internal static class InteractiveElementRepository
     {
-        private static readonly Dictionary<Guid, InteractiveElement> _elements = new();
+        private static readonly Dictionary<InteractiveElementId, InteractiveElement> _elements = new();
 
         public static void Add( InteractiveElement element ) => _elements.Add( element.SceneId, element );
 
-        public static InteractiveElement Get( Guid id )
+        public static InteractiveElement Get( InteractiveElementId id )
         {
             if ( !_elements.TryGetValue( id, out InteractiveElement element ) )
             {
@@ -19,9 +19,9 @@ namespace Assets.Scripts.Domain.Elements.Repositories
             return element; 
         }
 
-        public static bool Exists( Guid id ) => _elements.ContainsKey( id );
+        public static bool Exists( InteractiveElementId id ) => _elements.ContainsKey( id );
 
-        public static void Remove( Guid id )
+        public static void Remove( InteractiveElementId id )
         {
             if ( Exists( id ) )
             {

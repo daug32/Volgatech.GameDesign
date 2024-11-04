@@ -7,21 +7,23 @@ namespace Assets.Scripts.Domain.Elements.Repositories
 {
     internal static class ElementsRepository
     {
-        private static string[] _elementsFolders = new[] { Config.ElementsIconsFolder };
-
-        public static Dictionary<ElementId, Element> Elements;
+        private static readonly string[] _elementsFolders = new[] { Config.ElementsIconsFolder };
+        private static readonly Dictionary<ElementId, Element> _elements;
 
         static ElementsRepository()
         {
-            Elements = AssetDatabase
+            _elements = AssetDatabase
                 .FindAssets( "", _elementsFolders )
-                .Select( guid => BuildElement( guid ) )
+                .Select( BuildElement )
                 .ToDictionary( element => element.Id, element => element );
-            if ( !Elements.Any() )
+            if ( !_elements.Any() )
             {
                 throw new ArgumentException( $"Failed to load elements assets. Search folders: [{String.Join( ", ", _elementsFolders )}]" );
             }
         }
+
+        public static Element Get( ElementId id ) => _elements[ id ];
+        public static List<Element> GetAll() => _elements.Values.ToList();
 
         private static Element BuildElement( string guid )
         {

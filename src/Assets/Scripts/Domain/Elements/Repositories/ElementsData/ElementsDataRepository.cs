@@ -6,13 +6,11 @@ using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
 {
-    internal class ElementsDataRepository
+    internal static class ElementsDataRepository
     {
-        private readonly Dictionary<ElementId, ElementData> _data;
+        private static Dictionary<ElementId, ElementData> _data;
 
-        public ElementData Get( ElementId id ) => _data.ContainsKey( id ) ? _data[ id ] : new ElementData( Array.Empty<string>() );
-
-        public ElementsDataRepository( LevelType levelType )
+        public static void LoadForLevel( LevelType levelType )
         {
             string jsonData = JsonHelper.MergeJsons(
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default.json" ),
@@ -20,7 +18,15 @@ namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
             _data = LoadData( jsonData ).ToDictionary( x => x.Key, x => x.Value );
         }
 
-        private Dictionary<ElementId, ElementData> LoadData( string json )
+        public static ElementData Get( ElementId id ) => _data.ContainsKey( id ) ? _data[ id ] : new ElementData( Array.Empty<string>() );
+        public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )
+        {
+            var keyValuePair = _data.FirstOrDefault( 
+                x => x.Value.Parents.Contains( firstParent ) && x.Value.Parents.Contains( secondParent ) );
+            return keyValuePair.Key;
+        }
+
+        private static Dictionary<ElementId, ElementData> LoadData( string json )
         {
             ElementDataContainerDto dataContainer = JsonHelper.Deserialize<ElementDataContainerDto>( json );
             if ( dataContainer == null )

@@ -29,12 +29,14 @@ namespace Assets.Scripts.Domain.Elements
 
         public override string ToString() => $"Element (id: ${Guid}, path: ${AssetsPath})";
 
+        public string BuildName() => $"element_{Id}";
+
         public GameObject CreateGameObject()
         {
             var elementGameObject = new GameObject();
 
             var elementUiImage = elementGameObject.AddComponent<Image>();
-            elementGameObject.name = $"element_{Id}";
+            elementGameObject.name = BuildName();
             elementUiImage.preserveAspect = true;
             elementUiImage.sprite = _sprite.Value;
             elementGameObject.SetActive( true );
