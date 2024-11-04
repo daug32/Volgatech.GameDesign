@@ -1,34 +1,46 @@
-using System;
-using System.Linq;
+using Assets.Scripts.Domain.Book;
+using Assets.Scripts.Domain.Elements;
 using Assets.Scripts.Domain.Elements.Events;
-using Assets.Scripts.Domain.Elements.Handlers;
 using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
 using Assets.Scripts.Domain.Levels;
+using Assets.Scripts.Tests;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class Entry : MonoBehaviour
     {
-        private static readonly DrawElementsHandler _elementsDrawer = new(); 
+        private static readonly DrawBookElementsHandler _elementsHandler = new(); 
             
         private void Start()
         {
-            var assets = Resources.LoadAll<TextAsset>( "Database" ).Select( x => x.name ).ToList();
-            assets.Add( Resources.Load( "Database/Elements/default" ).name );
-            Debug.Log( $"Count: {assets.Count}, Data: [{String.Join( ", ", assets )}]" );
-            
             ElementsDataRepository.LoadForLevel( LevelType.Level_0 );
 
-            _elementsDrawer.DrawAll();
+            _elementsHandler.DrawAll();
             
-            ElementCreatedEventManager.AddWithHighestPriority( elementId =>
-            {
-                ElementsDataRepository.Get( elementId ).IsDiscovered = true;
-                _elementsDrawer.Draw( elementId );
-            } );
-            
+            ElementCreatedEventManager.AddWithHighestPriority( OnElementDiscovered );
             ElementCreatedEventManager.AddWithLowestPriority( elementId => Debug.Log( $"Element created: {elementId}" ) );
+            
+#if UNITY_EDITOR
+            RunTests();
+#endif
+        }
+
+        private static void OnElementDiscovered( ElementId elementId )
+        {
+            var elementData = ElementsDataRepository.Get( elementId );
+            if ( elementData.IsDiscovered )
+            {
+                return;
+            }
+
+            elementData.IsDiscovered = true;
+            _elementsHandler.Draw( elementId );
+        }
+
+        private void RunTests()
+        {
+            ElementsDependencyValidator.Validate();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Assets.Scripts.Domain.Elements.Repositories
         }
 
         public static Element Get( ElementId id ) => _elements[ id ];
+        public static bool Exists( ElementId id ) => _elements.ContainsKey( id );
         public static List<Element> GetAll() => _elements.Values.ToList();
     }
 }

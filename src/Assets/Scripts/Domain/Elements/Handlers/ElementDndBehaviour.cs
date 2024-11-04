@@ -1,7 +1,4 @@
-﻿using System;
-using Assets.Scripts.Domain.Elements.Repositories;
-using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
-using Assets.Scripts.Domain.Ui;
+﻿using Assets.Scripts.Domain.Elements.Repositories;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;

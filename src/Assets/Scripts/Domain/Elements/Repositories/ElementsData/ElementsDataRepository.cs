@@ -19,6 +19,8 @@ namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
         }
 
         public static ElementData Get( ElementId id ) => _data.ContainsKey( id ) ? _data[ id ] : new ElementData( Array.Empty<string>() );
+        public static List<ElementId> GetAll() => _data.Keys.ToList();
+        public static bool Exists( ElementId id ) => _data.ContainsKey( id );
         public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )
         {
             var keyValuePair = _data.FirstOrDefault( 
