@@ -14,7 +14,7 @@ namespace Assets.Scripts.Domain.Book
             }
 
             ElementDnDBehaviour dndElementBehaviour = eventData.pointerDrag.GetComponent<ElementDnDBehaviour>();
-            Destroy( dndElementBehaviour.InteractiveElementGameObject );
+            Destroy( dndElementBehaviour.InteractiveElement );
         }
     }
 }

@@ -5,35 +5,41 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Domain.Elements.Handlers
 {
-    internal class ElementDnDBehaviour : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+    internal class ElementDnDBehaviour : 
+        MonoBehaviour,
+        IPointerDownHandler,
+        IBeginDragHandler,
+        IEndDragHandler,
+        IDragHandler,
+        IDropHandler
     {
         [SerializeField]
         public RectTransform BookRectTransform;
 
-        public GameObject InteractiveElementGameObject { get; private set; }
+        public GameObject InteractiveElement { get; private set; }
 
         public void OnBeginDrag( PointerEventData eventData )
         {
-            var isElementIcon = gameObject != InteractiveElementGameObject; 
+            var isElementIcon = gameObject != InteractiveElement; 
             if ( isElementIcon )
             {
                 BookRectTransform.ThrowIfNull( nameof( BookRectTransform ) );
                 InitializeInteractiveElement();
             }
 
-            var canvasGroup = InteractiveElementGameObject.GetComponent<CanvasGroup>();
+            var canvasGroup = InteractiveElement.GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0.6f;
             canvasGroup.blocksRaycasts = false;
         }
 
         public void OnDrag( PointerEventData eventData )
         {
-            InteractiveElementGameObject.transform.position = eventData.position;
+            InteractiveElement.transform.position = eventData.position;
         }
 
         public void OnEndDrag( PointerEventData eventData )
         {
-            var canvasGroup = InteractiveElementGameObject.GetComponent<CanvasGroup>();
+            var canvasGroup = InteractiveElement.GetComponent<CanvasGroup>();
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
         }
@@ -48,16 +54,16 @@ namespace Assets.Scripts.Domain.Elements.Handlers
 
         private void InitializeInteractiveElement()
         {
-            InteractiveElementGameObject = Instantiate( gameObject ).WithParent( UiItemRepository.GetCanvas() );
+            InteractiveElement = Instantiate( gameObject ).WithParent( UiItemRepository.GetCanvas() );
             
             // Set size to prevent unconscious drag and drop movement 
             RectTransform currentElementRectTransform = gameObject.GetComponent<RectTransform>();
-            var interactiveElementRectTransform = InteractiveElementGameObject.GetComponent<RectTransform>();
+            var interactiveElementRectTransform = InteractiveElement.GetComponent<RectTransform>();
             interactiveElementRectTransform.sizeDelta = currentElementRectTransform.sizeDelta;
 
             var dnDBehaviour = interactiveElementRectTransform.GetComponent<ElementDnDBehaviour>();
             // Set InteractiveElement to prevent creating more duplicates
-            dnDBehaviour.InteractiveElementGameObject = InteractiveElementGameObject;
+            dnDBehaviour.InteractiveElement = InteractiveElement;
             dnDBehaviour.BookRectTransform = BookRectTransform;
         }
     }
