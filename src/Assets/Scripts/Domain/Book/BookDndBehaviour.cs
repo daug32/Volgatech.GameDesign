@@ -1,10 +1,11 @@
 using Assets.Scripts.Domain.Elements.Handlers;
+using Assets.Scripts.Domain.Elements.Repositories;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Domain.Book
 {
-    public class BookDnDHandler : MonoBehaviour, IDropHandler
+    public class BookDndBehaviour : MonoBehaviour, IDropHandler
     {
         public void OnDrop( PointerEventData eventData )
         {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Domain.Book
             }
 
             ElementDnDBehaviour dndElementBehaviour = eventData.pointerDrag.GetComponent<ElementDnDBehaviour>();
-            Destroy( dndElementBehaviour.InteractiveElement );
+            InteractiveElementRepository.Remove( dndElementBehaviour.InteractiveElementId );
         }
     }
 }

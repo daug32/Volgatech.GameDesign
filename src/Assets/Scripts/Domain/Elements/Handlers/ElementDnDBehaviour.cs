@@ -1,10 +1,28 @@
-﻿using Assets.Scripts.Domain.Ui;
+﻿using System;
+using Assets.Scripts.Domain.Elements.Repositories;
+using Assets.Scripts.Domain.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Domain.Elements.Handlers
 {
+    internal static class ElementDnDBehaviourApplier
+    {
+        public static ElementDnDBehaviour AddDragAndDrop(
+            this GameObject obj,
+            Element element,
+            RectTransform bookRectTransform )
+        {
+            var dnd = obj.AddComponent<ElementDnDBehaviour>();
+            dnd.BookRectTransform = bookRectTransform;
+            dnd.Element = element;
+            dnd.IsIconElement = true;
+
+            return dnd;
+        } 
+    }
+
     internal class ElementDnDBehaviour : 
         MonoBehaviour,
         IPointerDownHandler,
@@ -15,32 +33,57 @@ namespace Assets.Scripts.Domain.Elements.Handlers
     {
         [SerializeField]
         public RectTransform BookRectTransform;
+        [SerializeField] 
+        public Element Element;
+        [SerializeField]
+        public bool IsIconElement;
 
-        public GameObject InteractiveElement { get; private set; }
+        public Guid InteractiveElementId { get; private set; }
+
+        private void Start()
+        {
+            Element.ThrowIfNull( nameof( Element ) );
+            BookRectTransform.ThrowIfNull( nameof( Element ) );
+        }
 
         public void OnBeginDrag( PointerEventData eventData )
-        {
-            var isElementIcon = gameObject != InteractiveElement; 
-            if ( isElementIcon )
+        { 
+            if ( IsIconElement )
             {
-                BookRectTransform.ThrowIfNull( nameof( BookRectTransform ) );
-                InitializeInteractiveElement();
+                var interactiveElement = InteractiveElement.Create( Element, gameObject, UiItemRepository.GetCanvas() );
+                InteractiveElementRepository.Add( interactiveElement );
+                InteractiveElementId = interactiveElement.SceneId;
+
+                ElementDnDBehaviour dnDBehaviour = interactiveElement.DnDBehaviour;
+                dnDBehaviour.BookRectTransform = BookRectTransform;
+                dnDBehaviour.Element = Element;
+                dnDBehaviour.InteractiveElementId = InteractiveElementId;
+                dnDBehaviour.IsIconElement = false;
             }
 
-            var canvasGroup = InteractiveElement.GetComponent<CanvasGroup>();
+            var element = InteractiveElementRepository.Get( InteractiveElementId );
+            var canvasGroup = element.CanvasGroup;
             canvasGroup.alpha = 0.6f;
             canvasGroup.blocksRaycasts = false;
         }
 
         public void OnDrag( PointerEventData eventData )
         {
-            InteractiveElement.transform.position = eventData.position;
+            var InteractiveElement = InteractiveElementRepository.Get( InteractiveElementId );
+            InteractiveElement.GameObject.transform.position = eventData.position;
         }
 
         public void OnEndDrag( PointerEventData eventData )
         {
-            var canvasGroup = InteractiveElement.GetComponent<CanvasGroup>();
+            if ( !InteractiveElementRepository.Exists( InteractiveElementId ) )
+            {
+                return;
+            }
+            
+            var element = InteractiveElementRepository.Get( InteractiveElementId );
+            var canvasGroup = element.CanvasGroup;
             canvasGroup.alpha = 1;
+            // Used to pass onDrop element into book dnd handler
             canvasGroup.blocksRaycasts = true;
         }
 
@@ -50,21 +93,6 @@ namespace Assets.Scripts.Domain.Elements.Handlers
 
         public void OnDrop( PointerEventData eventData )
         {
-        }
-
-        private void InitializeInteractiveElement()
-        {
-            InteractiveElement = Instantiate( gameObject ).WithParent( UiItemRepository.GetCanvas() );
-            
-            // Set size to prevent unconscious drag and drop movement 
-            RectTransform currentElementRectTransform = gameObject.GetComponent<RectTransform>();
-            var interactiveElementRectTransform = InteractiveElement.GetComponent<RectTransform>();
-            interactiveElementRectTransform.sizeDelta = currentElementRectTransform.sizeDelta;
-
-            var dnDBehaviour = interactiveElementRectTransform.GetComponent<ElementDnDBehaviour>();
-            // Set InteractiveElement to prevent creating more duplicates
-            dnDBehaviour.InteractiveElement = InteractiveElement;
-            dnDBehaviour.BookRectTransform = BookRectTransform;
         }
     }
 }

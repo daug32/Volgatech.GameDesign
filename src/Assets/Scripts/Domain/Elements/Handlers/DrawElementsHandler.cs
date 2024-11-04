@@ -12,13 +12,12 @@ namespace Assets.Scripts.Domain.Elements.Handlers
     {
         private ElementsDataRepository _elementsDataRepository;
 
-        // Start is called before the first frame update
         private void Start()
         {
             _elementsDataRepository = new ElementsDataRepository( LevelType.Level_0 );
 
             GameObject book = UiItemRepository.GetBook();
-            book.AddComponent<BookDnDHandler>();
+            book.AddComponent<BookDndBehaviour>();
             var bookRectTransform = book.GetComponent<RectTransform>();
 
             foreach ( Element element in ElementsRepository.Elements.Values )
@@ -29,7 +28,7 @@ namespace Assets.Scripts.Domain.Elements.Handlers
                 }
 
                 GameObject elementGameObject = element.CreateGameObject().WithParent( book );
-                elementGameObject.AddDragAndDrop( bookRectTransform );
+                elementGameObject.AddDragAndDrop( element, bookRectTransform );
             }
         }
     }
