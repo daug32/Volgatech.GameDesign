@@ -8,13 +8,16 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Entry : MonoBehaviour
+    internal class Entry : MonoBehaviour
     {
+        [SerializeField] 
+        public LevelType CurrentLevel = LevelType.Level_0;
+        
         private static readonly DrawBookElementsHandler _elementsHandler = new(); 
             
         private void Start()
         {
-            ElementsDataRepository.LoadForLevel( LevelType.Level_0 );
+            ElementsDataRepository.LoadForLevel( CurrentLevel );
 
             _elementsHandler.DrawAll();
             

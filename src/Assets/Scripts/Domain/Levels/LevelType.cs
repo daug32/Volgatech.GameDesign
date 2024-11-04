@@ -2,6 +2,6 @@
 {
     internal enum LevelType
     {
-        Level_0
+        Level_0 = 1,
     }
 }
