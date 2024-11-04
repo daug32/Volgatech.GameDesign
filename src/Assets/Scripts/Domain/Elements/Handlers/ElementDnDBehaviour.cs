@@ -1,57 +1,64 @@
-﻿using System;
-using Assets.Scripts.Domain.Ui;
+﻿using Assets.Scripts.Domain.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Domain.Elements.Handlers
 {
-    internal class ElementDnDBehaviour : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    internal class ElementDnDBehaviour : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
-        private bool _isElementIcon = true;
-        private GameObject _interactiveElementGameObject;
+        [SerializeField]
+        public RectTransform BookRectTransform;
+
+        public GameObject InteractiveElementGameObject { get; private set; }
 
         public void OnBeginDrag( PointerEventData eventData )
         {
-            if ( _isElementIcon )
+            var isElementIcon = gameObject != InteractiveElementGameObject; 
+            if ( isElementIcon )
             {
-                _interactiveElementGameObject = CreateInteractiveItem();
+                BookRectTransform.ThrowIfNull( nameof( BookRectTransform ) );
+                InitializeInteractiveElement();
             }
 
-            Debug.Log( $"{DateTime.Now}: On begin drag" );
+            var canvasGroup = InteractiveElementGameObject.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0.6f;
+            canvasGroup.blocksRaycasts = false;
         }
 
         public void OnDrag( PointerEventData eventData )
         {
-            Debug.Log( $"{DateTime.Now}: onDrag" );
-            _interactiveElementGameObject.transform.position = eventData.position;
+            InteractiveElementGameObject.transform.position = eventData.position;
         }
 
         public void OnEndDrag( PointerEventData eventData )
         {
-            Debug.Log( $"{DateTime.Now}: On end drag" );
+            var canvasGroup = InteractiveElementGameObject.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
         }
 
         public void OnPointerDown( PointerEventData eventData )
         {
-            Debug.Log( $"{DateTime.Now}: On pointer down" );
         }
 
-        private GameObject CreateInteractiveItem()
+        public void OnDrop( PointerEventData eventData )
         {
-            var interactiveElementGameObject = Instantiate( gameObject ).WithParent( UiItemRepository.GetCanvas() );
+        }
+
+        private void InitializeInteractiveElement()
+        {
+            InteractiveElementGameObject = Instantiate( gameObject ).WithParent( UiItemRepository.GetCanvas() );
             
             // Set size to prevent unconscious drag and drop movement 
             RectTransform currentElementRectTransform = gameObject.GetComponent<RectTransform>();
-            RectTransform interactiveElementRectTransform = interactiveElementGameObject.GetComponent<RectTransform>();
+            var interactiveElementRectTransform = InteractiveElementGameObject.GetComponent<RectTransform>();
             interactiveElementRectTransform.sizeDelta = currentElementRectTransform.sizeDelta;
 
-            // Set InteractiveElement to prevent creating more duplicates
             var dnDBehaviour = interactiveElementRectTransform.GetComponent<ElementDnDBehaviour>();
-            dnDBehaviour._interactiveElementGameObject = interactiveElementGameObject;
-            dnDBehaviour._isElementIcon = false;
-
-            return interactiveElementGameObject;
+            // Set InteractiveElement to prevent creating more duplicates
+            dnDBehaviour.InteractiveElementGameObject = InteractiveElementGameObject;
+            dnDBehaviour.BookRectTransform = BookRectTransform;
         }
     }
 }

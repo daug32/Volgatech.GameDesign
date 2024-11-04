@@ -1,3 +1,4 @@
+using Assets.Scripts.Domain.Book;
 using Assets.Scripts.Domain.Elements.Repositories;
 using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
 using Assets.Scripts.Domain.Levels;
@@ -16,6 +17,10 @@ namespace Assets.Scripts.Domain.Elements.Handlers
         {
             _elementsDataRepository = new ElementsDataRepository( LevelType.Level_0 );
 
+            GameObject book = UiItemRepository.GetBook();
+            book.AddComponent<BookDnDHandler>();
+            var bookRectTransform = book.GetComponent<RectTransform>();
+
             foreach ( Element element in ElementsRepository.Elements.Values )
             {
                 if ( !_elementsDataRepository.Get( element.Id ).IsDiscovered )
@@ -23,8 +28,8 @@ namespace Assets.Scripts.Domain.Elements.Handlers
                     continue;
                 }
 
-                GameObject elementGameObject = element.CreateGameObject().WithParent( UiItemRepository.GetBook() );
-                elementGameObject.AddComponent<ElementDnDBehaviour>();
+                GameObject elementGameObject = element.CreateGameObject().WithParent( book );
+                elementGameObject.AddDragAndDrop( bookRectTransform );
             }
         }
     }
