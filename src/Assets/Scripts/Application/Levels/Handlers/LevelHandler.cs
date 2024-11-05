@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Assets.Scripts.Domain.Levels;
-using Assets.Scripts.Domain.Levels.Events;
+using Assets.Scripts.Application.Elements;
+using Assets.Scripts.Application.Levels.Events;
+using Assets.Scripts.Application.Ui;
 using Assets.Scripts.Repositories;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
+using Assets.Scripts.Repositories.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -24,13 +26,13 @@ namespace Assets.Scripts.Application.Levels.Handlers
                 return;
             }
 
-            var targetsContainer = UiItemRepository.GetTargets();
-            foreach ( var targetElement in levelData.Targets )
+            UserInterface userInterface = UiItemsRepository.GetUserInterface();
+            foreach ( ElementId targetElement in levelData.Targets )
             {
                 ElementsRepository
                    .Get( targetElement )
                    .CreateGameObject()
-                   .WithParent( targetsContainer );
+                   .WithParent( userInterface.TargetsContainer );
             }
         }
 
@@ -45,39 +47,22 @@ namespace Assets.Scripts.Application.Levels.Handlers
                 yield break;
             }
 
-            var successText = GetSuccessText();
+            var userInterface = UiItemsRepository.GetUserInterface();
 
-            successText.SetActive( true );
+            userInterface.SuccessText.SetActive( true );
             yield return new WaitForSeconds( 3 );
-            successText.SetActive( false );
+            userInterface.SuccessText.SetActive( false );
 
             LevelCompletedEventManager.Trigger( levelType );
         }
 
         public static void ClearLevelData()
         {
-            var targetsContainer = UiItemRepository.GetTargets();
-            foreach ( Transform target in targetsContainer.transform )
-            {
-                Object.Destroy( target.gameObject );
-            }
+            var userInterface = UiItemsRepository.GetUserInterface();
+            
+            userInterface.TargetsContainer.FindChildren().ForEach( Object.Destroy );
 
             InteractiveElementRepository.RemoveAll();
-        }
-
-        private static GameObject GetSuccessText()
-        {
-            foreach ( Transform levelChildTransform in UiItemRepository.GetLevelObject().transform )
-            {
-                if ( levelChildTransform.gameObject.name != "success_text" )
-                {
-                    continue;
-                }
-
-                return levelChildTransform.gameObject;
-            }
-
-            throw new ArgumentException( "Failed to find success text at the scene" );
         }
     }
 }

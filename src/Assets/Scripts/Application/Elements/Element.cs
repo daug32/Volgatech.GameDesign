@@ -1,11 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using UnityEditor;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Domain.Elements
+namespace Assets.Scripts.Application.Elements
 {
     internal class Element
     {

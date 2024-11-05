@@ -1,5 +1,5 @@
 using System;
-using Assets.Scripts.Domain.Levels;
+using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Repositories.Dtos;
 using Assets.Scripts.Utils;
 

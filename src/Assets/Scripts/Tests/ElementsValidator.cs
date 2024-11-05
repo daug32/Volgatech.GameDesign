@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Domain.Elements;
+using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Repositories.Elements;
 
 namespace Assets.Scripts.Tests
 {
-    public static class ElementsDependencyValidator
+    public static class ElementsValidator
     {
         public static void Validate()
         {

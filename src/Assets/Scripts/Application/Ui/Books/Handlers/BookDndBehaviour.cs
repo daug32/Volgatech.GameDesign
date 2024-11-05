@@ -1,9 +1,9 @@
-using Assets.Scripts.Domain.Elements.Handlers;
+using Assets.Scripts.Application.Elements.Handlers;
 using Assets.Scripts.Repositories.Elements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.Domain.Book.Handlers
+namespace Assets.Scripts.Application.Ui.Books.Handlers
 {
     public class BookDndBehaviour : MonoBehaviour, IDropHandler
     {

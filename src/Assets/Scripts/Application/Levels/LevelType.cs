@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Domain.Levels
+﻿namespace Assets.Scripts.Application.Levels
 {
     internal enum LevelType
     {

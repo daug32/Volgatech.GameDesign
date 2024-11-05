@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Domain.Elements;
+﻿using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Repositories.Dtos.Elements

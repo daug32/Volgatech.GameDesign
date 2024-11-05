@@ -1,7 +1,7 @@
-using Assets.Scripts.Domain.Elements.Events;
+using Assets.Scripts.Application.Elements.Events;
 using Assets.Scripts.Repositories.Elements;
 
-namespace Assets.Scripts.Domain.Elements.Handlers
+namespace Assets.Scripts.Application.Elements.Handlers
 {
     public static class ElementCreator
     {

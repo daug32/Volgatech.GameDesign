@@ -1,9 +1,9 @@
-using Assets.Scripts.Domain.Elements.Handlers;
-using Assets.Scripts.Repositories;
+using Assets.Scripts.Application.Elements.Handlers;
+using Assets.Scripts.Repositories.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.Domain.Elements
+namespace Assets.Scripts.Application.Elements
 {
     internal class InteractiveElement
     {
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Domain.Elements
 
             DndBehaviour = gameObject.AddInteractiveElementDragAndDrop(
                 element,
-                UiItemRepository.GetBook().GetComponent<RectTransform>(),
+                UiItemsRepository.GetBook().RectTransform,
                 SceneId );
             CanvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
@@ -40,10 +40,12 @@ namespace Assets.Scripts.Domain.Elements
             Element element, 
             Vector2 sizeDelta )
         {
+            var userInterface = UiItemsRepository.GetUserInterface();
+            
             return new InteractiveElement(
                 element,
                 sizeDelta,
-                element.CreateGameObject().WithParent( UiItemRepository.GetCanvas() ) );
+                element.CreateGameObject().WithParent( userInterface.Canvas ) );
         }
     }
 }

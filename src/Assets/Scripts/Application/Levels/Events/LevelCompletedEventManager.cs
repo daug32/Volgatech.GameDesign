@@ -1,7 +1,7 @@
 using System;
 using Assets.Scripts.Utils;
 
-namespace Assets.Scripts.Domain.Levels.Events
+namespace Assets.Scripts.Application.Levels.Events
 {
     internal static class LevelCompletedEventManager
     {

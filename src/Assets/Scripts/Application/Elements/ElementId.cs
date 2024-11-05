@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Domain.Elements
+namespace Assets.Scripts.Application.Elements
 {
     internal class ElementId
     {

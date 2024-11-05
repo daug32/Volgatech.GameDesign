@@ -3,7 +3,7 @@ using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.Domain.Elements.Handlers
+namespace Assets.Scripts.Application.Elements.Handlers
 {
     internal static class ElementDndBehaviourApplier
     {

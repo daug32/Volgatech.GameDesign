@@ -1,7 +1,7 @@
 using System;
 using Assets.Scripts.Utils;
 
-namespace Assets.Scripts.Domain.Elements.Events
+namespace Assets.Scripts.Application.Elements.Events
 {
     internal static class ElementCreatedEventManager
     {

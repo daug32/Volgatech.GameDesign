@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Domain.Elements
+namespace Assets.Scripts.Application.Elements
 {
     internal class ElementData
     {

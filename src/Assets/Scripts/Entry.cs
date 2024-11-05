@@ -1,11 +1,9 @@
-using System.Collections;
+using Assets.Scripts.Application.Elements;
+using Assets.Scripts.Application.Elements.Events;
+using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Events;
 using Assets.Scripts.Application.Levels.Handlers;
-using Assets.Scripts.Domain.Book;
-using Assets.Scripts.Domain.Book.Handlers;
-using Assets.Scripts.Domain.Elements;
-using Assets.Scripts.Domain.Elements.Events;
-using Assets.Scripts.Domain.Levels;
-using Assets.Scripts.Domain.Levels.Events;
+using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Tests;
 using UnityEngine;
@@ -24,7 +22,7 @@ namespace Assets.Scripts
             Begin();
             
             #if UNITY_EDITOR
-                ElementsDependencyValidator.Validate();
+                ElementsValidator.Validate();
             #endif
         }
 

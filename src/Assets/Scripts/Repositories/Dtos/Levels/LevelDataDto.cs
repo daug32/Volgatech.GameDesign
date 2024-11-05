@@ -1,6 +1,6 @@
 using System.Linq;
+using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Domain.Elements;
 
 namespace Assets.Scripts.Repositories.Dtos.Levels
 {
