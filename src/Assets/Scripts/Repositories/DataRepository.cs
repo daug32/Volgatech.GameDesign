@@ -1,7 +1,11 @@
 using System;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Repositories.Dtos;
+using Assets.Scripts.Repositories.Dtos.Events;
+using Assets.Scripts.Repositories.Elements;
+using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Utils;
+using UnityEngine;
 
 namespace Assets.Scripts.Repositories
 {
@@ -14,8 +18,8 @@ namespace Assets.Scripts.Repositories
             string jsonData = JsonHelper.MergeJsons(
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default" ),
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/{levelType.ToDatabaseFilename()}" ) );
-
             _data = LoadData( jsonData );
+            DataLoadedEventManager.Trigger();
         }
 
         public static DataDto Get() => _data ?? throw new InvalidOperationException( "Data was not loaded yet" );

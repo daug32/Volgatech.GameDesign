@@ -1,4 +1,5 @@
 using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Events;
 using Assets.Scripts.Application.Levels.Handlers;
 using Assets.Scripts.Tests;
 using UnityEngine;
@@ -12,17 +13,12 @@ namespace Assets.Scripts
         
         private void Start()
         {
-            LevelLoader.Initialize( CurrentLevel, this );
+            LevelLoader.Initialize( CurrentLevel );
+            LevelCompletedEventManager.Add( () => StartCoroutine( LevelCompleter.Complete() ) );
             
             #if UNITY_EDITOR
                 ElementsValidator.Validate();
             #endif
-        }
-
-        private void SwitchLevel( LevelType level )
-        {
-            LevelUnloader.Unload();
-            LevelLoader.Initialize( level, this );
         }
     }
 }

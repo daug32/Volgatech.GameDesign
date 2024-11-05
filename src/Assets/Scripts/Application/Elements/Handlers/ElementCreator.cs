@@ -1,22 +1,28 @@
+using System.Collections;
+using System.Linq;
+using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Events;
 using Assets.Scripts.Application.Levels.Handlers;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories.Elements;
+using Assets.Scripts.Repositories.Levels;
+using UnityEngine;
 
 namespace Assets.Scripts.Application.Elements.Handlers
 {
     public static class ElementCreator
     {
-        public static void Create( InteractiveElementId firstParentId, InteractiveElementId secondParentId )
+        public static IEnumerator Create( InteractiveElementId firstParentId, InteractiveElementId secondParentId )
         {
             ElementId newElementId = CreateNewElement( firstParentId, secondParentId );
             if ( newElementId == null )
             {
-                return;
+                yield break;
             }
             
             RemoveUsedElements( firstParentId, secondParentId );
 
-            DiscoverElementIfNeeded( newElementId );
+            yield return DiscoverElementIfNeeded( newElementId );
         }
 
         private static ElementId CreateNewElement( 
@@ -50,18 +56,22 @@ namespace Assets.Scripts.Application.Elements.Handlers
             InteractiveElementRepository.Remove( secondParentId );
         }
 
-        private static void DiscoverElementIfNeeded( ElementId elementId )
+        private static IEnumerator DiscoverElementIfNeeded( ElementId elementId )
         {
             var elementData = ElementsDataRepository.Get( elementId );
             if ( elementData.IsDiscovered )
             {
-                return;
+                yield return null;
             }
 
             elementData.IsDiscovered = true;
             DrawBookElementsHandler.Draw( elementId );
-
-            LevelCompleter.CompleteLevelIfNeeded();
+            
+            LevelData levelData = LevelDataRepository.Get();
+            if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
+            {
+                LevelCompletedEventManager.Trigger();
+            }
         }
     }
 }

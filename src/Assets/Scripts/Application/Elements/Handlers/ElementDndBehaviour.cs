@@ -118,8 +118,8 @@ namespace Assets.Scripts.Application.Elements.Handlers
             {
                 return;
             }
-            
-            ElementCreator.Create( InteractiveElementId, anotherDnd.InteractiveElementId );
+
+            StartCoroutine( ElementCreator.Create( InteractiveElementId, anotherDnd.InteractiveElementId ) );
         }
     }
 }

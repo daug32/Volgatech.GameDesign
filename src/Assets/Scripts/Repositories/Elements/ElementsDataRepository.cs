@@ -1,33 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Elements;
+using Assets.Scripts.Repositories.Dtos.Events;
 
 namespace Assets.Scripts.Repositories.Elements
 {
     internal static class ElementsDataRepository
     {
-        private static Dictionary<ElementId, ElementData> _data =>
-            DataRepository
-               .Get().Elements
-               .ToDictionary(
-                    x => new ElementId( x.Key ),
-                    x => x.Value.Convert() );
+        private static Dictionary<ElementId, ElementData> _data;
 
-        public static ElementData Get( ElementId id )
+        static ElementsDataRepository()
         {
-            return _data.ContainsKey( id ) ? _data[ id ] : new ElementData( Array.Empty<string>() );
+            LoadData();
+            DataLoadedEventManager.Add( LoadData );
         }
 
-        public static List<ElementId> GetAll()
+        private static void LoadData()
         {
-            return _data.Keys.ToList();
+            _data = DataRepository.Get().Elements.ToDictionary(
+                x => new ElementId( x.Key ),
+                x => x.Value.Convert() );
         }
 
-        public static bool Exists( ElementId id )
-        {
-            return _data.ContainsKey( id );
-        }
+        public static ElementData Get( ElementId id ) => _data[ id ];
+
+        public static List<ElementId> GetAll() => _data.Keys.ToList();
+
+        public static HashSet<ElementId> GetDiscoveredElements() => _data
+           .Where( x => x.Value.IsDiscovered )
+           .Select( x => x.Key )
+           .ToHashSet();
+
+        public static bool Exists( ElementId id ) => _data.ContainsKey( id );
 
         public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )
         {

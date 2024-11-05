@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Elements.Handlers;
 using Assets.Scripts.Repositories.Elements;
@@ -12,7 +13,8 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
         public static void DrawAll()
         {
             var book = UiItemsRepository.GetBook();
-            
+
+            var elements = new List<GameObject>();
             foreach ( Element element in ElementsRepository.GetAll() )
             {
                 if ( !ElementsDataRepository.Get( element.Id ).IsDiscovered )
@@ -20,9 +22,15 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
                     continue;
                 }
 
-                GameObject elementGameObject = element.CreateGameObject().WithParent( book.GameObject );
+                GameObject elementGameObject = element
+                   .CreateGameObject( false )
+                   .WithParent( book.GameObject );
                 elementGameObject.AddIconDragAndDrop( element, book.RectTransform );
+                elements.Add( elementGameObject );
             }
+            
+            // Used to show all elements at once
+            elements.ForEach( x => x.SetActive( true ) );
         }
 
         public static void Draw( ElementId elementId )

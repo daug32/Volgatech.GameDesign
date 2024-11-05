@@ -33,6 +33,6 @@ namespace Assets.Scripts.Application.Elements
 
         public override int GetHashCode() => HashCode.Combine( Value );
 
-        public override string ToString() => Value;
+        public override string ToString() => Value ?? "null";
     }
 }

@@ -25,7 +25,7 @@ namespace Assets.Scripts.Application.Elements
 
         public string BuildName() => $"element_{Id}";
 
-        public GameObject CreateGameObject()
+        public GameObject CreateGameObject( bool setActive = true )
         {
             var elementGameObject = new GameObject();
 
@@ -33,7 +33,11 @@ namespace Assets.Scripts.Application.Elements
             elementGameObject.name = BuildName();
             elementUiImage.preserveAspect = true;
             elementUiImage.sprite = _sprite;
-            elementGameObject.SetActive( true );
+
+            if ( setActive )
+            {
+                elementGameObject.SetActive( true );
+            }
 
             return elementGameObject;
         }

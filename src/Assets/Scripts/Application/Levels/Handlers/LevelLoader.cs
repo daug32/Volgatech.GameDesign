@@ -6,13 +6,14 @@ using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Repositories.Ui;
 using Assets.Scripts.Utils;
-using UnityEngine;
 
 namespace Assets.Scripts.Application.Levels.Handlers
 {
     internal static class LevelLoader
     {
-        public static void Initialize( LevelType levelType, MonoBehaviour behaviour )
+        public static LevelType CurrentLevel { get; private set; }
+        
+        public static void Initialize( LevelType levelType )
         {
             DataRepository.LoadForLevel( levelType );
             
@@ -21,6 +22,8 @@ namespace Assets.Scripts.Application.Levels.Handlers
             DrawTargets( levelData, userInterface );
             
             DrawBookElementsHandler.DrawAll();
+
+            CurrentLevel = levelType;
         }
 
         private static void DrawTargets( LevelData levelData, UserInterface userInterface )
