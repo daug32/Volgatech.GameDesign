@@ -11,8 +11,20 @@
     "isDiscovered": true,
     "parents": []
   },
+  "wind": {
+    "isDiscovered": true,
+    "parents": []
+  },
   "plant": {
     "isDiscovered": false,
     "parents": [ "water", "earth" ]
+  },
+  "vapor": {
+    "isDiscovered": false,
+    "parents": ["water", "fire"]
+  },
+  "coldtemp": {
+    "isDiscovered": false,
+    "parents": ["wind", "wind"]
   }
 }

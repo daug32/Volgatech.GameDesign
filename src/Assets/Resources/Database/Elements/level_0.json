@@ -7,8 +7,5 @@
   },
   "water": {
     "isDiscovered": true
-  },
-  "plant": {
-    "isDiscovered": false
   }
 }
