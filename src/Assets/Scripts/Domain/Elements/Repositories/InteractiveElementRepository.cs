@@ -21,6 +21,15 @@ namespace Assets.Scripts.Domain.Elements.Repositories
 
         public static bool Exists( InteractiveElementId id ) => _elements.ContainsKey( id );
 
+        public static void RemoveAll()
+        {
+            foreach ( var ( elementId, element ) in _elements )
+            {
+                Object.Destroy( element.GameObject );
+            }
+            _elements.Clear();
+        }
+
         public static void Remove( InteractiveElementId id )
         {
             if ( Exists( id ) )

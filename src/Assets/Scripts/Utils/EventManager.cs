@@ -32,6 +32,8 @@ namespace Assets.Scripts.Utils
             if ( item != null ) _listeners.Remove( item );
         }
 
+        public void RemoveAllListeners() => _listeners.Clear();
+
         public void Trigger( T elementId )
         {
             foreach ( var listener in _listeners.OrderBy( x => x.Priority ) )

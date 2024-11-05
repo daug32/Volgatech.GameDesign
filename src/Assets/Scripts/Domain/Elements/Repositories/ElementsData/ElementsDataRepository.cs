@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Domain.Levels;
 using Assets.Scripts.Utils;
+using UnityEngine;
 
 namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
 {
@@ -21,15 +22,18 @@ namespace Assets.Scripts.Domain.Elements.Repositories.ElementsData
         public static ElementData Get( ElementId id ) => _data.ContainsKey( id ) ? _data[ id ] : new ElementData( Array.Empty<string>() );
         public static List<ElementId> GetAll() => _data.Keys.ToList();
         public static bool Exists( ElementId id ) => _data.ContainsKey( id );
-        public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )
-        {
-            var keyValuePair = _data.FirstOrDefault( 
-                x => x.Value.Parents.Contains( firstParent ) && x.Value.Parents.Contains( secondParent ) );
-            return keyValuePair.Key;
-        }
+        public static List<ElementId> GetTargets() => _data
+            .Where( x => x.Value.IsTarget )
+            .Select( x => x.Key )
+            .ToList();
+        public static ElementId GetByParents( ElementId firstParent, ElementId secondParent ) => _data
+           .FirstOrDefault( x => x.Value.Parents.Contains( firstParent ) && x.Value.Parents.Contains( secondParent ) )
+           .Key;
 
         private static Dictionary<ElementId, ElementData> LoadData( string json )
         {
+            Debug.Log( json );
+
             ElementDataContainerDto dataContainer = JsonHelper.Deserialize<ElementDataContainerDto>( json );
             if ( dataContainer == null )
             {

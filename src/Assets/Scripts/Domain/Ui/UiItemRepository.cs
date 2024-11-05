@@ -15,5 +15,15 @@ namespace Assets.Scripts.Domain.Ui
            .Find( "book" )
            .ThrowIfNull( message: "Failed to find a book at the scene. Expected element name: book" ) );
         public static GameObject GetBook() => _book.Value;
+        
+        private static readonly Lazy<GameObject> _targets = new( () => GameObject
+            .Find( "targets" )
+            .ThrowIfNull( message: "Failed to find targets layout at the scene. Expected element name: targets" ) );
+        public static GameObject GetTargets() => _targets.Value;
+
+        private static readonly Lazy<GameObject> _levelObject = new( () => GameObject
+            .Find( "level" )
+            .ThrowIfNull( message: "Failed to find level object at the scene. Expected element name: level" ) );
+        public static GameObject GetLevelObject() => _levelObject.Value;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Scripts.Domain.Book;
 using Assets.Scripts.Domain.Elements;
 using Assets.Scripts.Domain.Elements.Events;
@@ -13,20 +14,51 @@ namespace Assets.Scripts
         [SerializeField] 
         public LevelType CurrentLevel = LevelType.Level_0;
         
-        private static readonly DrawBookElementsHandler _elementsHandler = new(); 
+        private static readonly DrawBookElementsHandler _elementsHandler = new();
             
         private void Start()
         {
-            ElementsDataRepository.LoadForLevel( CurrentLevel );
+            Begin();
+            
+            #if UNITY_EDITOR
+                ElementsDependencyValidator.Validate();
+            #endif
+        }
+
+        private void Begin()
+        {
+            LevelHandler.Initialize( CurrentLevel );
 
             _elementsHandler.DrawAll();
             
             ElementCreatedEventManager.AddWithHighestPriority( OnElementDiscovered );
-            ElementCreatedEventManager.AddWithLowestPriority( elementId => Debug.Log( $"Element created: {elementId}" ) );
+            ElementCreatedEventManager.AddWithLowestPriority( _ => StartCoroutine( LevelHandler.CompleteLevelIfNeeded( CurrentLevel ) ) );
+
+            LevelCompletedEventManager.Add( _ => SwitchLevel() );
+        }
+
+        private void Down()
+        {
+            ElementCreatedEventManager.RemoveAllListeners();
+            LevelCompletedEventManager.RemoveAllListeners();
+            LevelHandler.ClearLevelData();
+            _elementsHandler.RemoveAllElements();
+        }
+
+        private void SwitchLevel()
+        {
+            Down();
             
-#if UNITY_EDITOR
-            RunTests();
-#endif
+            if ( CurrentLevel == LevelType.Level_0 )
+            {
+                CurrentLevel = LevelType.Level_1;
+            }
+            else
+            {
+                CurrentLevel = LevelType.Level_0;
+            }
+            
+            Begin();
         }
 
         private static void OnElementDiscovered( ElementId elementId )
@@ -39,11 +71,6 @@ namespace Assets.Scripts
 
             elementData.IsDiscovered = true;
             _elementsHandler.Draw( elementId );
-        }
-
-        private void RunTests()
-        {
-            ElementsDependencyValidator.Validate();
         }
     }
 }

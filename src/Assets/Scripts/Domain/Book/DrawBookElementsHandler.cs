@@ -37,5 +37,14 @@ namespace Assets.Scripts.Domain.Book
             GameObject elementGameObject = element.CreateGameObject().WithParent( book );
             elementGameObject.AddIconDragAndDrop( element, bookRectTransform );
         }
+
+        public void RemoveAllElements()
+        {
+            var book = UiItemRepository.GetBook();
+            foreach ( Transform element in book.transform )
+            {
+                Object.Destroy( element.gameObject );
+            }
+        }
     }
 }

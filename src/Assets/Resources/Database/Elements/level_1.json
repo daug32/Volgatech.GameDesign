@@ -1,0 +1,8 @@
+{
+  "vapor": {
+    "isTarget": true
+  },
+  "coldtemp": {
+    "isTarget": true
+  }
+}

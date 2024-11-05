@@ -7,5 +7,8 @@
   },
   "water": {
     "isDiscovered": true
+  },
+  "plant": {
+    "isTarget": true
   }
 }
