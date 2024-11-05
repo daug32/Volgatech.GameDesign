@@ -1,4 +1,5 @@
-using Assets.Scripts.Application.Elements.Events;
+using Assets.Scripts.Application.Levels.Handlers;
+using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories.Elements;
 
 namespace Assets.Scripts.Application.Elements.Handlers
@@ -7,16 +8,31 @@ namespace Assets.Scripts.Application.Elements.Handlers
     {
         public static void Create( InteractiveElementId firstParentId, InteractiveElementId secondParentId )
         {
+            ElementId newElementId = CreateNewElement( firstParentId, secondParentId );
+            if ( newElementId == null )
+            {
+                return;
+            }
+            
+            RemoveUsedElements( firstParentId, secondParentId );
+
+            DiscoverElementIfNeeded( newElementId );
+        }
+
+        private static ElementId CreateNewElement( 
+            InteractiveElementId firstParentId,
+            InteractiveElementId secondParentId )
+        {
             InteractiveElement firstParent = InteractiveElementRepository.Get( firstParentId );
             ElementId firstElementId = firstParent.Element.Id;
             
             InteractiveElement secondParent = InteractiveElementRepository.Get( secondParentId );
             ElementId secondElementId = secondParent.Element.Id;
             
-            ElementId newElementId = ElementsDataRepository.GetByParents( firstElementId, secondElementId );
+            var newElementId = ElementsDataRepository.GetByParents( firstElementId, secondElementId );
             if ( newElementId == null )
             {
-                return;
+                return null;
             }
 
             var interactiveElement = InteractiveElement.Create(
@@ -24,11 +40,28 @@ namespace Assets.Scripts.Application.Elements.Handlers
                 firstParent.RectTransform.sizeDelta );
             interactiveElement.RectTransform.position = firstParent.RectTransform.position;
             InteractiveElementRepository.Add( interactiveElement );
+            
+            return newElementId;
+        }
 
+        private static void RemoveUsedElements( InteractiveElementId firstParentId, InteractiveElementId secondParentId )
+        {
             InteractiveElementRepository.Remove( firstParentId );
             InteractiveElementRepository.Remove( secondParentId );
-            
-            ElementCreatedEventManager.Trigger( newElementId );
+        }
+
+        private static void DiscoverElementIfNeeded( ElementId elementId )
+        {
+            var elementData = ElementsDataRepository.Get( elementId );
+            if ( elementData.IsDiscovered )
+            {
+                return;
+            }
+
+            elementData.IsDiscovered = true;
+            DrawBookElementsHandler.Draw( elementId );
+
+            LevelCompleter.CompleteLevelIfNeeded();
         }
     }
 }

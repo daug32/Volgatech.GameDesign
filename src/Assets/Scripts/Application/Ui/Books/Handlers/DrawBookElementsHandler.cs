@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Application.Ui.Books.Handlers
 {
-    internal class DrawBookElementsHandler
+    internal static class DrawBookElementsHandler
     {
-        public void DrawAll()
+        public static void DrawAll()
         {
             var book = UiItemsRepository.GetBook();
             
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
             }
         }
 
-        public void Draw( ElementId elementId )
+        public static void Draw( ElementId elementId )
         {
             var book = UiItemsRepository.GetBook();
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
             elementGameObject.AddIconDragAndDrop( element, book.RectTransform );
         }
 
-        public void RemoveAllElements()
+        public static void RemoveAllElements()
         {
             var book = UiItemsRepository.GetBook();
             foreach ( Transform element in book.GameObject.transform )
