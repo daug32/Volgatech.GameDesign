@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Domain.Elements;
-using Assets.Scripts.Domain.Elements.Repositories;
-using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
+using Assets.Scripts.Repositories.Elements;
 
 namespace Assets.Scripts.Tests
 {

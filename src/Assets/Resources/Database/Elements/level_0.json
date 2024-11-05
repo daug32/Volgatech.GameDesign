@@ -1,14 +1,7 @@
 {
-  "earth": {
-    "isDiscovered": true
+  "level": {
+    "targets": ["plant"]
   },
-  "fire": {
-    "isDiscovered": true
-  },
-  "water": {
-    "isDiscovered": true
-  },
-  "plant": {
-    "isTarget": true
+  "elements": {
   }
 }

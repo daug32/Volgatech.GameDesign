@@ -1,9 +1,12 @@
 using System.Collections;
+using Assets.Scripts.Application.Levels.Handlers;
 using Assets.Scripts.Domain.Book;
+using Assets.Scripts.Domain.Book.Handlers;
 using Assets.Scripts.Domain.Elements;
 using Assets.Scripts.Domain.Elements.Events;
-using Assets.Scripts.Domain.Elements.Repositories.ElementsData;
 using Assets.Scripts.Domain.Levels;
+using Assets.Scripts.Domain.Levels.Events;
+using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Tests;
 using UnityEngine;
 

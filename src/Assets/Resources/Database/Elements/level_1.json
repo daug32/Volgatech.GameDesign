@@ -1,8 +1,7 @@
 {
-  "vapor": {
-    "isTarget": true
+  "level": {
+    "targets": ["vapor", "coldtemp"]
   },
-  "coldtemp": {
-    "isTarget": true
+  "elements": {
   }
 }
