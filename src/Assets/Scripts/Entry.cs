@@ -8,12 +8,9 @@ namespace Assets.Scripts
 {
     internal class Entry : MonoBehaviour
     {
-        [SerializeField] 
-        public LevelType CurrentLevel = LevelType.Level_0;
-        
         private void Start()
         {
-            LevelLoader.Initialize( CurrentLevel );
+            LevelLoader.Initialize( LevelType.Level_0 );
             LevelCompletedEventManager.Add( () => StartCoroutine( LevelCompleter.Complete() ) );
             
             #if UNITY_EDITOR

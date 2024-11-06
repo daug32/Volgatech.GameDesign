@@ -11,9 +11,7 @@ namespace Assets.Scripts.Application.Levels.Handlers
         {
             var userInterface = UiItemsRepository.GetUserInterface();
 
-            userInterface.SuccessText.SetActive( true );
-            yield return new WaitForSeconds( 3 );
-            userInterface.SuccessText.SetActive( false );
+            yield return userInterface.Level.CompleteLevel();
             
             LevelUnloader.Unload();
             LevelLoader.Initialize( ChooseNextLevel( LevelLoader.CurrentLevel ) );

@@ -12,8 +12,7 @@ namespace Assets.Scripts.Repositories.Ui
         
         private static readonly Lazy<UserInterface> _userInterfaceLazy = new( () => new UserInterface(
             GameObject.Find( "UI" ),
-            GameObject.Find( "level" ), 
-            GameObject.Find( "targets" ) ) );
+            GameObject.Find( "level" ) ) );
         public static UserInterface GetUserInterface() => _userInterfaceLazy.Value;
     }
 }

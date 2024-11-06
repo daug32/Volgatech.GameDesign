@@ -1,11 +1,10 @@
-using Assets.Scripts.Application.Elements;
+using System.Linq;
 using Assets.Scripts.Application.Ui;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Repositories.Ui;
-using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Application.Levels.Handlers
 {
@@ -19,22 +18,11 @@ namespace Assets.Scripts.Application.Levels.Handlers
             
             LevelData levelData = LevelDataRepository.Get();
             UserInterface userInterface = UiItemsRepository.GetUserInterface();
-            DrawTargets( levelData, userInterface );
-            
+            userInterface.Level.DrawTargets( levelData.Targets.Select( x => ElementsRepository.Get( x ).CreateGameObject() ) );
+
             DrawBookElementsHandler.DrawAll();
 
             CurrentLevel = levelType;
-        }
-
-        private static void DrawTargets( LevelData levelData, UserInterface userInterface )
-        {
-            foreach ( ElementId targetElement in levelData.Targets )
-            {
-                ElementsRepository
-                   .Get( targetElement )
-                   .CreateGameObject()
-                   .WithParent( userInterface.TargetsContainer );
-            }
         }
     }
 }
