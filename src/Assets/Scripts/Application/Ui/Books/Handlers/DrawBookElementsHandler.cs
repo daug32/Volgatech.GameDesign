@@ -12,7 +12,7 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
     {
         public static void DrawAll()
         {
-            var book = UiItemsRepository.GetBook();
+            var book = UiItemsRepository.GetUserInterface().Level.Book;
 
             var elements = new List<GameObject>();
             foreach ( Element element in ElementsRepository.GetAll() )
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
 
         public static void Draw( ElementId elementId )
         {
-            var book = UiItemsRepository.GetBook();
+            var book = UiItemsRepository.GetUserInterface().Level.Book;
 
             Element element = ElementsRepository.Get( elementId );            
             GameObject elementGameObject = element.CreateGameObject().WithParent( book.GameObject );
@@ -44,7 +44,8 @@ namespace Assets.Scripts.Application.Ui.Books.Handlers
 
         public static void RemoveAllElements()
         {
-            var book = UiItemsRepository.GetBook();
+            var book = UiItemsRepository.GetUserInterface().Level.Book;
+            
             foreach ( Transform element in book.GameObject.transform )
             {
                 Object.Destroy( element.gameObject );

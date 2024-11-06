@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Elements;
+using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Repositories;
 using Assets.Scripts.Repositories.Elements;
 
 namespace Assets.Scripts.Tests
@@ -10,6 +12,16 @@ namespace Assets.Scripts.Tests
     {
         public static void Validate()
         {
+            foreach ( LevelType levelType in Enum.GetValues( typeof( LevelType ) ) )
+            {
+                ValidateForLevel( levelType );
+            }
+        }
+
+        private static void ValidateForLevel( LevelType levelType )
+        {
+            DataRepository.LoadForLevel( levelType );   
+            
             var elementsWithoutSprite = new HashSet<ElementId>();
             var elementsWithoutData = new HashSet<ElementId>();
 

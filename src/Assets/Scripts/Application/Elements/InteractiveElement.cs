@@ -29,9 +29,10 @@ namespace Assets.Scripts.Application.Elements
             RectTransform = gameObject.GetComponent<RectTransform>();
             RectTransform.sizeDelta = sizeDelta;
 
+            var book = UiItemsRepository.GetUserInterface().Level.Book;
             DndBehaviour = gameObject.AddInteractiveElementDragAndDrop(
                 element,
-                UiItemsRepository.GetBook().RectTransform,
+                book.RectTransform,
                 SceneId );
             CanvasGroup = gameObject.AddComponent<CanvasGroup>();
         }

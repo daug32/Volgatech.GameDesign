@@ -8,10 +8,16 @@ namespace Assets.Scripts.Utils
     {
         private readonly Dictionary<string, GameObject> _gameObjects;
 
-        public GameObjectChildrenContainer( GameObject parent ) => _gameObjects = parent
-           .FindChildren()
-           .ToDictionary( x => x.name, x => x );
-        
+        public readonly GameObject GameObject;
+
+        public GameObjectChildrenContainer( GameObject parent )
+        {
+            _gameObjects = parent
+               .FindChildren()
+               .ToDictionary( x => x.name, x => x );
+            GameObject = parent;
+        }
+
         public GameObject Get( string name ) => _gameObjects[ name ];
     }
 }

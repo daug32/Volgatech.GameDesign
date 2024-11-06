@@ -7,7 +7,7 @@ namespace Assets.Scripts.Utils
 {
     internal static class JsonHelper
     {
-        private static readonly JsonSerializerSettings _options = new JsonSerializerSettings()
+        private static readonly JsonSerializerSettings _options = new()
         {
             ContractResolver = new DefaultContractResolver()
             {

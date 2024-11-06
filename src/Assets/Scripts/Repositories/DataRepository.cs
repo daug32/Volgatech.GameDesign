@@ -12,6 +12,7 @@ namespace Assets.Scripts.Repositories
     internal static class DataRepository
     {
         private static DataDto _data;
+        public static bool IsInitialized;
         
         public static void LoadForLevel( LevelType levelType )
         {
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Repositories
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default" ),
                 JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/{levelType.ToDatabaseFilename()}" ) );
             _data = LoadData( jsonData );
+            IsInitialized = true;
             DataLoadedEventManager.Trigger();
         }
 
