@@ -1,7 +1,2 @@
 {
-  "level": {
-    "targets": ["vapor", "coldtemp"]   
-  },
-  "elements": {
-  }
 }

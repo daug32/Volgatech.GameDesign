@@ -49,7 +49,7 @@ namespace Assets.Scripts.Application.Ui.Levels
 
 		public void ShowSettings( LevelType levelType )
 		{
-			var levelData = LevelDataRepository.Get();
+			var levelData = LevelDataRepository.Get( levelType );
 			UpdateLevelTitle( levelType );
 			DrawTargets( levelData.Targets );
 			DrawStars( levelData.Objectives );
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Application.Ui.Levels
 			_levelTitle.GetComponent<TextMeshProUGUI>().text = $"Level {levelType.ToLevelNumber()}. Targets: ";
 		}
 
-		private void DrawStars( Dictionary<int, LevelObjective> levelObjectives )
+		private void DrawStars( List<LevelObjective> levelObjectives )
 		{
 			List<GameObject> stars = _starsContainer.GetAll();
 			for ( var i = 0; i < stars.Count; i++ )

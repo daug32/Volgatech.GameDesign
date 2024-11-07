@@ -5,11 +5,11 @@ namespace Assets.Scripts.Repositories.Users.Dtos
 {
     public class UserLevelDataDto
     {
+        public int? ReactionsNumber { get; set; }
         public TimeSpan? BestCompetitionTime { get; set; }
 
-        public UserLevelData Convert()
-        {
-            return new UserLevelData( BestCompetitionTime );
-        }
+        public UserLevelData Convert() => new(
+            ReactionsNumber,
+            BestCompetitionTime );
     }
 }

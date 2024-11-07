@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Elements;
-using Assets.Scripts.Repositories.Dtos.Events;
+using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Extensions;
+using Assets.Scripts.Repositories.Dtos.Elements;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Repositories.Elements
 {
@@ -9,17 +12,15 @@ namespace Assets.Scripts.Repositories.Elements
     {
         private static Dictionary<ElementId, ElementData> _data;
 
-        static ElementsDataRepository()
+        public static void LoadForLevel( LevelType levelType )
         {
-            LoadData();
-            DataLoadedEventManager.Add( LoadData );
-        }
-
-        private static void LoadData()
-        {
-            _data = DataRepository.Get().Elements.ToDictionary(
-                x => new ElementId( x.Key ),
-                x => x.Value.Convert() );
+            string jsonData = JsonHelper.MergeJsons(
+                JsonHelper.LoadJson( $"{Config.ElementsDataDatabase}/default" ),
+                JsonHelper.LoadJsonIgnoreMissing( $"{Config.ElementsDataDatabase}/{levelType.ToDatabaseFilename()}" ) );
+            
+            _data = JsonHelper
+               .Deserialize<Dictionary<string, ElementDataDto>>( jsonData )
+               .ToDictionary( x => new ElementId( x.Key ), x => x.Value.Convert() );
         }
 
         public static ElementData Get( ElementId id ) => _data[ id ];

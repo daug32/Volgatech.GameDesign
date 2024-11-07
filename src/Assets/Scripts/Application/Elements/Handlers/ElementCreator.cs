@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Linq;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Levels.Events;
-using Assets.Scripts.Application.Levels.Handlers;
+using Assets.Scripts.Application.Ui;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
-using UnityEngine;
+using Assets.Scripts.Repositories.Ui;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Application.Elements.Handlers
 {
@@ -66,8 +66,12 @@ namespace Assets.Scripts.Application.Elements.Handlers
 
             elementData.IsDiscovered = true;
             DrawBookElementsHandler.Draw( elementId );
+
+            UserInterface userInterface = UiItemsRepository.GetUserInterface();
+
+            LevelType currentLevel = userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" );
+            LevelData levelData = LevelDataRepository.Get( currentLevel );
             
-            LevelData levelData = LevelDataRepository.Get();
             if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
             {
                 LevelCompletedEventManager.Trigger();

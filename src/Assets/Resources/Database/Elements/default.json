@@ -1,48 +1,30 @@
 {
-  "level": {
-    "objectives": {
-      "0": {
-        "type": "FinishByReactions",
-        "data": "10"
-      },
-      "1": {
-        "type": "FinishByTime",
-        "data": "00:10:00"
-      },
-      "2": {
-        "type": "FinishByTime",
-        "data": "00:00:30"
-      }
-    }
+  "earth": {
+    "isDiscovered": true,
+    "parents": []
   },
-  "elements": {
-    "earth": {
-      "isDiscovered": true,
-      "parents": []
-    },
-    "fire": {
-      "isDiscovered": true,
-      "parents": []
-    },
-    "water": {
-      "isDiscovered": true,
-      "parents": []
-    },
-    "wind": {
-      "isDiscovered": true,
-      "parents": []
-    },
-    "plant": {
-      "isDiscovered": false,
-      "parents": [ "water", "earth" ]
-    },
-    "vapor": {
-      "isDiscovered": false,
-      "parents": [ "water", "fire" ]
-    },
-    "coldtemp": {
-      "isDiscovered": false,
-      "parents": [ "wind", "wind" ]
-    }
+  "fire": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "water": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "wind": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "plant": {
+    "isDiscovered": false,
+    "parents": [ "water", "earth" ]
+  },
+  "vapor": {
+    "isDiscovered": false,
+    "parents": [ "water", "fire" ]
+  },
+  "coldtemp": {
+    "isDiscovered": false,
+    "parents": [ "wind", "wind" ]
   }
 }

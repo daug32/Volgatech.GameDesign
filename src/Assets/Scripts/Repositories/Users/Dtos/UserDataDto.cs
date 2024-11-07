@@ -17,6 +17,15 @@ namespace Assets.Scripts.Repositories.Users.Dtos
                     ? result
                     : throw new ArgumentException( $"Filed to parse level type from user data dto. Given value: {x.Key}" ),
                 x => x.Value.Convert() );
+            
+            foreach ( LevelType levelType in Enum.GetValues( typeof( LevelType ) ) )
+            {
+                if ( !arcade.ContainsKey( levelType ) )
+                {
+                    arcade.Add( levelType, new UserLevelData() );
+                }
+            }
+            
             return new UserData( arcade );
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Levels.Events;
+using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Repositories.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -31,8 +32,8 @@ namespace Assets.Scripts.Application.Ui.Handlers
 
         private static void OpenLevelSettings( UserInterface userInterface )
         {
-            userInterface.Level.LevelSettings.ShowSettings(
-                userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" ) );
+            LevelType currentLevel = userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" );
+            userInterface.Level.LevelSettings.ShowSettings( currentLevel );
             userInterface.Level.SetElementsInteractionsBlock( true );
         }
 
@@ -44,6 +45,8 @@ namespace Assets.Scripts.Application.Ui.Handlers
 
         private static void ShowArcadeMenu( UserInterface userInterface )
         {
+            LevelDataRepository.Load();
+            
             userInterface.Level.LevelSettings.HideSettings();
             userInterface.Level.UnloadLevel();
             userInterface.Menu.SetActive( true );

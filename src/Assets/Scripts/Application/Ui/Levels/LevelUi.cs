@@ -2,7 +2,6 @@ using System.Collections;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Ui.Books;
 using Assets.Scripts.Application.Ui.Books.Handlers;
-using Assets.Scripts.Repositories;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -39,11 +38,10 @@ namespace Assets.Scripts.Application.Ui.Levels
 
         public void LoadLevel( LevelType levelType )
         {
-            DataRepository.LoadForLevel( levelType );
-
+            ElementsDataRepository.LoadForLevel( levelType );
             DrawBookElementsHandler.DrawAll();
-            
             CurrentLevel = levelType;
+            SetElementsInteractionsBlock( false );
             _childrenContainer.GameObject.SetActive( true );
         }
 

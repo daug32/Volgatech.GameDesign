@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Repositories;
 using Assets.Scripts.Repositories.Elements;
+using Assets.Scripts.Repositories.Levels;
 
 namespace Assets.Scripts.Tests
 {
@@ -20,7 +20,8 @@ namespace Assets.Scripts.Tests
 
         private static void ValidateForLevel( LevelType levelType )
         {
-            DataRepository.LoadForLevel( levelType );   
+            LevelDataRepository.Load();
+            ElementsDataRepository.LoadForLevel( levelType );
             
             var elementsWithoutSprite = new HashSet<ElementId>();
             var elementsWithoutData = new HashSet<ElementId>();

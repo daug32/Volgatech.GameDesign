@@ -1,0 +1,36 @@
+{
+  "level_0": {
+    "targets": ["plant"],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:05"
+      }
+    ]
+  },
+  "level_1": {
+    "targets": ["vapor", "coldtemp"],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:05"
+      }
+    ]
+  }
+}

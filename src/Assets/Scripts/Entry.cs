@@ -1,6 +1,3 @@
-using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Application.Levels.Events;
-using Assets.Scripts.Application.Levels.Handlers;
 using Assets.Scripts.Application.Ui.Handlers;
 using Assets.Scripts.Tests;
 using UnityEngine;
@@ -12,6 +9,7 @@ namespace Assets.Scripts
         private void Start()
         {
             #if UNITY_EDITOR
+                LevelsValidator.Validate();
                 ElementsValidator.Validate();
             #endif
             

@@ -25,6 +25,9 @@ namespace Assets.Scripts.Utils
             .ThrowIfNull( message: $"Failed to load asset from path. Path: {assetPath}" )
             .text;
 
+        public static string LoadJsonIgnoreMissing( string assetPath ) =>
+            Resources.Load<TextAsset>( assetPath )?.text ?? "{}";
+
         public static string MergeJsons( params string[] jsons )
         {
             if ( jsons.Length < 1 )
