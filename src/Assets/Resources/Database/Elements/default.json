@@ -26,5 +26,29 @@
   "coldtemp": {
     "isDiscovered": false,
     "parents": ["wind", "wind"]
+  },
+  "planet": {
+    "isDiscovered": false,
+    "parents": ["earth", "earth"]
+  },
+  "glass": {
+    "isDiscovered": false,
+    "parents": ["earth", "fire"]
+  },
+  "sand": {
+    "isDiscovered": false,
+    "parents": ["earth", "wind"]
+  },
+  "ocean": {
+    "isDiscovered": false,
+    "parents": ["water", "water"]
+  },
+  "star": {
+    "isDiscovered": false,
+    "parents": ["fire", "fire"]
+  },
+  "hottemp": {
+    "isDiscovered": false,
+    "parents": ["fire", "wind"]
   }
 }
