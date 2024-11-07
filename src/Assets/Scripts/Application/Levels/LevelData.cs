@@ -7,11 +7,14 @@ namespace Assets.Scripts.Application.Levels
     internal class LevelData
     {
         public HashSet<ElementId> Targets { get; private set; }
+        public Dictionary<int, LevelObjective> Objectives { get; private set; }
 
         public LevelData(
-            IEnumerable<ElementId> targets )
+            IEnumerable<ElementId> targets,
+            Dictionary<int, LevelObjective> objectives )
         {
             Targets = targets.ToHashSet();
+            Objectives = objectives;
         }
 
         public bool IsLevelCompleted( HashSet<ElementId> discoveredElements )

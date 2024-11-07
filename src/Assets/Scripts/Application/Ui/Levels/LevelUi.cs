@@ -1,5 +1,6 @@
 using System.Collections;
 using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Ui.Arcades.Levels;
 using Assets.Scripts.Application.Ui.Books;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories;
@@ -8,7 +9,7 @@ using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Application.Ui.Arcades.Levels
+namespace Assets.Scripts.Application.Ui.Levels
 {
     internal class LevelUi
     {

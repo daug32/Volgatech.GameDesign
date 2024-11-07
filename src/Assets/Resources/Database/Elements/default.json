@@ -1,5 +1,19 @@
 {
   "level": {
+    "objectives": {
+      "0": {
+        "type": "FinishByReactions",
+        "data": "10"
+      },
+      "1": {
+        "type": "FinishByTime",
+        "data": "00:10:00"
+      },
+      "2": {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      }
+    }
   },
   "elements": {
     "earth": {

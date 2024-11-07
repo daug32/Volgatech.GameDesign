@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Extensions;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Utils;
@@ -50,7 +52,7 @@ namespace Assets.Scripts.Application.Ui.Arcades.Levels
 			var levelData = LevelDataRepository.Get();
 			UpdateLevelTitle( levelType );
 			DrawTargets( levelData.Targets );
-			DrawStars();
+			DrawStars( levelData.Objectives );
 			_gameObject.SetActive( true );
 		}
 
@@ -59,14 +61,17 @@ namespace Assets.Scripts.Application.Ui.Arcades.Levels
 			_levelTitle.GetComponent<TextMeshProUGUI>().text = $"Level {levelType.ToLevelNumber()}. Targets: ";
 		}
 
-		private void DrawStars()
+		private void DrawStars( Dictionary<int, LevelObjective> levelObjectives )
 		{
-			// TODO: Set objectives
-			var stars = _starsContainer.GetAll();
-			foreach ( var star in stars )
+			List<GameObject> stars = _starsContainer.GetAll();
+			for ( var i = 0; i < stars.Count; i++ )
 			{
-				var text = star.FindChild( "text" ).GetComponent<TextMeshProUGUI>();
-				text.text = DateTime.Now.ToString();
+				LevelObjective objective = levelObjectives[ i ];
+
+				GameObject star = stars[ i ];
+				TextMeshProUGUI text = star.FindChild( "text" ).GetComponent<TextMeshProUGUI>();
+				
+				text.text = objective.ToUserText();
 			}
 		}
 
