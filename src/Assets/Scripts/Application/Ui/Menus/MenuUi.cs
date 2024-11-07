@@ -1,8 +1,8 @@
+using Assets.Scripts.Application.Ui.Arcades;
 using Assets.Scripts.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Scripts.Application.Ui
+namespace Assets.Scripts.Application.Ui.Menus
 {
     internal class MenuUi
     {
@@ -12,9 +12,15 @@ namespace Assets.Scripts.Application.Ui
 
         public MenuUi( GameObject gameObject )
         {
+            _gameObject = gameObject;
             var menuChildrenContainer = new GameObjectChildrenContainer( gameObject );
             MainMenu = new MainMenuUi( menuChildrenContainer.Get( "main_menu" ) );   
             ArcadeMenu = new ArcadeMenuUi( menuChildrenContainer.Get( "arcade_menu" ) );
+        }
+
+        public void SetActive( bool activity )
+        {
+            _gameObject.SetActive( activity );
         }
     }
 }

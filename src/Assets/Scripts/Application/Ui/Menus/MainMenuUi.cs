@@ -2,7 +2,7 @@ using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Application.Ui
+namespace Assets.Scripts.Application.Ui.Menus
 {
     internal class MainMenuUi
     {

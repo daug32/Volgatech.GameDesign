@@ -5,7 +5,7 @@ namespace Assets.Scripts.Application.Users
 {
     internal class UserData
     {
-        public Dictionary<LevelType, UserLevelData> Arcade;
+        public readonly Dictionary<LevelType, UserLevelData> Arcade;
 
         public UserData(
             Dictionary<LevelType, UserLevelData> arcade )

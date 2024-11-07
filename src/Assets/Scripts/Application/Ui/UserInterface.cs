@@ -1,3 +1,5 @@
+using Assets.Scripts.Application.Ui.Arcades.Levels;
+using Assets.Scripts.Application.Ui.Menus;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -17,20 +19,6 @@ namespace Assets.Scripts.Application.Ui
             var childrenContainer = new GameObjectChildrenContainer( canvas );
             Level = new LevelUi( childrenContainer.Get( "level" ) );
             Menu = new MenuUi( childrenContainer.Get( "menu" ) );
-        }
-
-        public void ShowMainMenu()
-        {
-            Level.SetActive( false );
-            Menu.ArcadeMenu.SetActive( false );
-            Menu.MainMenu.SetActive( true );
-        }
-
-        public void ShowArcadeMenu()
-        {
-            Level.SetActive( false );
-            Menu.MainMenu.SetActive( false );
-            Menu.ArcadeMenu.SetActive( true );
         }
     }
 }
