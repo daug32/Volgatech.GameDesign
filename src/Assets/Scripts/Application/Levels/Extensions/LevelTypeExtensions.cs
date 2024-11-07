@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Assets.Scripts.Application.Levels
+namespace Assets.Scripts.Application.Levels.Extensions
 {
     internal static class LevelTypeExtensions 
     {

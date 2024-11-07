@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Extensions;
 using Assets.Scripts.Repositories.Dtos;
 using Assets.Scripts.Repositories.Dtos.Events;
 using Assets.Scripts.Repositories.Elements;

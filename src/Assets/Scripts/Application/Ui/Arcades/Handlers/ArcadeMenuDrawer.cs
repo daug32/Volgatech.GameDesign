@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Levels.Extensions;
 using Assets.Scripts.Application.Levels.Handlers;
 using Assets.Scripts.Application.Users;
 using Assets.Scripts.Repositories.Users;

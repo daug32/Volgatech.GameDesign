@@ -1,6 +1,5 @@
 using System.Collections;
 using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Application.Ui.Arcades.Levels;
 using Assets.Scripts.Application.Ui.Books;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories;

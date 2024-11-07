@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Levels.Extensions;
@@ -12,8 +10,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.Application.Ui.Arcades.Levels
+namespace Assets.Scripts.Application.Ui.Levels
 {
+	// TODO: Interactive are shown at the top of settings popup
     internal class LevelSettingsUi
     {
         private readonly GameObject _gameObject;
