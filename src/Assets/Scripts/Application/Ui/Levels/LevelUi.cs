@@ -14,6 +14,7 @@ namespace Assets.Scripts.Application.Ui.Levels
     {
         private readonly GameObjectChildrenContainer _childrenContainer;
         public LevelType? CurrentLevel { get; private set; }
+        public bool AreInteractionsBlocked { get; private set; }
 
         public readonly Book Book;
         public readonly LevelSettingsUi LevelSettings;
@@ -54,6 +55,11 @@ namespace Assets.Scripts.Application.Ui.Levels
             DrawBookElementsHandler.RemoveAllElements();
 
             _childrenContainer.GameObject.SetActive( false );
+        }
+
+        public void SetElementsInteractionsBlock( bool areInteractionsBlocked )
+        {
+            AreInteractionsBlocked = areInteractionsBlocked;
         }
     }
 }

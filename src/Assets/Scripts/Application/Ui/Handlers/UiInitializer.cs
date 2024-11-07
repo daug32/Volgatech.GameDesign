@@ -33,12 +33,13 @@ namespace Assets.Scripts.Application.Ui.Handlers
         {
             userInterface.Level.LevelSettings.ShowSettings(
                 userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" ) );
-            // TODO: Block elements reactions
+            userInterface.Level.SetElementsInteractionsBlock( true );
         }
 
         private static void HideLevelSettings( UserInterface userInterface )
         {
             userInterface.Level.LevelSettings.HideSettings();
+            userInterface.Level.SetElementsInteractionsBlock( false );
         }
 
         private static void ShowArcadeMenu( UserInterface userInterface )

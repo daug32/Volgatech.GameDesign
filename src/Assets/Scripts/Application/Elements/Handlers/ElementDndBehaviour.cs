@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Repositories.Elements;
+using Assets.Scripts.Repositories.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -56,6 +57,8 @@ namespace Assets.Scripts.Application.Elements.Handlers
 
         public void OnBeginDrag( PointerEventData eventData )
         { 
+            if ( !CanDnd() ) return;
+
             if ( IsIconElement )
             {
                 var interactiveElement = InteractiveElement.Create(
@@ -79,16 +82,16 @@ namespace Assets.Scripts.Application.Elements.Handlers
 
         public void OnDrag( PointerEventData eventData )
         {
+            if ( !CanDnd() ) return;
+
             var InteractiveElement = InteractiveElementRepository.Get( InteractiveElementId );
             InteractiveElement.GameObject.transform.position = eventData.position;
         }
 
         public void OnEndDrag( PointerEventData eventData )
         {
-            if ( !InteractiveElementRepository.Exists( InteractiveElementId ) )
-            {
-                return;
-            }
+            if ( !CanDnd() ) return;
+            if ( !InteractiveElementRepository.Exists( InteractiveElementId ) ) return;
             
             var element = InteractiveElementRepository.Get( InteractiveElementId );
             var canvasGroup = element.CanvasGroup;
@@ -103,6 +106,8 @@ namespace Assets.Scripts.Application.Elements.Handlers
 
         public void OnDrop( PointerEventData eventData )
         {
+            if ( !CanDnd() ) return;
+
             if ( eventData.pointerDrag == null )
             {
                 return;
@@ -120,6 +125,11 @@ namespace Assets.Scripts.Application.Elements.Handlers
             }
 
             StartCoroutine( ElementCreator.Create( InteractiveElementId, anotherDnd.InteractiveElementId ) );
+        }
+
+        private bool CanDnd()
+        {
+            return !UiItemsRepository.GetUserInterface().Level.AreInteractionsBlocked;
         }
     }
 }
