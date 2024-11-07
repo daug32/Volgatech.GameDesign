@@ -13,6 +13,7 @@ using Object = UnityEngine.Object;
 namespace Assets.Scripts.Application.Ui.Levels
 {
 	// TODO: Interactive are shown at the top of settings popup
+	// TODO: Add stars color
     internal class LevelSettingsUi
     {
         private readonly GameObject _gameObject;

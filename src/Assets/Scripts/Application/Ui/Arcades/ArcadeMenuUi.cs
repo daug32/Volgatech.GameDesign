@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Application.Ui.Arcades
 {
+    // TODO: Hide levels that are not unlocked yet
     internal class ArcadeMenuUi
     {
         private readonly GameObject _gameObject;
