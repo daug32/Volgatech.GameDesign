@@ -19,5 +19,7 @@ namespace Assets.Scripts.Utils
         }
 
         public GameObject Get( string name ) => _gameObjects[ name ];
+
+        public List<GameObject> GetAll() => _gameObjects.Values.ToList();
     }
 }

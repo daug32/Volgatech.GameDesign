@@ -69,7 +69,7 @@ namespace Assets.Scripts.Application.Ui.Arcades.Handlers
 
         private static void SetText( LevelType levelType, GameObject gameObject )
         {
-            var currentLevel = levelType.ToLevelNumber() + 1;
+            var currentLevel = levelType.ToLevelNumber();
             gameObject.GetComponent<TextMeshProUGUI>().text = currentLevel.ToString();
         }
 

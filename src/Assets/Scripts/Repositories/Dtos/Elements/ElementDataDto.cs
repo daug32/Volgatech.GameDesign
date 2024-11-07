@@ -10,6 +10,6 @@ namespace Assets.Scripts.Repositories.Dtos.Elements
 
         public ElementData Convert() => new(
             Parents.ThrowIfNull( nameof( Parents ) ),
-            isDiscovered: IsDiscovered.ThrowIfNull( nameof( IsDiscovered ) ).Value );
+            isDiscovered: IsDiscovered.ThrowIfNull( nameof( IsDiscovered ) ) );
     }
 }
