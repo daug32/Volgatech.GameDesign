@@ -1,6 +1,7 @@
 using Assets.Scripts.Application.Users;
 using Assets.Scripts.Repositories.Users.Dtos;
 using Assets.Scripts.Utils;
+using UnityEngine;
 
 namespace Assets.Scripts.Repositories.Users
 {
@@ -16,5 +17,12 @@ namespace Assets.Scripts.Repositories.Users
         }
 
         public static UserData Get() => _data;
+
+        public static void Commit()
+        {
+            var json = JsonHelper.Serialize( _data );
+            Debug.Log( json );
+            // TODO: Add saving
+        }
     }
 }

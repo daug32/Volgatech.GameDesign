@@ -1,8 +1,8 @@
 using System.Collections;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Levels.Events;
-using Assets.Scripts.Application.Ui;
 using Assets.Scripts.Application.Ui.Books.Handlers;
+using Assets.Scripts.Application.Ui.Levels;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Repositories.Ui;
@@ -19,10 +19,13 @@ namespace Assets.Scripts.Application.Elements.Handlers
             {
                 yield break;
             }
+
+            var level = UiItemsRepository.GetUserInterface().Level;
+            level.Statistics.ReactionsNumber.Increment();
             
             RemoveUsedElements( firstParentId, secondParentId );
 
-            yield return DiscoverElementIfNeeded( newElementId );
+            yield return DiscoverElementIfNeeded( newElementId, level );
         }
 
         private static ElementId CreateNewElement( 
@@ -56,7 +59,7 @@ namespace Assets.Scripts.Application.Elements.Handlers
             InteractiveElementRepository.Remove( secondParentId );
         }
 
-        private static IEnumerator DiscoverElementIfNeeded( ElementId elementId )
+        private static IEnumerator DiscoverElementIfNeeded( ElementId elementId, LevelUi level )
         {
             var elementData = ElementsDataRepository.Get( elementId );
             if ( elementData.IsDiscovered )
@@ -67,9 +70,7 @@ namespace Assets.Scripts.Application.Elements.Handlers
             elementData.IsDiscovered = true;
             DrawBookElementsHandler.Draw( elementId );
 
-            UserInterface userInterface = UiItemsRepository.GetUserInterface();
-
-            LevelType currentLevel = userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" );
+            LevelType currentLevel = level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" );
             LevelData levelData = LevelDataRepository.Get( currentLevel );
             
             if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
