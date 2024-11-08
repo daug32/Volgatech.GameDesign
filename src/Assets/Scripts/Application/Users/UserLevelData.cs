@@ -1,15 +1,14 @@
 using System;
-using System.ComponentModel;
 using Assets.Scripts.Application.Levels;
-using UnityEngine;
 
 namespace Assets.Scripts.Application.Users
 {
-    // TODO: Update user data on finishing a level
     internal class UserLevelData
     {
         public int? ReactionsNumber;
         public TimeSpan? BestCompetitionTime;
+
+        public bool IsLevelCompleted => ReactionsNumber.HasValue;
 
         public UserLevelData(
             int? reactionsNumber = null,
@@ -19,21 +18,19 @@ namespace Assets.Scripts.Application.Users
             BestCompetitionTime = bestCompetitionTime;
         }
 
-        public void Apply( LevelStatistics statistics )
+        public void Apply( LevelData levelData, LevelStatistics statistics )
         {
-            var gameTime = statistics.GameTime.Calculate();
-            var reactionsNumber = statistics.ReactionsNumber.Get();
+            var currentRating = IsLevelCompleted
+                ? LevelRating.CompletedLevel( LevelStatistics.FromUserLevelData( this ), levelData.Objectives )
+                : LevelRating.NotCompletedLevel();
+            var newRating = LevelRating.CompletedLevel( statistics, levelData.Objectives );
             
-            bool canUpdate =
-                ( !BestCompetitionTime.HasValue || BestCompetitionTime >= gameTime ) &&
-                ( !ReactionsNumber.HasValue || ReactionsNumber < reactionsNumber );
+            bool canUpdate = currentRating.StarsAchieved < newRating.StarsAchieved;
             if ( canUpdate )
             {
-                ReactionsNumber = reactionsNumber;
-                BestCompetitionTime = gameTime;
+                ReactionsNumber = statistics.ReactionsNumber.Get();
+                BestCompetitionTime = statistics.GameTime;
             }
-            
-            Debug.Log( this );
         }
 
         public override string ToString()

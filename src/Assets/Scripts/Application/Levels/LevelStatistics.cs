@@ -1,26 +1,47 @@
+using System;
+using Assets.Scripts.Application.Users;
 using Assets.Scripts.Utils;
+using UnityEngine.WSA;
 
 namespace Assets.Scripts.Application.Levels
 {
     internal class LevelStatistics
     {
-        public Atomic ReactionsNumber { get; private set; }
-        public StoppableTime GameTime { get; private set; }
+        public Atomic ReactionsNumber;
+        
+        private StoppableTime _gameTime;
+        public TimeSpan GameTime { get; private set; } = TimeSpan.MaxValue;
+
+        public static LevelStatistics FromUserLevelData( UserLevelData userLevelData )
+        {
+            var statistics = new LevelStatistics()
+            {
+                ReactionsNumber = new Atomic( userLevelData.ReactionsNumber ?? 0 ),
+                GameTime = userLevelData.BestCompetitionTime ?? TimeSpan.MaxValue 
+            };
+            return statistics;
+        }
 
         public void Reset()
         {
             ReactionsNumber = new Atomic();
-            GameTime = StoppableTime.Start();
+            _gameTime = StoppableTime.Start();
+            GameTime = TimeSpan.MaxValue;
         }
 
-        public void Start()
+        public void Resume()
         {
-            GameTime.Resume();
+            _gameTime.Resume();
         }
 
-        public void Stop()
+        public void Pause()
         {
-            GameTime.Pause();
+            _gameTime.Pause();
+        }
+
+        public void Commit()
+        {
+            GameTime = _gameTime.Calculate();
         }
     }
 }

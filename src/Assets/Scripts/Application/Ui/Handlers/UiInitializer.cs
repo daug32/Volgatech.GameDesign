@@ -32,7 +32,7 @@ namespace Assets.Scripts.Application.Ui.Handlers
 
         private static void OpenLevelSettings( UserInterface userInterface )
         {
-            userInterface.Level.Statistics.Stop();
+            userInterface.Level.Statistics.Pause();
             LevelType currentLevel = userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" );
             userInterface.Level.LevelSettings.ShowSettings( currentLevel );
             userInterface.Level.SetElementsInteractionsBlock( true );
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Application.Ui.Handlers
         {
             userInterface.Level.LevelSettings.HideSettings();
             userInterface.Level.SetElementsInteractionsBlock( false );
-            userInterface.Level.Statistics.Start();
+            userInterface.Level.Statistics.Resume();
         }
 
         private static void ShowArcadeMenu( UserInterface userInterface )
@@ -77,7 +77,6 @@ namespace Assets.Scripts.Application.Ui.Handlers
         private static IEnumerator CompleteLevel( UserInterface userInterface )
         {
             yield return userInterface.Level.CompleteLevel();
-            
             LevelType nextLevel = GetNextLevel( userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" ) );
             userInterface.Level.UnloadLevel();
             LoadLevel( nextLevel, userInterface );

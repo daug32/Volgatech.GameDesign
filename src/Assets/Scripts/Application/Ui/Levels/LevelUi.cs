@@ -4,9 +4,9 @@ using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Ui.Books;
 using Assets.Scripts.Application.Ui.Books.Handlers;
 using Assets.Scripts.Repositories.Elements;
+using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Repositories.Users;
 using Assets.Scripts.Utils;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Application.Ui.Levels
 
         public readonly Book Book;
         public readonly LevelSettingsUi LevelSettings;
-        private GameObject _successText => _childrenContainer.Get( "success_text" );
+        public readonly LevelCompletedUi LevelCompleted;
 
         public readonly EventManager OpenLevelSettingsEventManager = new();
 
@@ -32,36 +32,51 @@ namespace Assets.Scripts.Application.Ui.Levels
             _childrenContainer = new GameObjectChildrenContainer( gameObject );
             Book = new Book( _childrenContainer.Get( "book" ) );
             LevelSettings = new LevelSettingsUi( _childrenContainer.Get( "settings" ) );
+            LevelCompleted = new LevelCompletedUi( _childrenContainer.Get( "success" ) );
             _childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( OpenLevelSettingsEventManager.Trigger );
         }
 
         public IEnumerator CompleteLevel()
         {
-            UserDataRepository.Get().Arcade[ CurrentLevel!.Value ].Apply( Statistics );
+            Debug.Log( "LevelUi: CompleteLevel" );
+            Statistics.Commit();
+            
+            var levelData = LevelDataRepository.Get( CurrentLevel!.Value );
+            var userData = UserDataRepository.Get().Arcade[ CurrentLevel!.Value ];
+            userData.Apply( levelData, Statistics );
             UserDataRepository.Commit();
 
-            _successText.SetActive( true );
-            yield return new WaitForSeconds( 3 );
-            _successText.SetActive( false );
+            SetElementsInteractionsBlock( true );
+
+            return LevelCompleted.Show( 
+                levelData, 
+                Statistics );
         }
 
         public void LoadLevel( LevelType levelType )
         {
+            Debug.Log( "LevelUi: LoadLevel" );
             ElementsDataRepository.LoadForLevel( levelType );
             DrawBookElementsHandler.DrawAll();
 
             CurrentLevel = levelType;
             Statistics.Reset();
+
+            SetElementsInteractionsBlock( false );
             
             _childrenContainer.GameObject.SetActive( true );
         }
 
         public void UnloadLevel()
         {
+            Debug.Log( "LevelUi: UnloadLevel" );
             CurrentLevel = null;
-
+            
+            LevelCompleted.Hide();
             InteractiveElementRepository.RemoveAll();
             DrawBookElementsHandler.RemoveAllElements();
+            
+            SetElementsInteractionsBlock( true );
 
             _childrenContainer.GameObject.SetActive( false );
         }
