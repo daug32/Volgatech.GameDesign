@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Application.Elements;
 using Assets.Scripts.Application.Levels;
 using Assets.Scripts.Application.Levels.Extensions;
+using Assets.Scripts.Application.Ui.Stars;
 using Assets.Scripts.Repositories.Elements;
 using Assets.Scripts.Repositories.Levels;
 using Assets.Scripts.Utils;
@@ -13,7 +14,6 @@ using Object = UnityEngine.Object;
 namespace Assets.Scripts.Application.Ui.Levels
 {
 	// TODO: Interactive are shown at the top of settings popup
-	// TODO: Add stars color
 	// TODO: При соединении двух одинаковых элементов создается один из его дочерних элементов 
     internal class LevelSettingsUi
     {
@@ -50,10 +50,12 @@ namespace Assets.Scripts.Application.Ui.Levels
 
 		public void ShowSettings( LevelType levelType )
 		{
-			var levelData = LevelDataRepository.Get( levelType );
+			LevelData levelData = LevelDataRepository.Get( levelType );
+
 			UpdateLevelTitle( levelType );
 			DrawTargets( levelData.Targets );
 			DrawStars( levelData.Objectives );
+
 			_gameObject.SetActive( true );
 		}
 
@@ -70,8 +72,12 @@ namespace Assets.Scripts.Application.Ui.Levels
 				LevelObjective objective = levelObjectives[ i ];
 
 				GameObject star = stars[ i ];
-				TextMeshProUGUI text = star.FindChild( "text" ).GetComponent<TextMeshProUGUI>();
+				var childrenContainer = new GameObjectChildrenContainer( star );
+
+				var image = childrenContainer.Get( "star" ).GetComponent<Image>();
+				image.color = StarColors.AchievedStar;
 				
+				TextMeshProUGUI text = childrenContainer.Get( "text" ).GetComponent<TextMeshProUGUI>();
 				text.text = objective.ToUserText();
 			}
 		}
