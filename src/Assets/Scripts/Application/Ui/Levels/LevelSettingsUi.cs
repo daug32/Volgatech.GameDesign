@@ -13,7 +13,6 @@ using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Application.Ui.Levels
 {
-	// TODO: Interactive are shown at the top of settings popup
 	// TODO: При соединении двух одинаковых элементов создается один из его дочерних элементов 
     internal class LevelSettingsUi
     {

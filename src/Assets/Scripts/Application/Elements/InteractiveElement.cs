@@ -46,7 +46,7 @@ namespace Assets.Scripts.Application.Elements
             return new InteractiveElement(
                 element,
                 sizeDelta,
-                element.CreateGameObject().WithParent( userInterface.Canvas ) );
+                element.CreateGameObject().WithParent( userInterface.Level.InteractiveElementsContainer ) );
         }
     }
 }

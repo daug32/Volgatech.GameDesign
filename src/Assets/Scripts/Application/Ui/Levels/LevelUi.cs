@@ -24,6 +24,7 @@ namespace Assets.Scripts.Application.Ui.Levels
         public readonly Book Book;
         public readonly LevelSettingsUi LevelSettings;
         public readonly LevelCompletedUi LevelCompleted;
+        public readonly GameObject InteractiveElementsContainer;
 
         public readonly EventManager OpenLevelSettingsEventManager = new();
 
@@ -33,12 +34,12 @@ namespace Assets.Scripts.Application.Ui.Levels
             Book = new Book( _childrenContainer.Get( "book" ) );
             LevelSettings = new LevelSettingsUi( _childrenContainer.Get( "settings" ) );
             LevelCompleted = new LevelCompletedUi( _childrenContainer.Get( "success" ) );
+            InteractiveElementsContainer = _childrenContainer.Get( "interactive_elements_container" );
             _childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( OpenLevelSettingsEventManager.Trigger );
         }
 
         public IEnumerator CompleteLevel()
         {
-            Debug.Log( "LevelUi: CompleteLevel" );
             Statistics.Commit();
             
             var levelData = LevelDataRepository.Get( CurrentLevel!.Value );
@@ -55,7 +56,6 @@ namespace Assets.Scripts.Application.Ui.Levels
 
         public void LoadLevel( LevelType levelType )
         {
-            Debug.Log( "LevelUi: LoadLevel" );
             ElementsDataRepository.LoadForLevel( levelType );
             DrawBookElementsHandler.DrawAll();
 
@@ -69,7 +69,6 @@ namespace Assets.Scripts.Application.Ui.Levels
 
         public void UnloadLevel()
         {
-            Debug.Log( "LevelUi: UnloadLevel" );
             CurrentLevel = null;
             
             LevelCompleted.Hide();
