@@ -30,15 +30,29 @@ namespace Assets.Scripts.Application.Ui.Arcades.Handlers
 
             foreach ( (LevelType levelType, UserLevelData levelData) in levels )
             {
-                CreateLevelGameObject( arcadeMenu, levelType, levelData );
+                LevelType previousLevel = levelType.GetPreviousLevel() ?? LevelType.Level_0;
+
+                bool isLevelUnlocked = 
+                    // First level is unlocked always
+                    levelType == LevelType.Level_0 || 
+                    // Unlocked if level was already completed
+                    levelData.IsLevelCompleted || 
+                    // Unlocked if previous level was completed 
+                    levels[ previousLevel ].IsLevelCompleted;
+
+                CreateLevelGameObject( arcadeMenu, levelType, isLevelUnlocked, levelData );
             }
         }
 
-        private static GameObject CreateLevelGameObject( ArcadeMenuUi arcadeMenu, LevelType levelType, UserLevelData userLevelData )
+        private static GameObject CreateLevelGameObject( 
+            ArcadeMenuUi arcadeMenu, 
+            LevelType levelType,
+            bool isLevelUnlocked,
+            UserLevelData userLevelData )
         {
             GameObject gameObject = Object.Instantiate( arcadeMenu.ExampleLevel ).WithParent( arcadeMenu.LevelsContainer );
             gameObject.name = levelType.ToString().ToLower();
-
+            
             LevelRating levelRating = userLevelData.IsLevelCompleted 
                 ? LevelRating.CompletedLevel(
                     LevelStatistics.FromUserLevelData( userLevelData ),
@@ -46,15 +60,34 @@ namespace Assets.Scripts.Application.Ui.Arcades.Handlers
                 : LevelRating.NotCompletedLevel();
             
             var childrenContainer = new GameObjectChildrenContainer( gameObject );
+
             SetText( levelType, childrenContainer.Get( "number" ) );
             SetStars( levelRating, childrenContainer.Get( "stars" ) );
-            SetOnClick( arcadeMenu, levelType, gameObject );
+
+            if ( isLevelUnlocked )
+            {
+                SetOnClick( arcadeMenu, levelType, gameObject );
+            }
+            else 
+            {
+                ShadeLevel( childrenContainer.Get( "background" ) );
+            }
 
             gameObject.SetActive( true );
             return gameObject;
         }
 
-        private static void SetOnClick( ArcadeMenuUi arcadeMenu, LevelType levelType, GameObject gameObject )
+        private static void ShadeLevel( GameObject background )
+        {
+            var image = background.GetComponent<Image>();
+            Color oldColor = image.color;
+            image.color = new Color( oldColor.r, oldColor.g, oldColor.b, 0.6f );
+        }
+
+        private static void SetOnClick(
+            ArcadeMenuUi arcadeMenu, 
+            LevelType levelType, 
+            GameObject gameObject )
         {
             gameObject.GetComponent<Button>().onClick.AddListener( () => arcadeMenu.ChooseLevelEventManger.Trigger( levelType ) );
         }
