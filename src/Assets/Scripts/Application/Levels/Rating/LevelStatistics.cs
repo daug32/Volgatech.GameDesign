@@ -1,7 +1,6 @@
 using System;
 using Assets.Scripts.Application.Users;
 using Assets.Scripts.Utils;
-using UnityEngine.WSA;
 
 namespace Assets.Scripts.Application.Levels
 {
