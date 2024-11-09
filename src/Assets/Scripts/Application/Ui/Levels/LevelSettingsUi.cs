@@ -13,7 +13,6 @@ using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Application.Ui.Levels
 {
-	// TODO: При соединении двух одинаковых элементов создается один из его дочерних элементов 
     internal class LevelSettingsUi
     {
         private readonly GameObject _gameObject;

@@ -36,10 +36,13 @@ namespace Assets.Scripts.Repositories.Elements
 
         public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )
         {
-            var dataPair = _data.FirstOrDefault( x =>
-                    x.Value.Parents.Contains( firstParent )
-                    && x.Value.Parents.Contains( secondParent ) );
-            return dataPair.Key;
+            var expectedParents = new HashSet<ElementId>()
+            {
+                firstParent,
+                secondParent
+            };
+
+            return _data.FirstOrDefault( elementIdToData => elementIdToData.Value.Parents.SetEquals( expectedParents ) ).Key;
         }
     }
 }
