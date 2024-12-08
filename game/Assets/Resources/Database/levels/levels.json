@@ -1,0 +1,762 @@
+{
+  "level_0": {
+    "targets": [
+      "humidity"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_1": {
+    "targets": [
+      "lava"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_2": {
+    "targets": [
+      "plant"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_3": {
+    "targets": [
+      "sand"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_4": {
+    "targets": [
+      "smoke"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_5": {
+    "targets": [
+      "steam"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_6": {
+    "targets": [
+      "volcano"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "1"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_7": {
+    "targets": [
+      "clay"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_8": {
+    "targets": [
+      "cloud"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_9": {
+    "targets": [
+      "flower"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_10": {
+    "targets": [
+      "fog"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_11": {
+    "targets": [
+      "gas"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_12": {
+    "targets": [
+      "mountain"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_13": {
+    "targets": [
+      "rain"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_14": {
+    "targets": [
+      "sparks"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_15": {
+    "targets": [
+      "stone"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_16": {
+    "targets": [
+      "swamp"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "2"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      }
+    ]
+  },
+  "level_17": {
+    "targets": [
+      "ceramics"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_18": {
+    "targets": [
+      "fruit"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_19": {
+    "targets": [
+      "mud"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_20": {
+    "targets": [
+      "pollen"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_21": {
+    "targets": [
+      "river"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_22": {
+    "targets": [
+      "seeds"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_23": {
+    "targets": [
+      "storm"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "5"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      }
+    ]
+  },
+  "level_24": {
+    "targets": [
+      "wind"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "3"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:10"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      }
+    ]
+  },
+  "level_25": {
+    "targets": [
+      "downpour"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "6"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:36"
+      }
+    ]
+  },
+  "level_26": {
+    "targets": [
+      "lake"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_27": {
+    "targets": [
+      "lightning"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "6"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:36"
+      }
+    ]
+  },
+  "level_28": {
+    "targets": [
+      "sandstorm"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_29": {
+    "targets": [
+      "slush"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_30": {
+    "targets": [
+      "tree"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_31": {
+    "targets": [
+      "waves"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "4"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:12"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      }
+    ]
+  },
+  "level_32": {
+    "targets": [
+      "coal"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "5"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      }
+    ]
+  },
+  "level_33": {
+    "targets": [
+      "crater"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "7"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:21"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:42"
+      }
+    ]
+  },
+  "level_34": {
+    "targets": [
+      "leaves"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "5"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      }
+    ]
+  },
+  "level_35": {
+    "targets": [
+      "mushroom"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "6"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:18"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:36"
+      }
+    ]
+  },
+  "level_36": {
+    "targets": [
+      "wood"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "5"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:15"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:30"
+      }
+    ]
+  },
+  "level_37": {
+    "targets": [
+      "mycelium"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "7"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:21"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:42"
+      }
+    ]
+  },
+  "level_38": {
+    "targets": [
+      "rustling"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "7"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:21"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:42"
+      }
+    ]
+  },
+  "level_39": {
+    "targets": [
+      "echo"
+    ],
+    "objectives": [
+      {
+        "type": "FinishByReactions",
+        "data": "8"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:24"
+      },
+      {
+        "type": "FinishByTime",
+        "data": "00:00:48"
+      }
+    ]
+  }
+}

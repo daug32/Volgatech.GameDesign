@@ -1,0 +1,414 @@
+{
+  "water": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "earth": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "air": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "fire": {
+    "isDiscovered": true,
+    "parents": []
+  },
+  "plant": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "water",
+        "earth"
+      ]
+    ]
+  },
+  "humidity": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "water",
+        "air"
+      ]
+    ]
+  },
+  "steam": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "river",
+        "fire"
+      ],
+      [
+        "lava",
+        "rain"
+      ],
+      [
+        "fire",
+        "water"
+      ]
+    ]
+  },
+  "sand": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "earth",
+        "air"
+      ]
+    ]
+  },
+  "lava": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "fire",
+        "fire"
+      ]
+    ]
+  },
+  "smoke": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "air",
+        "fire"
+      ]
+    ]
+  },
+  "flower": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "plant",
+        "water"
+      ]
+    ]
+  },
+  "stone": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "lava",
+        "water"
+      ]
+    ]
+  },
+  "rain": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "water",
+        "smoke"
+      ]
+    ]
+  },
+  "river": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "rain",
+        "rain"
+      ]
+    ]
+  },
+  "cloud": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "steam",
+        "steam"
+      ]
+    ]
+  },
+  "seeds": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "earth",
+        "flower"
+      ],
+      [
+        "fruit",
+        "water"
+      ],
+      [
+        "flower",
+        "pollen"
+      ]
+    ]
+  },
+  "fog": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "humidity",
+        "air"
+      ],
+      [
+        "smoke",
+        "wind"
+      ]
+    ]
+  },
+  "lake": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "rain",
+        "river"
+      ],
+      [
+        "crater",
+        "water"
+      ]
+    ]
+  },
+  "sparks": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "fire",
+        "sand"
+      ]
+    ]
+  },
+  "mountain": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "lava",
+        "earth"
+      ]
+    ]
+  },
+  "fruit": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "flower",
+        "water"
+      ]
+    ]
+  },
+  "tree": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "fruit",
+        "earth"
+      ]
+    ]
+  },
+  "wood": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "tree",
+        "tree"
+      ]
+    ]
+  },
+  "wind": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "cloud",
+        "air"
+      ],
+      [
+        "leaves",
+        "air"
+      ]
+    ]
+  },
+  "swamp": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "humidity",
+        "earth"
+      ]
+    ]
+  },
+  "volcano": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "earth",
+        "fire"
+      ]
+    ]
+  },
+  "waves": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "water",
+        "wind"
+      ],
+      [
+        "lake",
+        "wind"
+      ]
+    ]
+  },
+  "gas": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "lava",
+        "air"
+      ]
+    ]
+  },
+  "mud": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "earth",
+        "rain"
+      ]
+    ]
+  },
+  "slush": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "rain",
+        "mud"
+      ]
+    ]
+  },
+  "pollen": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "humidity",
+        "flower"
+      ]
+    ]
+  },
+  "sandstorm": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "wind",
+        "earth"
+      ],
+      [
+        "wind",
+        "sand"
+      ]
+    ]
+  },
+  "leaves": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "tree",
+        "water"
+      ]
+    ]
+  },
+  "storm": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "cloud",
+        "rain"
+      ]
+    ]
+  },
+  "lightning": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "storm",
+        "fire"
+      ]
+    ]
+  },
+  "crater": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "lightning",
+        "earth"
+      ]
+    ]
+  },
+  "coal": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "tree",
+        "fire"
+      ]
+    ]
+  },
+  "mushroom": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "humidity",
+        "tree"
+      ]
+    ]
+  },
+  "mycelium": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "mushroom",
+        "earth"
+      ]
+    ]
+  },
+  "clay": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "sand",
+        "water"
+      ]
+    ]
+  },
+  "ceramics": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "clay",
+        "fire"
+      ]
+    ]
+  },
+  "rustling": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "wind",
+        "leaves"
+      ]
+    ]
+  },
+  "echo": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "rustling",
+        "air"
+      ]
+    ]
+  },
+  "downpour": {
+    "isDiscovered": false,
+    "parents": [
+      [
+        "storm",
+        "water"
+      ]
+    ]
+  }
+}
