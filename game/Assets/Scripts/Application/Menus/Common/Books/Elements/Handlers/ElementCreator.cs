@@ -3,7 +3,6 @@ using Assets.Scripts.Application.Menus.Arcades.Levels;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Events;
 using Assets.Scripts.Application.Menus.Arcades.Repositories;
-using Assets.Scripts.Application.Menus.Common.Books.Handlers;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Utils;
 
@@ -19,7 +18,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
                 yield break;
             }
 
-            var level = UiItemsRepository.GetUserInterface().Level;
+            var level = UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level;
             level.Statistics.ReactionsNumber.Increment();
             
             RemoveUsedElements( firstParentId, secondParentId );
@@ -67,7 +66,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
             }
 
             elementData.IsDiscovered = true;
-            DrawBookElementsHandler.Draw( elementId );
+            level.Book.Draw( elementId );
 
             LevelType currentLevel = level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" );
             LevelData levelData = LevelDataRepository.Get( currentLevel );

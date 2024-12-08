@@ -12,73 +12,75 @@ namespace Assets.Scripts.Application.Handlers
     {
         public static void Initialize( MonoBehaviour behaviour )
         {
-            UserInterface userInterface = UiItemsRepository.GetUserInterface();
+            UserInterface ui = UiItemsRepository.GetUserInterface();
 
-            LevelCompletedEventManager.Add( () => behaviour.StartCoroutine( CompleteLevel( userInterface ) ) );
+            LevelCompletedEventManager.Add( () => behaviour.StartCoroutine( CompleteLevel( ui ) ) );
 
-            userInterface.Menu.MainMenu.ArcadeButtonEventManager.AddWithCommonPriority( () => ShowArcadeMenu( userInterface ) );
-            userInterface.Menu.MainMenu.ExitButtonEventManager.AddWithCommonPriority( UnityEngine.Application.Quit );
+            ui.Menu.MainMenu.ArcadeButtonEventManager.AddWithCommonPriority( () => ShowArcadeMenu( ui ) );
+            ui.Menu.MainMenu.ExitButtonEventManager.AddWithCommonPriority( UnityEngine.Application.Quit );
 
-            userInterface.Menu.ArcadeMenu.GetBackButtonEventManager.AddWithCommonPriority( () => ShowMainMenu( userInterface ) );
-            userInterface.Menu.ArcadeMenu.ChooseLevelEventManger.AddWithCommonPriority( levelType => LoadLevel( levelType, userInterface ) );
+            ui.Menu.ArcadeMenu.GetBackButtonEventManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
+            ui.Menu.ArcadeMenu.ChooseLevelEventManger.AddWithCommonPriority( levelType => LoadLevel( levelType, ui ) );
+            ui.Menu.ArcadeMenu.Level.OpenLevelSettingsEventManager.AddWithCommonPriority( () => OpenLevelSettings( ui ) );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.GetToLevelEventManager.AddWithCommonPriority( () => HideLevelSettings( ui ) );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.GetToMainMenuEvenManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
 
-            userInterface.Level.OpenLevelSettingsEventManager.AddWithCommonPriority( () => OpenLevelSettings( userInterface ) );
-            userInterface.Level.LevelSettings.GetToLevelEventManager.AddWithCommonPriority( () => HideLevelSettings( userInterface ) );
-            userInterface.Level.LevelSettings.GetToMainMenuEvenManager.AddWithCommonPriority( () => ShowMainMenu( userInterface ) );
-
-            ShowMainMenu( userInterface );
+            ShowMainMenu( ui );
         }
 
-        private static void OpenLevelSettings( UserInterface userInterface )
+        private static void OpenLevelSettings( UserInterface ui )
         {
-            userInterface.Level.Statistics.Pause();
-            LevelType currentLevel = userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" );
-            userInterface.Level.LevelSettings.ShowSettings( currentLevel );
-            userInterface.Level.SetElementsInteractionsBlock( true );
+            ui.Menu.ArcadeMenu.Level.Statistics.Pause();
+            LevelType currentLevel = ui.Menu.ArcadeMenu.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.ShowSettings( currentLevel );
+            ui.Menu.ArcadeMenu.Level.SetElementsInteractionsBlock( true );
         }
 
-        private static void HideLevelSettings( UserInterface userInterface )
+        private static void HideLevelSettings( UserInterface ui )
         {
-            userInterface.Level.LevelSettings.HideSettings();
-            userInterface.Level.SetElementsInteractionsBlock( false );
-            userInterface.Level.Statistics.Resume();
+            ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
+            ui.Menu.ArcadeMenu.Level.SetElementsInteractionsBlock( false );
+            ui.Menu.ArcadeMenu.Level.Statistics.Resume();
         }
 
-        private static void ShowArcadeMenu( UserInterface userInterface )
+        private static void ShowArcadeMenu( UserInterface ui )
         {
             LevelDataRepository.Load();
             
-            userInterface.Level.LevelSettings.HideSettings();
-            userInterface.Level.UnloadLevel();
-            userInterface.Menu.SetActive( true );
-            userInterface.Menu.MainMenu.SetActive( false );
-            userInterface.Menu.ArcadeMenu.SetActive( true );
+            ui.Menu.ArcadeMenu.SetActive( true );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
+            ui.Menu.ArcadeMenu.Level.UnloadLevel();
+
+            ui.Menu.SetActive( true );
+            ui.Menu.MainMenu.SetActive( false );
         }
 
-        private static void ShowMainMenu( UserInterface userInterface )
+        private static void ShowMainMenu( UserInterface ui )
         {
-            userInterface.Level.LevelSettings.HideSettings();
-            userInterface.Level.UnloadLevel();
-            userInterface.Menu.SetActive( true );
-            userInterface.Menu.MainMenu.SetActive( true );
-            userInterface.Menu.ArcadeMenu.SetActive( false );
+            ui.Menu.ArcadeMenu.SetActive( false );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
+            ui.Menu.ArcadeMenu.Level.UnloadLevel();
+
+            ui.Menu.SetActive( true );
+            ui.Menu.MainMenu.SetActive( true );
         }
 
-        private static void LoadLevel( LevelType levelType, UserInterface userInterface )
+        private static void LoadLevel( LevelType levelType, UserInterface ui )
         {
-            userInterface.Level.LevelSettings.HideSettings();
-            userInterface.Level.LoadLevel( levelType );
-            userInterface.Menu.SetActive( false );
-            userInterface.Menu.MainMenu.SetActive( false );
-            userInterface.Menu.ArcadeMenu.SetActive( false );
+            ui.Menu.ArcadeMenu.SetActive( false );
+            ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
+            ui.Menu.ArcadeMenu.Level.LoadLevel( levelType );
+
+            ui.Menu.SetActive( true );
+            ui.Menu.MainMenu.SetActive( false );
         }
 
-        private static IEnumerator CompleteLevel( UserInterface userInterface )
+        private static IEnumerator CompleteLevel( UserInterface ui )
         {
-            yield return userInterface.Level.CompleteLevel();
-            LevelType nextLevel = GetNextLevel( userInterface.Level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" ) );
-            userInterface.Level.UnloadLevel();
-            LoadLevel( nextLevel, userInterface );
+            yield return ui.Menu.ArcadeMenu.Level.CompleteLevel();
+            LevelType nextLevel = GetNextLevel( ui.Menu.ArcadeMenu.Level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" ) );
+            ui.Menu.ArcadeMenu.Level.UnloadLevel();
+            LoadLevel( nextLevel, ui );
         }
         
         private static LevelType GetNextLevel( LevelType currentLevel )

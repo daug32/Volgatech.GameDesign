@@ -28,7 +28,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
             RectTransform = gameObject.GetComponent<RectTransform>();
             RectTransform.sizeDelta = sizeDelta;
 
-            var book = UiItemsRepository.GetUserInterface().Level.Book;
+            var book = UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level.Book;
             DndBehaviour = gameObject.AddInteractiveElementDragAndDrop(
                 element,
                 book.RectTransform,
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
             return new InteractiveElement(
                 element,
                 sizeDelta,
-                element.CreateGameObject().WithParent( userInterface.Level.InteractiveElementsContainer ) );
+                element.CreateGameObject().WithParent( userInterface.Menu.ArcadeMenu.Level.InteractiveElementsContainer ) );
         }
     }
 }

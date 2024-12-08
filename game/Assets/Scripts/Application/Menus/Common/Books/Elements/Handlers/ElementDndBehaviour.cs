@@ -128,7 +128,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
 
         private bool CanDnd()
         {
-            return !UiItemsRepository.GetUserInterface().Level.AreInteractionsBlocked;
+            return !UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level.AreInteractionsBlocked;
         }
     }
 }

@@ -53,12 +53,12 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
                 levelData, 
                 Statistics );
         }
-
+        
         public void LoadLevel( LevelType levelType )
         {
             ElementsDataRepository.LoadForLevel( levelType );
-            DrawBookElementsHandler.DrawAll();
 
+            Book.DrawAll();
             CurrentLevel = levelType;
             Statistics.Reset();
 
@@ -70,10 +70,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         public void UnloadLevel()
         {
             CurrentLevel = null;
-            
+
+            Book.RemoveAll();
             LevelCompleted.Hide();
-            InteractiveElementRepository.RemoveAll();
-            DrawBookElementsHandler.RemoveAllElements();
             
             SetElementsInteractionsBlock( true );
 

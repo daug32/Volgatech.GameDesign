@@ -1,4 +1,5 @@
 using Assets.Scripts.Application.Menus.Arcades.Handlers;
+using Assets.Scripts.Application.Menus.Arcades.Levels;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -9,9 +10,13 @@ namespace Assets.Scripts.Application.Ui.Arcades
     internal class ArcadeMenuUi
     {
         private readonly GameObject _gameObject;
+        
         public readonly EventManager GetBackButtonEventManager = new();
         public readonly EventManager<LevelType> ChooseLevelEventManger = new();
-        
+
+        public readonly LevelUi Level;
+
+        private readonly GameObjectChildrenContainer _menuContainer;
         public readonly GameObject LevelsContainer;
         public readonly GameObject ExampleLevel;
         
@@ -20,15 +25,18 @@ namespace Assets.Scripts.Application.Ui.Arcades
             _gameObject = gameObject;
             
             var childContainer = new GameObjectChildrenContainer( gameObject );
-            childContainer.Get( "back_button" ).GetComponent<Button>().onClick.AddListener( GetBackButtonEventManager.Trigger );
 
-            LevelsContainer = childContainer.Get( "levels" ); 
+            Level = new LevelUi( childContainer.Get( "level" ) );
+
+            _menuContainer = new GameObjectChildrenContainer( childContainer.Get( "menu_container" ) );
+            _menuContainer.Get( "back_button" ).GetComponent<Button>().onClick.AddListener( GetBackButtonEventManager.Trigger );
+            LevelsContainer = _menuContainer.Get( "levels" ); 
             ExampleLevel = LevelsContainer.FindChild( "example_level" );
         }
 
         public void SetActive( bool activity )
         {
-            _gameObject.SetActive( activity );
+            _menuContainer.GameObject.SetActive( activity );
 
             if ( activity )
             {
