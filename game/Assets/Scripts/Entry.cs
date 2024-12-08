@@ -1,4 +1,4 @@
-using Assets.Scripts.Application.Ui.Handlers;
+using Assets.Scripts.Application.Handlers;
 using Assets.Scripts.Tests;
 using UnityEngine;
 

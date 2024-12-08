@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Repositories.Levels;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Repositories;
 
 namespace Assets.Scripts.Tests
 {

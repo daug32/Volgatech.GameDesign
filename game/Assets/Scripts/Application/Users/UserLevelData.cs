@@ -1,5 +1,6 @@
 using System;
-using Assets.Scripts.Application.Levels;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
 
 namespace Assets.Scripts.Application.Users
 {

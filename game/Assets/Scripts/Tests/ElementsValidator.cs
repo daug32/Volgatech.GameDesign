@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Application.Elements;
-using Assets.Scripts.Application.Levels;
-using Assets.Scripts.Repositories.Elements;
-using Assets.Scripts.Repositories.Levels;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Repositories;
+using Assets.Scripts.Application.Menus.Common.Books.Elements;
+using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 
 namespace Assets.Scripts.Tests
 {
