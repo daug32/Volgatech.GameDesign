@@ -1,34 +1,29 @@
-using System.Collections;
-using Assets.Scripts.Application.Menus.Arcades.Levels;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Events;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
-using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
 {
-    public static class ElementCreator
+    internal static class ElementCreator
     {
-        public static IEnumerator Create( InteractiveElementId firstParentId, InteractiveElementId secondParentId )
+        public static void Create(
+            InteractiveElementId firstParentId,
+            InteractiveElementId secondParentId,
+            Book relatedBook )
         {
-            ElementId newElementId = CreateNewElement( firstParentId, secondParentId );
+            ElementId newElementId = CreateNewElement( firstParentId, secondParentId, relatedBook );
             if ( newElementId == null )
             {
-                yield break;
+                return;
             }
 
-            var level = UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level;
-            level.Statistics.ReactionsNumber.Increment();
+            relatedBook.OnElementCreated.Trigger( newElementId );
             
             RemoveUsedElements( firstParentId, secondParentId );
-
-            yield return DiscoverElementIfNeeded( newElementId, level );
         }
 
-        private static ElementId CreateNewElement( 
+        private static ElementId CreateNewElement(
             InteractiveElementId firstParentId,
-            InteractiveElementId secondParentId )
+            InteractiveElementId secondParentId, 
+            Book relatedBook )
         {
             InteractiveElement firstParent = InteractiveElementRepository.Get( firstParentId );
             ElementId firstElementId = firstParent.Element.Id;
@@ -44,7 +39,8 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
 
             var interactiveElement = InteractiveElement.Create(
                 ElementsRepository.Get( newElementId ),
-                firstParent.RectTransform.sizeDelta );
+                firstParent.RectTransform.sizeDelta,
+                relatedBook );
             interactiveElement.RectTransform.position = firstParent.RectTransform.position;
             InteractiveElementRepository.Add( interactiveElement );
             
@@ -55,26 +51,6 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
         {
             InteractiveElementRepository.Remove( firstParentId );
             InteractiveElementRepository.Remove( secondParentId );
-        }
-
-        private static IEnumerator DiscoverElementIfNeeded( ElementId elementId, LevelUi level )
-        {
-            var elementData = ElementsDataRepository.Get( elementId );
-            if ( elementData.IsDiscovered )
-            {
-                yield return null;
-            }
-
-            elementData.IsDiscovered = true;
-            level.Book.Draw( elementId );
-
-            LevelType currentLevel = level.CurrentLevel.ThrowIfNull( message: "Level was not loaded" );
-            LevelData levelData = LevelDataRepository.Get( currentLevel );
-            
-            if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
-            {
-                LevelCompletedEventManager.Trigger();
-            }
         }
     }
 }

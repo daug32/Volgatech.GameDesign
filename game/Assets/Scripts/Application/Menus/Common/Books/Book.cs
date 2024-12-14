@@ -11,15 +11,25 @@ namespace Assets.Scripts.Application.Menus.Common.Books
     {
         public readonly GameObject GameObject;
         public readonly RectTransform RectTransform;
+
+        public readonly EventManager<ElementId> OnElementCreated = new();
+
+        public readonly GameObject InteractiveElementsContainer;
         
         public Book( GameObject gameObject )
         {
             GameObject = gameObject.ThrowIfNull( nameof( Book ) );
             RectTransform = gameObject.GetComponent<RectTransform>();
+            InteractiveElementsContainer = GameObject
+               .FindChild( "interactive_elements_container" )
+               .ThrowIfNull( nameof( InteractiveElementsContainer ) );
+            OnElementCreated.AddWithHighestPriority( Draw );
         }
 
-        public void DrawAll()
+        public void Load()
         {
+            Unload();
+
             var elements = new List<GameObject>();
             foreach ( Element element in ElementsRepository.GetAll() )
             {
@@ -31,7 +41,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books
                 GameObject elementGameObject = element
                    .CreateGameObject( false )
                    .WithParent( GameObject );
-                elementGameObject.AddIconDragAndDrop( element, RectTransform );
+                elementGameObject.AddIconDragAndDrop( element, this );
                 elements.Add( elementGameObject );
             }
             
@@ -41,16 +51,34 @@ namespace Assets.Scripts.Application.Menus.Common.Books
 
         public void Draw( ElementId elementId )
         {
-            Element element = ElementsRepository.Get( elementId );            
+            var elementData = ElementsDataRepository.Get( elementId );
+            if ( elementData.IsDiscovered )
+            {
+                return;
+            }
+
+            Element element = ElementsRepository.Get( elementId );
+            elementData.IsDiscovered = true;
+                  
             GameObject elementGameObject = element.CreateGameObject().WithParent( GameObject );
-            elementGameObject.AddIconDragAndDrop( element, RectTransform );
+            elementGameObject.AddIconDragAndDrop( element, this );
         }
 
-        public void RemoveAll()
+        public void Unload()
         {
-            foreach ( Transform element in GameObject.transform )
+            foreach ( Transform element in InteractiveElementsContainer.transform )
             {
-                Object.Destroy( element.gameObject );
+                Object.Destroy( element.gameObject ); 
+            }
+
+            foreach ( var gameObject in GameObject.FindChildren() )
+            {
+                if ( gameObject == InteractiveElementsContainer )
+                {
+                    continue;
+                }
+                
+                Object.Destroy( gameObject );
             }
         }
     }

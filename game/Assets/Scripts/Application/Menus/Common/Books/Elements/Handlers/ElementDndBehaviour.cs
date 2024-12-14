@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Application.Menus.Common.Books.Repositories;
+﻿using Assets.Scripts.Application.Menus.Common.Books.Handlers;
+using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,13 +11,13 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
         public static ElementDndBehaviour AddIconDragAndDrop(
             this GameObject obj,
             Element element,
-            RectTransform bookRectTransform )
+            Book book )
         {
             var dnd = obj.AddComponent<ElementDndBehaviour>();
-            dnd.BookRectTransform = bookRectTransform;
             dnd.Element = element;
             dnd.IsIconElement = true;
             dnd.InteractiveElementId = null;
+            dnd.RelatedBook = book;
 
             return dnd;
         }
@@ -24,14 +25,14 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
         public static ElementDndBehaviour AddInteractiveElementDragAndDrop(
             this GameObject obj,
             Element element,
-            RectTransform bookRectTransform,
-            InteractiveElementId interactiveElementId )
+            InteractiveElementId interactiveElementId,
+            Book book )
         {
             var dnd = obj.AddComponent<ElementDndBehaviour>();
-            dnd.BookRectTransform = bookRectTransform;
             dnd.Element = element;
             dnd.IsIconElement = false;
             dnd.InteractiveElementId = interactiveElementId;
+            dnd.RelatedBook = book;
 
             return dnd;
         }
@@ -39,19 +40,19 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
 
     internal class ElementDndBehaviour : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
-        [SerializeField]
-        public RectTransform BookRectTransform;
         [SerializeField] 
         public Element Element;
         [SerializeField]
         public bool IsIconElement;
+        [SerializeField]
+        public Book RelatedBook;
 
         public InteractiveElementId InteractiveElementId { get; set; }
 
         private void Start()
         {
             Element.ThrowIfNull( nameof( Element ) );
-            BookRectTransform.ThrowIfNull( nameof( Element ) );
+            RelatedBook?.RectTransform.ThrowIfNull( nameof( Element ) );
         }
 
         public void OnBeginDrag( PointerEventData eventData )
@@ -62,15 +63,16 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
             {
                 var interactiveElement = InteractiveElement.Create(
                     Element,
-                    gameObject.GetComponent<RectTransform>().sizeDelta );
+                    gameObject.GetComponent<RectTransform>().sizeDelta,
+                    RelatedBook );
                 InteractiveElementRepository.Add( interactiveElement );
-                InteractiveElementId = interactiveElement.SceneId;
+                InteractiveElementId = interactiveElement.Id;
 
                 ElementDndBehaviour dndBehaviour = interactiveElement.DndBehaviour;
-                dndBehaviour.BookRectTransform = BookRectTransform;
                 dndBehaviour.Element = Element;
                 dndBehaviour.InteractiveElementId = InteractiveElementId;
                 dndBehaviour.IsIconElement = false;
+                dndBehaviour.RelatedBook = RelatedBook;
             }
 
             var element = InteractiveElementRepository.Get( InteractiveElementId );
@@ -123,12 +125,15 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
                 return;
             }
 
-            StartCoroutine( ElementCreator.Create( InteractiveElementId, anotherDnd.InteractiveElementId ) );
+            ElementCreator.Create(
+                InteractiveElementId,
+                anotherDnd.InteractiveElementId,
+                RelatedBook );
         }
 
         private bool CanDnd()
         {
-            return !UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level.AreInteractionsBlocked;
+            return !ElementsInteractionBlocker.AreInteractionsBlocked;
         }
     }
 }

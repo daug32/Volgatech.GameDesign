@@ -6,7 +6,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
 {
     internal class InteractiveElement
     {
-        public readonly InteractiveElementId SceneId = new();
+        public readonly InteractiveElementId Id = new();
 
         public readonly Element Element;
         public readonly GameObject GameObject;
@@ -18,34 +18,29 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
         private InteractiveElement( 
             Element element,
             Vector2 sizeDelta,
-            GameObject gameObject )
+            Book book )
         {
             Element = element;
 
-            GameObject = gameObject;
-            GameObject.name = $"{element.BuildName()}_{SceneId}";
+            GameObject = element.CreateGameObject().WithParent( book.InteractiveElementsContainer );
+            GameObject.name = $"{element.BuildName()}_{Id}";
             
-            RectTransform = gameObject.GetComponent<RectTransform>();
+            RectTransform = GameObject.GetComponent<RectTransform>();
             RectTransform.sizeDelta = sizeDelta;
 
-            var book = UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level.Book;
-            DndBehaviour = gameObject.AddInteractiveElementDragAndDrop(
-                element,
-                book.RectTransform,
-                SceneId );
-            CanvasGroup = gameObject.AddComponent<CanvasGroup>();
+            DndBehaviour = GameObject.AddInteractiveElementDragAndDrop( element, Id, book );
+            CanvasGroup = GameObject.AddComponent<CanvasGroup>();
         }
 
         public static InteractiveElement Create( 
             Element element, 
-            Vector2 sizeDelta )
+            Vector2 sizeDelta,
+            Book book )
         {
-            var userInterface = UiItemsRepository.GetUserInterface();
-            
             return new InteractiveElement(
                 element,
                 sizeDelta,
-                element.CreateGameObject().WithParent( userInterface.Menu.ArcadeMenu.Level.InteractiveElementsContainer ) );
+                book );
         }
     }
 }

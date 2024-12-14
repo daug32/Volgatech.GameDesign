@@ -17,24 +17,34 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         private readonly GameObjectChildrenContainer _childrenContainer;
         
         public LevelType? CurrentLevel { get; private set; }
-        public bool AreInteractionsBlocked { get; private set; }
 
         public readonly LevelStatistics Statistics = new();
 
         public readonly Book Book;
         public readonly LevelSettingsUi LevelSettings;
         public readonly LevelCompletedUi LevelCompleted;
-        public readonly GameObject InteractiveElementsContainer;
 
+        public readonly EventManager<LevelType> LevelCompletedEventManager = new();
         public readonly EventManager OpenLevelSettingsEventManager = new();
 
         public LevelUi( GameObject gameObject )
         {
             _childrenContainer = new GameObjectChildrenContainer( gameObject );
+
             Book = new Book( _childrenContainer.Get( "book" ) );
+            Book.OnElementCreated.AddWithCommonPriority( element =>
+            {
+                Statistics.ReactionsNumber.Increment();
+
+                LevelData levelData = LevelDataRepository.Get( CurrentLevel!.Value );
+                if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
+                {
+                    LevelCompletedEventManager.Trigger( CurrentLevel.Value );
+                }
+            } );
+
             LevelSettings = new LevelSettingsUi( _childrenContainer.Get( "settings" ) );
             LevelCompleted = new LevelCompletedUi( _childrenContainer.Get( "success" ) );
-            InteractiveElementsContainer = _childrenContainer.Get( "interactive_elements_container" );
             _childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( OpenLevelSettingsEventManager.Trigger );
         }
 
@@ -46,8 +56,8 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             var userData = UserDataRepository.Get().Arcade[ CurrentLevel!.Value ];
             userData.Apply( levelData, Statistics );
             UserDataRepository.Commit();
-
-            SetElementsInteractionsBlock( true );
+            
+            ElementsInteractionBlocker.BlockInteractions();
 
             return LevelCompleted.Show( 
                 levelData, 
@@ -57,12 +67,12 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         public void LoadLevel( LevelType levelType )
         {
             ElementsDataRepository.LoadForLevel( levelType );
+            
+            ElementsInteractionBlocker.AllowInteractions();
 
-            Book.DrawAll();
+            Book.Load();
             CurrentLevel = levelType;
             Statistics.Reset();
-
-            SetElementsInteractionsBlock( false );
             
             _childrenContainer.GameObject.SetActive( true );
         }
@@ -71,17 +81,10 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         {
             CurrentLevel = null;
 
-            Book.RemoveAll();
+            Book.Unload();
             LevelCompleted.Hide();
             
-            SetElementsInteractionsBlock( true );
-
             _childrenContainer.GameObject.SetActive( false );
-        }
-
-        public void SetElementsInteractionsBlock( bool areInteractionsBlocked )
-        {
-            AreInteractionsBlocked = areInteractionsBlocked;
         }
     }
 }

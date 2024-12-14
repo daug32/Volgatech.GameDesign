@@ -11,7 +11,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Repositories
 
         public static void Add( InteractiveElement element )
         {
-            _elements.Add( element.SceneId, element );
+            _elements.Add( element.Id, element );
         }
 
         public static InteractiveElement Get( InteractiveElementId id )
