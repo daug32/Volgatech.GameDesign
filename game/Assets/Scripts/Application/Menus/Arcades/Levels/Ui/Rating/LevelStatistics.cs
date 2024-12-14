@@ -9,23 +9,18 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating
         public Atomic ReactionsNumber;
         
         private StoppableTime _gameTime;
-        public TimeSpan GameTime { get; private set; } = TimeSpan.MaxValue;
+        public TimeSpan GameTime => _gameTime.Calculate();
 
-        public static LevelStatistics FromUserLevelData( UserLevelData userLevelData )
+        public static LevelStatistics FromUserLevelData( UserLevelData userLevelData ) => new()
         {
-            var statistics = new LevelStatistics()
-            {
-                ReactionsNumber = new Atomic( userLevelData.ReactionsNumber ?? 0 ),
-                GameTime = userLevelData.BestCompetitionTime ?? TimeSpan.MaxValue 
-            };
-            return statistics;
-        }
+            ReactionsNumber = new Atomic( userLevelData.ReactionsNumber ?? 0 ),
+            _gameTime = StoppableTime.Start( userLevelData.BestCompetitionTime ?? TimeSpan.MaxValue ).Commit()
+        };
 
         public void Reset()
         {
             ReactionsNumber = new Atomic();
             _gameTime = StoppableTime.Start();
-            GameTime = TimeSpan.MaxValue;
         }
 
         public void Resume()
@@ -40,7 +35,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating
 
         public void Commit()
         {
-            GameTime = _gameTime.Calculate();
+            _gameTime.Commit();
         }
     }
 }

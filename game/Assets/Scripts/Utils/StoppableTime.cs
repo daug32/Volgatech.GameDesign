@@ -11,10 +11,17 @@ namespace Assets.Scripts.Utils
         private readonly List<(DateTime blockStart, DateTime? blockEnd)> _blocks = new();
         public bool IsPaused { get; private set; }
 
-        private StoppableTime() => _start = DateTime.Now;
-        public static StoppableTime Start() => new();
+        private StoppableTime( TimeSpan addIntoStatistics )
+        {
+            _start = DateTime.Now.Subtract( addIntoStatistics );
+        }
 
-        public void Pause()
+        public static StoppableTime Start( TimeSpan? addIntoStatistics = null )
+        {
+            return new StoppableTime( addIntoStatistics ?? TimeSpan.Zero );
+        }
+
+        public StoppableTime Pause()
         {
             if ( _end != null )
             {
@@ -28,9 +35,11 @@ namespace Assets.Scripts.Utils
 
             _blocks.Add( ( DateTime.Now, null ) );
             IsPaused = true;
+            
+            return this;
         }
 
-        public void Resume()
+        public StoppableTime Resume()
         {
             if ( _end != null )
             {
@@ -44,11 +53,19 @@ namespace Assets.Scripts.Utils
 
             _blocks[ ^1 ] = ( _blocks[ ^1 ].blockStart, DateTime.Now );
             IsPaused = false;
+            
+            return this;
+        }
+
+        public StoppableTime Commit()
+        {
+            _end = DateTime.Now;
+            return this;
         }
 
         public TimeSpan Calculate()
         {
-            _end = DateTime.Now;
+            var end = _end ?? DateTime.Now;
 
             var marks = _blocks
                .SelectMany( x => new[] { x.blockStart, x.blockEnd } )
@@ -56,7 +73,7 @@ namespace Assets.Scripts.Utils
                .Select( x => x.Value )
                .OrderBy( x => x )
                .ToList();
-            marks.Add( _end.Value );
+            marks.Add( end );
 
             var lastMark = _start;
             bool shouldCalculate = true;

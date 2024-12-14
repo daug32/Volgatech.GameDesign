@@ -62,6 +62,7 @@ namespace Assets.Scripts.Application.Handlers
             ui.Menu.ArcadeMenu.SetActive( false );
             ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
             ui.Menu.ArcadeMenu.Level.UnloadLevel();
+            ui.Menu.ArcadeMenu.Level.Timer.SetActive( false );
             
             ui.Menu.SandboxMenu.SetActive( false );
 

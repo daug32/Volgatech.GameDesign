@@ -16,6 +16,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
     internal class LevelSettingsUi
     {
         private readonly GameObject _gameObject;
+        public bool IsActive => _gameObject.activeSelf;
 
         private readonly GameObject _levelTitle;
         private readonly GameObject _targetsContainer;
