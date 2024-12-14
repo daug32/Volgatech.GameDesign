@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets.Scripts.Utils
 {
-    internal class EventManager<T>
+    public class EventManager<T>
     {
         private class EventListener
         {
