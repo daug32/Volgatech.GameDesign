@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Application.Menus.Arcades.Repositories;
-using Assets.Scripts.Application.Menus.Common.Books.Handlers;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -21,28 +20,11 @@ namespace Assets.Scripts.Application.Handlers
             ui.Menu.ArcadeMenu.GetBackButtonEventManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
             ui.Menu.ArcadeMenu.ChooseLevelEventManger.AddWithCommonPriority( levelType => LoadLevel( levelType, ui ) );
             ui.Menu.ArcadeMenu.Level.LevelCompletedEventManager.AddWithCommonPriority( completedLevel => behaviour.StartCoroutine( CompleteLevel( ui ) ) );
-            ui.Menu.ArcadeMenu.Level.OpenLevelSettingsEventManager.AddWithCommonPriority( () => OpenLevelSettings( ui ) );
-            ui.Menu.ArcadeMenu.Level.LevelSettings.GetToLevelEventManager.AddWithCommonPriority( () => HideLevelSettings( ui ) );
             ui.Menu.ArcadeMenu.Level.LevelSettings.GetToMainMenuEvenManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
             
             ui.Menu.SandboxMenu.GetToMainMenuEvenManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
 
             ShowMainMenu( ui );
-        }
-
-        private static void OpenLevelSettings( UserInterface ui )
-        {
-            ui.Menu.ArcadeMenu.Level.Statistics.Pause();
-            LevelType currentLevel = ui.Menu.ArcadeMenu.Level.CurrentLevel.ThrowIfNull( message: "Level is not loaded" );
-            ui.Menu.ArcadeMenu.Level.LevelSettings.ShowSettings( currentLevel );
-            ElementsInteractionBlocker.BlockInteractions();
-        }
-
-        private static void HideLevelSettings( UserInterface ui )
-        {
-            ui.Menu.ArcadeMenu.Level.LevelSettings.HideSettings();
-            ElementsInteractionBlocker.AllowInteractions();
-            ui.Menu.ArcadeMenu.Level.Statistics.Resume();
         }
 
         private static void ShowArcadeMenu( UserInterface ui )

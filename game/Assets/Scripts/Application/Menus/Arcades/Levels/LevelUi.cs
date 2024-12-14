@@ -14,11 +14,11 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 {
     internal class LevelUi
     {
-        private readonly GameObjectChildrenContainer _childrenContainer;
+        private readonly GameObject _gameObject;
         
         public LevelType? CurrentLevel { get; private set; }
 
-        public readonly LevelStatistics Statistics = new();
+        public LevelStatistics Statistics;
 
         public readonly Book Book;
         public readonly LevelSettingsUi LevelSettings;
@@ -26,34 +26,43 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         public readonly LevelTimerUi Timer;
 
         public readonly EventManager<LevelType> LevelCompletedEventManager = new();
-        public readonly EventManager OpenLevelSettingsEventManager = new();
 
         public LevelUi( GameObject gameObject )
         {
-            _childrenContainer = new GameObjectChildrenContainer( gameObject );
+            _gameObject = gameObject;
+            var childrenContainer = new GameObjectChildrenContainer( gameObject );
+            
+            // Statistics
+            Timer = new LevelTimerUi( childrenContainer.Get( "timer" ) );
+            Statistics = new LevelStatistics();
 
-            Book = new Book( _childrenContainer.Get( "book" ) );
-            Book.OnElementCreated.AddWithCommonPriority( element =>
+            // Elements
+            Book = new Book( childrenContainer.Get( "book" ) );
+            Book.OnElementCreated.AddWithCommonPriority( _ =>
             {
                 Statistics.ReactionsNumber.Increment();
 
-                LevelData levelData = LevelDataRepository.Get( CurrentLevel!.Value );
-                if ( levelData.IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
+                if ( !LevelDataRepository.Get( CurrentLevel!.Value ).IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
                 {
-                    LevelCompletedEventManager.Trigger( CurrentLevel.Value );
+                    return;
                 }
+
+                LevelCompletedEventManager.Trigger( CurrentLevel.Value );
             } );
 
-            LevelSettings = new LevelSettingsUi( _childrenContainer.Get( "settings" ) );
-            LevelCompleted = new LevelCompletedUi( _childrenContainer.Get( "success" ) );
-            _childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( OpenLevelSettingsEventManager.Trigger );
-            Timer = new LevelTimerUi( _childrenContainer.Get( "timer" ) );
+            // Level settings
+            LevelSettings = new LevelSettingsUi( childrenContainer.Get( "settings" ) );
+            LevelSettings.GetToLevelEventManager.AddWithCommonPriority( HideSettings );
+            childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( ShowSettings );
+
+            // Level completed
+            LevelCompleted = new LevelCompletedUi( childrenContainer.Get( "success" ) );
         }
 
         public IEnumerator CompleteLevel()
         {
-            Statistics.Commit();
             Timer.PauseTimer();
+            Statistics.UpdateLevelTime( Timer.GetElapsedTime() );
             
             var levelData = LevelDataRepository.Get( CurrentLevel!.Value );
             var userData = UserDataRepository.Get().Arcade[ CurrentLevel!.Value ];
@@ -62,24 +71,35 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             
             ElementsInteractionBlocker.BlockInteractions();
 
-            return LevelCompleted.Show( 
-                levelData, 
-                Statistics );
+            return LevelCompleted.Show( levelData, Statistics );
         }
         
         public void LoadLevel( LevelType levelType )
         {
             ElementsDataRepository.LoadForLevel( levelType );
-            
             ElementsInteractionBlocker.AllowInteractions();
 
             Book.Load();
             CurrentLevel = levelType;
+            Statistics = new LevelStatistics();
             Timer.SetActive( true );
-            Statistics.Reset();
-            Timer.ResumeTimer();
+            Timer.ResetTimer();
             
-            _childrenContainer.GameObject.SetActive( true );
+            _gameObject.SetActive( true );
+        }
+
+        public void ShowSettings()
+        {
+            Timer.PauseTimer();
+            ElementsInteractionBlocker.BlockInteractions();
+            LevelSettings.ShowSettings( CurrentLevel!.Value );
+        }
+
+        public void HideSettings()
+        {
+            LevelSettings.HideSettings();
+            ElementsInteractionBlocker.AllowInteractions();
+            Timer.ResumeTimer();
         }
 
         public void UnloadLevel()
@@ -90,10 +110,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             LevelCompleted.Hide();
             Timer.PauseTimer();
             Timer.SetActive( false );
+            Statistics = null;
             
-            _childrenContainer.GameObject.SetActive( false );
+            _gameObject.SetActive( false );
         }
-
-        public bool IsActive => _childrenContainer.GameObject.activeSelf;
     }
 }

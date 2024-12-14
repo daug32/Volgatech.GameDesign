@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -7,55 +8,72 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 {
     public class ArcadeTimerBehaviour : MonoBehaviour
     {
+        private StoppableTime _stoppableTime;
         private TextMeshProUGUI _timerText;
         private Coroutine _updateTimerCoroutine;
 
         private void Start()
         {
-            _timerText = gameObject.FindChild( "text" )?.GetComponent<TextMeshProUGUI>();
-
-            if ( _timerText == null )
-            {
-                Debug.LogError( "TextMeshProUGUI component not found!" );
-                return;
-            }
-
-            StartTimer();
+            _stoppableTime = new StoppableTime();
+            _timerText = gameObject.FindChild( "text" ).GetComponent<TextMeshProUGUI>();
+            ResumeTimer();
         }
 
-        public void StartTimer()
+        private void Update()
+        {
+            if ( _needToRetryCoroutineStart )
+            {
+                ResumeTimer();
+            }
+        }
+
+        public void ResetTimer()
+        {
+            _stoppableTime = new StoppableTime();
+            ResumeTimer();
+        }
+
+        private bool _needToRetryCoroutineStart = false; 
+        public void ResumeTimer()
         {
             if ( _updateTimerCoroutine == null )
             {
-                Debug.Break();
+                _stoppableTime.Resume();
+                bool canSetCoroutine = gameObject.activeSelf && gameObject.activeInHierarchy;
+                if ( !canSetCoroutine )
+                {
+                    _needToRetryCoroutineStart = true;
+                    return;
+                }
+                
                 _updateTimerCoroutine = StartCoroutine( UpdateTimer() );
+                _needToRetryCoroutineStart = false;
             }
         }
 
-        public void StopTimer()
+        public void PauseTimer()
         {
             if ( _updateTimerCoroutine != null )
             {
+                _stoppableTime.Pause();
                 StopCoroutine( _updateTimerCoroutine );
                 _updateTimerCoroutine = null;
             }
         }
 
+        public TimeSpan GetElapsedTime() => _stoppableTime.Calculate();
+
         private IEnumerator UpdateTimer()
         {
             while ( true )
             {
-                var level = UiItemsRepository.GetUserInterface().Menu.ArcadeMenu.Level;
+                var gameTime = _stoppableTime.Calculate();
 
-                if ( level.IsActive && !level.LevelSettings.IsActive )
-                {
-                    var gameTime = level.Statistics.GameTime;
-                    var totalSeconds = gameTime.TotalSeconds;
-                    var minutes = ( int )totalSeconds / 60;
-                    var seconds = ( int )totalSeconds % 60;
+                var totalSeconds = gameTime.TotalSeconds;
+                var minutes = ( int )totalSeconds / 60;
+                var seconds = ( int )totalSeconds % 60;
 
-                    _timerText.text = $"{minutes:00}:{seconds:00}";
-                }
+                _timerText.text = $"{minutes:00}:{seconds:00}";
 
                 yield return new WaitForSeconds( 1f );
             }

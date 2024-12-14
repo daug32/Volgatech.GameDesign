@@ -1,98 +1,67 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Assets.Scripts.Utils
 {
     public class StoppableTime
     {
-        private readonly DateTime _start;
-        private DateTime? _end;
-        private readonly List<(DateTime blockStart, DateTime? blockEnd)> _blocks = new();
-        public bool IsPaused { get; private set; }
+        private DateTime? _startTime;
+        private TimeSpan _elapsedTime;
+        private bool _isPaused;
 
-        private StoppableTime( TimeSpan addIntoStatistics )
+        public StoppableTime( TimeSpan? initialElapsedTime = null )
         {
-            _start = DateTime.Now.Subtract( addIntoStatistics );
+            _elapsedTime = initialElapsedTime ?? TimeSpan.Zero;
+            _startTime = null;
+            _isPaused = true;
         }
 
-        public static StoppableTime Start( TimeSpan? addIntoStatistics = null )
+        /// <summary>
+        ///     Pauses the timer, storing the elapsed time up to the pause moment.
+        /// </summary>
+        public void Pause()
         {
-            return new StoppableTime( addIntoStatistics ?? TimeSpan.Zero );
-        }
-
-        public StoppableTime Pause()
-        {
-            if ( _end != null )
+            if ( !_isPaused && _startTime.HasValue )
             {
-                throw new InvalidOperationException( "Can't pause time because it was completely stopped" );
+                _elapsedTime += DateTime.Now - _startTime.Value;
+                _startTime = null;
+                _isPaused = true;
             }
-            
-            if ( IsPaused )
-            {
-                throw new InvalidOperationException( "Time was already paused and can not be paused again" );
-            }
-
-            _blocks.Add( ( DateTime.Now, null ) );
-            IsPaused = true;
-            
-            return this;
         }
 
-        public StoppableTime Resume()
+        /// <summary>
+        ///     Resumes the timer from its paused state.
+        /// </summary>
+        public void Resume()
         {
-            if ( _end != null )
+            if ( _isPaused )
             {
-                throw new InvalidOperationException( "Can't resume time because it was completely stopped" );
+                _startTime = DateTime.Now;
+                _isPaused = false;
             }
-            
-            if ( !IsPaused )
-            {
-                throw new InvalidOperationException( "Time was not paused and can not be resumed" );
-            }
-
-            _blocks[ ^1 ] = ( _blocks[ ^1 ].blockStart, DateTime.Now );
-            IsPaused = false;
-            
-            return this;
         }
 
-        public StoppableTime Commit()
+        /// <summary>
+        ///     Resets the timer to its initial state.
+        /// </summary>
+        public void Reset()
         {
-            _end = DateTime.Now;
-            return this;
+            _elapsedTime = TimeSpan.Zero;
+            _startTime = null;
+            _isPaused = true;
         }
 
+        /// <summary>
+        ///     Calculates the total elapsed time.
+        /// </summary>
+        /// <returns>A TimeSpan representing the elapsed time.</returns>
         public TimeSpan Calculate()
         {
-            var end = _end ?? DateTime.Now;
-
-            var marks = _blocks
-               .SelectMany( x => new[] { x.blockStart, x.blockEnd } )
-               .Where( x => x.HasValue )
-               .Select( x => x.Value )
-               .OrderBy( x => x )
-               .ToList();
-            marks.Add( end );
-
-            var lastMark = _start;
-            bool shouldCalculate = true;
-            
-            var allTime = TimeSpan.Zero;
-
-            foreach ( var mark in marks )
+            if ( !_isPaused && _startTime.HasValue )
             {
-                if ( shouldCalculate )
-                {
-                    var period = mark.Subtract( lastMark );
-                    allTime = allTime.Add( period );
-                }
-
-                shouldCalculate = !shouldCalculate;
-                lastMark = mark;
+                return _elapsedTime + ( DateTime.Now - _startTime.Value );
             }
 
-            return allTime;
+            return _elapsedTime;
         }
     }
 }
