@@ -7,8 +7,11 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions
     {
         public static LevelType? GetPreviousLevel( this LevelType levelType )
         {
-            var newLevel = ( LevelType )( ( int )levelType + 1 );
-            return Enum.IsDefined( typeof( LevelType ), newLevel ) ? newLevel : null;
+            var currentLevel = ( int )levelType;
+            var newLevel = ( LevelType )( currentLevel - 1 );
+            return Enum.IsDefined( typeof( LevelType ), newLevel ) 
+                ? newLevel 
+                : null;
         }
         
         public static string ToDatabaseFilename( this LevelType levelType ) => levelType.ToString().ToLower();

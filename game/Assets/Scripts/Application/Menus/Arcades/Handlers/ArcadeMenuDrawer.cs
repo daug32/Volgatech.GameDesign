@@ -32,15 +32,15 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
 
             foreach ( (LevelType levelType, UserLevelData levelData) in levels )
             {
-                LevelType previousLevel = levelType.GetPreviousLevel() ?? LevelType.Level_0;
+                LevelType? previousLevel = levelType.GetPreviousLevel();
 
-                bool isLevelUnlocked = 
+                bool isLevelUnlocked =
                     // First level is unlocked always
-                    levelType == LevelType.Level_0 || 
+                    levelType == LevelType.Level_0 ||
                     // Unlocked if level was already completed
-                    levelData.IsLevelCompleted || 
+                    levelData.IsLevelCompleted ||
                     // Unlocked if previous level was completed 
-                    levels[ previousLevel ].IsLevelCompleted;
+                    ( previousLevel.HasValue && levels[ previousLevel.Value ].IsLevelCompleted );
 
                 CreateLevelGameObject( arcadeMenu, levelType, isLevelUnlocked, levelData );
             }

@@ -4,7 +4,7 @@ using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Levels
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Behaviours
 {
     public class ArcadeTimerBehaviour : MonoBehaviour
     {

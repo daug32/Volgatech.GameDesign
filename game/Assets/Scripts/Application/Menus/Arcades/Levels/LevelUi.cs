@@ -1,4 +1,4 @@
-using System.Collections;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Behaviours;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
 using Assets.Scripts.Application.Menus.Arcades.Repositories;
@@ -17,7 +17,6 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         private readonly GameObject _gameObject;
         
         public LevelType? CurrentLevel { get; private set; }
-
         public LevelStatistics Statistics;
 
         public readonly Book Book;
@@ -26,6 +25,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         public readonly LevelTimerUi Timer;
 
         public readonly EventManager<LevelType> LevelCompletedEventManager = new();
+        public readonly EventManager OnGetToMainMenuEventManager = new();
 
         public LevelUi( GameObject gameObject )
         {
@@ -52,14 +52,33 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 
             // Level settings
             LevelSettings = new LevelSettingsUi( childrenContainer.Get( "settings" ) );
-            LevelSettings.GetToLevelEventManager.AddWithCommonPriority( HideSettings );
+            LevelSettings.OnGetToLevelEventManager.AddWithCommonPriority( HideSettings );
+            LevelSettings.OnGetToMainMenuEventManager.AddWithCommonPriority( OnGetToMainMenuEventManager.Trigger );
+            LevelSettings.OnRestartLevelEventManager.AddWithCommonPriority( () => LoadLevel( CurrentLevel.ThrowIfNull( "Can't restart because current level is not loaded" ) ) );
             childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( ShowSettings );
 
             // Level completed
             LevelCompleted = new LevelCompletedUi( childrenContainer.Get( "success" ) );
+            LevelCompleted.OnRestartEventManager.AddWithCommonPriority( () => LoadLevel( CurrentLevel.ThrowIfNull( "Can't restart because current level is not loaded" ) ) );
+            LevelCompleted.OnGetToMainMenuEventManager.AddWithCommonPriority( OnGetToMainMenuEventManager.Trigger );
+            LevelCompleted.OnGetToNextLevelEventManager.AddWithCommonPriority( LoadNextLevel );
+            LevelCompletedEventManager.AddWithCommonPriority( currentLevel => CompleteLevel() );
+            OnGetToMainMenuEventManager.AddWithCommonPriority( () => LevelCompleted!.Hide() );
         }
 
-        public IEnumerator CompleteLevel()
+        private void LoadNextLevel()
+        {
+            var nextLevel = LevelSuggester.SuggestNextLevel( CurrentLevel.ThrowIfNull( "Can't get to next level because current level is not loaded" ) );
+            if ( nextLevel is null )
+            {
+                OnGetToMainMenuEventManager.Trigger();
+                return;
+            }
+            
+            LoadLevel( nextLevel.Value );
+        }
+
+        public void CompleteLevel()
         {
             Timer.PauseTimer();
             Statistics.UpdateLevelTime( Timer.GetElapsedTime() );
@@ -71,13 +90,16 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             
             ElementsInteractionBlocker.BlockInteractions();
 
-            return LevelCompleted.Show( levelData, Statistics );
+            LevelCompleted.Show( levelData, Statistics );
         }
         
         public void LoadLevel( LevelType levelType )
         {
             ElementsDataRepository.LoadForLevel( levelType );
             ElementsInteractionBlocker.AllowInteractions();
+            
+            LevelCompleted.Hide();
+            LevelSettings.Hide();
 
             Book.Load();
             CurrentLevel = levelType;
@@ -92,12 +114,12 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         {
             Timer.PauseTimer();
             ElementsInteractionBlocker.BlockInteractions();
-            LevelSettings.ShowSettings( CurrentLevel!.Value );
+            LevelSettings.Show( CurrentLevel!.Value );
         }
 
         public void HideSettings()
         {
-            LevelSettings.HideSettings();
+            LevelSettings.Hide();
             ElementsInteractionBlocker.AllowInteractions();
             Timer.ResumeTimer();
         }
