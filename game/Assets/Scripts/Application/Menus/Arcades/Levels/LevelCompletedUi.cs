@@ -1,8 +1,7 @@
-using System.Collections;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
-using Assets.Scripts.Application.Menus.Common.Stars;
 using Assets.Scripts.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +51,10 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
                 
                 currentStar++;
             }
-            
+
+            _nextLevelButton.SetActive( levelRating.IsLevelCompleted );
+            _textContainer.GetComponent<TextMeshProUGUI>().text = levelRating.IsLevelCompleted ? "Level completed!" : "Level failed"; 
+
             _gameObject.SetActive( true );
         }
 

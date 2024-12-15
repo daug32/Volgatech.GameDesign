@@ -7,6 +7,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating
     internal class LevelRating
     {
         public readonly int StarsAchieved;
+        public bool IsLevelCompleted => StarsAchieved > 0;
 
         private LevelRating( int starsAchieved )
         {
