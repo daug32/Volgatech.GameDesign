@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Application.Menus.Common.Books.Handlers;
+﻿using Assets.Scripts.Application.GameSettings;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Utils;
 using UnityEngine;

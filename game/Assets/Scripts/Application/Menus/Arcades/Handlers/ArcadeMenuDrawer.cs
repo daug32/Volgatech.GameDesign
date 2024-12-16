@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
+using Assets.Scripts.Application.Menus.Arcades.LevelsMenu;
 using Assets.Scripts.Application.Menus.Arcades.Repositories;
 using Assets.Scripts.Application.Menus.Common.Stars;
 using Assets.Scripts.Application.Users;
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
 {
     internal static class ArcadeMenuDrawer
     {
-        public static void Draw( ArcadeMenuUi arcadeMenu )
+        public static void Draw( LevelsMenuUi levelsMenuUi )
         {            
             UserData userData = UserDataRepository.Get();
 
@@ -41,17 +42,19 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
                     // Unlocked if previous level was completed 
                     ( previousLevel.HasValue && levels[ previousLevel.Value ].IsLevelCompleted );
 
-                CreateLevelGameObject( arcadeMenu, levelType, isLevelUnlocked, levelData );
+                CreateLevelGameObject( levelsMenuUi, levelType, isLevelUnlocked, levelData );
             }
+            
+            levelsMenuUi.LevelsContainer.SetActive( true );
         }
 
         private static GameObject CreateLevelGameObject( 
-            ArcadeMenuUi arcadeMenu, 
+            LevelsMenuUi levelsMenuUi,
             LevelType levelType,
             bool isLevelUnlocked,
             UserLevelData userLevelData )
         {
-            GameObject gameObject = Object.Instantiate( arcadeMenu.ExampleLevel ).WithParent( arcadeMenu.LevelsContainer );
+            GameObject gameObject = Object.Instantiate( levelsMenuUi.ExampleLevel ).WithParent( levelsMenuUi.LevelsContainer );
             gameObject.name = levelType.ToString().ToLower();
             
             LevelRating levelRating = userLevelData.IsLevelCompleted 
@@ -67,7 +70,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
 
             if ( isLevelUnlocked )
             {
-                SetOnClick( arcadeMenu, levelType, gameObject );
+                levelsMenuUi.OnSelectLevelEvent.SubscribeOnClick( gameObject, levelType );
             }
             else 
             {
@@ -83,14 +86,6 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
             var image = background.GetComponent<Image>();
             Color oldColor = image.color;
             image.color = new Color( oldColor.r, oldColor.g, oldColor.b, 0.6f );
-        }
-
-        private static void SetOnClick(
-            ArcadeMenuUi arcadeMenu, 
-            LevelType levelType, 
-            GameObject gameObject )
-        {
-            gameObject.GetComponent<Button>().onClick.AddListener( () => arcadeMenu.OnSelectLevelEvent.Trigger( levelType ) );
         }
 
         private static void SetStars( LevelRating levelRating, GameObject gameObject )

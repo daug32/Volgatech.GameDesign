@@ -28,10 +28,10 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             _starsContainer = childrenManager.Get( "stars" );
 
             var buttonsContainer = new GameObjectChildrenContainer( childrenManager.Get( "buttons_container" ) );
-            buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
-            buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartLevelEvent.Trigger );
+            OnOpenMainMenuEvent.SubscribeOnClick( buttonsContainer.Get( "exit" ) );
+            OnRestartLevelEvent.SubscribeOnClick( buttonsContainer.Get( "restart" ) );
             _nextLevelButton = buttonsContainer.Get( "next_level" );
-            _nextLevelButton.GetComponent<Button>().onClick.AddListener( OnOpenNextLevelEvent.Trigger );
+            OnOpenNextLevelEvent.SubscribeOnClick( _nextLevelButton );
         }
 
         public void Show( LevelData levelData, LevelStatistics statistics )

@@ -4,7 +4,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
 {
     internal class ElementId
     {
-        public string Value { get; private set;  }
+        public string Value { get; }
 
         public ElementId( string value )
         {

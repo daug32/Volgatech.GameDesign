@@ -1,9 +1,9 @@
-using Assets.Scripts.Application.Menus.Arcades.Handlers;
 using Assets.Scripts.Application.Menus.Arcades.Levels;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.LevelsMenu;
+using Assets.Scripts.Application.Menus.Arcades.Repositories;
 using Assets.Scripts.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Application.Menus.Arcades
 {
@@ -11,26 +11,25 @@ namespace Assets.Scripts.Application.Menus.Arcades
     {
         private readonly GameObject _gameObject;
 
-        public readonly LevelUi Level;
+        private readonly LevelUi _level;
+        private readonly LevelsMenuUi _levelsMenuUi;
 
-        public readonly GameObject LevelsContainer;
-        public readonly GameObject ExampleLevel;
-        
         public readonly EventManager OnOpenMainMenuEvent = new();
-        public readonly EventManager<LevelType> OnSelectLevelEvent = new();
         
         public ArcadeMenuUi( GameObject gameObject )
         {
             _gameObject = gameObject.ThrowIfNull( nameof( gameObject ) );
+            
             var childContainer = new GameObjectChildrenContainer( gameObject );
 
-            Level = new LevelUi( childContainer.Get( "level" ) );
-            Level.OnOpenMainMenuEvent.AddWithCommonPriority( OnOpenMainMenuEvent.Trigger );
+            // Concrete level
+            _level = new LevelUi( childContainer.Get( "level" ) );
+            _level.OnOpenMainMenuEvent.AddWithCommonPriority( OnOpenMainMenuEvent.Trigger );
 
-            var menuContainer = new GameObjectChildrenContainer( childContainer.Get( "menu_container" ) );
-            menuContainer.Get( "back_button" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
-            LevelsContainer = menuContainer.Get( "levels" );
-            ExampleLevel = LevelsContainer.FindChild( "example_level" );
+            // Levels list menu
+            _levelsMenuUi = new LevelsMenuUi( childContainer.Get( "menu_container" ) );
+            _levelsMenuUi.OnOpenMainMenuEvent.AddWithCommonPriority( OnOpenMainMenuEvent.Trigger );
+            _levelsMenuUi.OnSelectLevelEvent.AddWithCommonPriority( OpenLevel );
         }
 
         public void SetActive( bool activity )
@@ -39,12 +38,21 @@ namespace Assets.Scripts.Application.Menus.Arcades
 
             if ( activity )
             {
-                ArcadeMenuDrawer.Draw( this );
+                LevelDataRepository.Load();
+                _levelsMenuUi.SetActive( true );
+                _level.UnloadLevel();
             }
             else
             {
-                ArcadeMenuRemover.Remove( this );
+                _levelsMenuUi.SetActive( false );
+                _level.UnloadLevel();
             }
+        }
+
+        private void OpenLevel( LevelType level )
+        {
+            _levelsMenuUi.SetActive( false );
+            _level.LoadLevel( level );
         }
     }
 }

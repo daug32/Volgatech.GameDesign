@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using Assets.Scripts.Application.GameSettings;
-using Assets.Scripts.Application.Menus.Sandbox;
-using Assets.Scripts.Application.Users;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;

@@ -38,9 +38,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 			_targetsContainer = targetsContainer.Get( "items" );
 			
 			var buttonsContainer = new GameObjectChildrenContainer( childrenContainer.Get( "buttons_container" ) );
-			buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
-			buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartLevelEvent.Trigger );
-			buttonsContainer.Get( "continue" ).GetComponent<Button>().onClick.AddListener( OnCloseSettingsEvent.Trigger );
+			OnOpenMainMenuEvent.SubscribeOnClick( buttonsContainer.Get( "exit" ) );
+			OnRestartLevelEvent.SubscribeOnClick( buttonsContainer.Get( "restart" ) );
+			OnCloseSettingsEvent.SubscribeOnClick( buttonsContainer.Get( "continue" ) );
 		}
 
 		public void Hide()

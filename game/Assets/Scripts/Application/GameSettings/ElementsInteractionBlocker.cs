@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Application.Menus.Common.Books.Handlers
+namespace Assets.Scripts.Application.GameSettings
 {
     internal static class ElementsInteractionBlocker
     {
