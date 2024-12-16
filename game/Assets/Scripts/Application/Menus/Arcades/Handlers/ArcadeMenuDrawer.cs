@@ -90,7 +90,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Handlers
             LevelType levelType, 
             GameObject gameObject )
         {
-            gameObject.GetComponent<Button>().onClick.AddListener( () => arcadeMenu.ChooseLevelEventManger.Trigger( levelType ) );
+            gameObject.GetComponent<Button>().onClick.AddListener( () => arcadeMenu.OnSelectLevelEvent.Trigger( levelType ) );
         }
 
         private static void SetStars( LevelRating levelRating, GameObject gameObject )

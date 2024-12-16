@@ -10,16 +10,15 @@ namespace Assets.Scripts.Application.Handlers
         {
             UserInterface ui = UiItemsRepository.GetUserInterface();
 
-            ui.Menu.MainMenu.ArcadeButtonEventManager.AddWithCommonPriority( () => ShowArcadeMenu( ui ) );
-            ui.Menu.MainMenu.SandboxButtonEventManager.AddWithCommonPriority( () => LoadSandbox( ui ) );
-            ui.Menu.MainMenu.ExitButtonEventManager.AddWithCommonPriority( UnityEngine.Application.Quit );
+            ui.Menu.MainMenu.OnOpenArcadeEvent.AddWithCommonPriority( () => ShowArcadeMenu( ui ) );
+            ui.Menu.MainMenu.OnOpenSandboxEvent.AddWithCommonPriority( () => LoadSandbox( ui ) );
+            ui.Menu.MainMenu.OnExitEvent.AddWithCommonPriority( UnityEngine.Application.Quit );
             
-            ui.Menu.ArcadeMenu.GetBackButtonEventManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
-            ui.Menu.ArcadeMenu.ChooseLevelEventManger.AddWithCommonPriority( levelType => LoadLevel( levelType, ui ) );
-            ui.Menu.ArcadeMenu.Level.OnGetToMainMenuEventManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
+            ui.Menu.ArcadeMenu.OnOpenMainMenuEvent.AddWithCommonPriority( () => ShowMainMenu( ui ) );
+            ui.Menu.ArcadeMenu.OnSelectLevelEvent.AddWithCommonPriority( levelType => LoadLevel( levelType, ui ) );
             
-            ui.Menu.SandboxMenu.GetToMainMenuEvenManager.AddWithCommonPriority( () => ShowMainMenu( ui ) );
-
+            ui.Menu.SandboxMenu.OnOpenMainMenuEvent.AddWithCommonPriority( () => ShowMainMenu( ui ) );
+            
             ShowMainMenu( ui );
         }
 

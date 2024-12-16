@@ -27,7 +27,7 @@ namespace Assets.Scripts.Application.Menus.Common.Buttons
             btnComponent.targetGraphic = btnImage;
 
             OnCLick.AddWithHighestPriority( SoundSettings.SwitchSound );
-            SoundSettings.OnSoundStateChanged.AddWithCommonPriority( UpdateIcon );
+            SoundSettings.OnSoundStateChangedEvent.AddWithCommonPriority( UpdateIcon );
         }
 
         private void UpdateIcon()

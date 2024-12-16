@@ -15,9 +15,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         private readonly GameObject _starsContainer;
         private readonly GameObject _nextLevelButton;
 
-        public readonly EventManager OnGetToMainMenuEventManager = new();
-        public readonly EventManager OnRestartEventManager = new();
-        public readonly EventManager OnGetToNextLevelEventManager = new();
+        public readonly EventManager OnOpenMainMenuEvent = new();
+        public readonly EventManager OnRestartLevelEvent = new();
+        public readonly EventManager OnOpenNextLevelEvent = new();
         
         public LevelCompletedUi( GameObject gameObject )
         {
@@ -28,10 +28,10 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             _starsContainer = childrenManager.Get( "stars" );
 
             var buttonsContainer = new GameObjectChildrenContainer( childrenManager.Get( "buttons_container" ) );
-            buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnGetToMainMenuEventManager.Trigger );
-            buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartEventManager.Trigger );
+            buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
+            buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartLevelEvent.Trigger );
             _nextLevelButton = buttonsContainer.Get( "next_level" );
-            _nextLevelButton.GetComponent<Button>().onClick.AddListener( OnGetToNextLevelEventManager.Trigger );
+            _nextLevelButton.GetComponent<Button>().onClick.AddListener( OnOpenNextLevelEvent.Trigger );
         }
 
         public void Show( LevelData levelData, LevelStatistics statistics )

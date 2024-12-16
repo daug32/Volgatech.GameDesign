@@ -11,13 +11,12 @@ namespace Assets.Scripts.Application.Menus.Common.Books
     internal class Book
     {
         public readonly RectTransform RectTransform;
-
-        public readonly EventManager<ElementId> OnElementCreated = new();
+        public readonly HashSet<ElementId> DiscoveredElements = new();
 
         public readonly GameObject InteractiveElementsContainer;
         public readonly GameObject BookElementsContainer;
 
-        public readonly HashSet<ElementId> DiscoveredElements = new();
+        public readonly EventManager<ElementId> OnElementCreatedEvent = new();
         
         public Book( GameObject gameObject )
         {
@@ -27,7 +26,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books
             InteractiveElementsContainer = childManager.Get( "interactive_elements_container" );
             BookElementsContainer = childManager.Get( "book_elements_container" );
 
-            OnElementCreated.AddWithHighestPriority( Draw );
+            OnElementCreatedEvent.AddWithHighestPriority( Draw );
         }
 
         public void Load( IEnumerable<ElementId> starterElements )

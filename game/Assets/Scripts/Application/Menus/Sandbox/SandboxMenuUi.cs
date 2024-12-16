@@ -10,8 +10,10 @@ namespace Assets.Scripts.Application.Menus.Sandbox
     internal class SandboxMenuUi
     {
         private readonly GameObject _gameObject;
+
         private readonly Book _book;
-        public readonly EventManager GetToMainMenuEvenManager = new();
+
+        public readonly EventManager OnOpenMainMenuEvent = new();
         
         public SandboxMenuUi( GameObject gameObject )
         {
@@ -19,8 +21,8 @@ namespace Assets.Scripts.Application.Menus.Sandbox
 
             var childManager = new GameObjectChildrenContainer( gameObject );
             _book = new Book( childManager.Get( "book" ) );
-            _book.OnElementCreated.AddWithCommonPriority( elementId => UserDataRepository.Get().DiscoveredElements.Add( elementId ) );
-            childManager.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( GetToMainMenuEvenManager.Trigger );
+            _book.OnElementCreatedEvent.AddWithCommonPriority( elementId => UserDataRepository.Get().DiscoveredElements.Add( elementId ) );
+            childManager.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
         }
 
         public void SetActive( bool isActive )

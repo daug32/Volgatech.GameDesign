@@ -21,9 +21,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         private readonly GameObject _targetsContainer;
         private readonly GameObjectChildrenContainer _starsContainer;
 
-        public readonly EventManager OnGetToMainMenuEventManager = new();
-        public readonly EventManager OnRestartLevelEventManager = new();
-        public readonly EventManager OnGetToLevelEventManager = new();
+        public readonly EventManager OnOpenMainMenuEvent = new();
+        public readonly EventManager OnRestartLevelEvent = new();
+        public readonly EventManager OnCloseSettingsEvent = new();
 
 		public LevelSettingsUi( GameObject gameObject )
 		{
@@ -38,9 +38,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 			_targetsContainer = targetsContainer.Get( "items" );
 			
 			var buttonsContainer = new GameObjectChildrenContainer( childrenContainer.Get( "buttons_container" ) );
-			buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnGetToMainMenuEventManager.Trigger );
-			buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartLevelEventManager.Trigger );
-			buttonsContainer.Get( "continue" ).GetComponent<Button>().onClick.AddListener( OnGetToLevelEventManager.Trigger );
+			buttonsContainer.Get( "exit" ).GetComponent<Button>().onClick.AddListener( OnOpenMainMenuEvent.Trigger );
+			buttonsContainer.Get( "restart" ).GetComponent<Button>().onClick.AddListener( OnRestartLevelEvent.Trigger );
+			buttonsContainer.Get( "continue" ).GetComponent<Button>().onClick.AddListener( OnCloseSettingsEvent.Trigger );
 		}
 
 		public void Hide()

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
                 return;
             }
 
-            relatedBook.OnElementCreated.Trigger( newElementId );
+            relatedBook.OnElementCreatedEvent.Trigger( newElementId );
             
             RemoveUsedElements( firstParentId, secondParentId );
         }
