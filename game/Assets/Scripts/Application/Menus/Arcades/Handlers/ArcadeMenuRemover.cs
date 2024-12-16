@@ -1,4 +1,3 @@
-using Assets.Scripts.Application.Ui.Arcades;
 using Assets.Scripts.Utils;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
+using Assets.Scripts.Application.Menus.Arcades;
 using Assets.Scripts.Application.Menus.MainMenus;
 using Assets.Scripts.Application.Menus.Sandbox;
-using Assets.Scripts.Application.Ui.Arcades;
 using Assets.Scripts.Utils;
 using UnityEngine;
 

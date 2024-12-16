@@ -1,37 +1,40 @@
 ﻿using Assets.Scripts.Application.Menus.Common.Books;
 using Assets.Scripts.Application.Menus.Common.Books.Handlers;
+using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Application.Menus.Sandbox
 {
     internal class SandboxMenuUi
     {
-        public readonly GameObject GameObject;
-
+        private readonly GameObject _gameObject;
+        private readonly Book _book;
         public readonly EventManager GetToMainMenuEvenManager = new();
-        public readonly Book Book;
         
         public SandboxMenuUi( GameObject gameObject )
         {
-            GameObject = gameObject.ThrowIfNull( message: "No game object provided" );
+            _gameObject = gameObject.ThrowIfNull( message: "No game object provided" );
 
             var childManager = new GameObjectChildrenContainer( gameObject );
-            Book = new Book( childManager.Get( "book" ) );
+            _book = new Book( childManager.Get( "book" ) );
+            _book.OnElementCreated.AddWithCommonPriority( elementId => UserDataRepository.Get().DiscoveredElements.Add( elementId ) );
+            childManager.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( GetToMainMenuEvenManager.Trigger );
         }
 
         public void SetActive( bool isActive )
         {
-            GameObject.SetActive( isActive );
+            _gameObject.SetActive( isActive );
 
             if ( isActive )
             {
                 ElementsInteractionBlocker.AllowInteractions();
-                Book.Load();
+                _book.Load( UserDataRepository.Get().DiscoveredElements );
             }
             else
             {
-                Book.Unload();
+                _book.Unload();
             }
         }
     }

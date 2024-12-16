@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Common.Books.Elements;
 
 namespace Assets.Scripts.Application.Users.Repositories.Dtos
 {
     internal class UserDataDto
     {
         public Dictionary<string, UserLevelDataDto> Arcade { get; set; }
+        public List<string> DiscoveredElements { get; set; }
 
         public UserData Convert()
         {
@@ -24,8 +26,10 @@ namespace Assets.Scripts.Application.Users.Repositories.Dtos
                     arcade.Add( levelType, new UserLevelData() );
                 }
             }
-            
-            return new UserData( arcade );
+
+            DiscoveredElements ??= new List<string>();
+
+            return new UserData( arcade, DiscoveredElements.Select( x => new ElementId( x ) ).ToHashSet() );
         }
     }
 }

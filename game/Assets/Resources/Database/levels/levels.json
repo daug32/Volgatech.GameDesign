@@ -3,6 +3,12 @@
     "targets": [
       "humidity"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -21,6 +27,12 @@
   "level_1": {
     "targets": [
       "lava"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -41,6 +53,12 @@
     "targets": [
       "plant"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -59,6 +77,12 @@
   "level_3": {
     "targets": [
       "sand"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -79,6 +103,12 @@
     "targets": [
       "smoke"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -97,6 +127,12 @@
   "level_5": {
     "targets": [
       "steam"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -117,6 +153,12 @@
     "targets": [
       "volcano"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -135,6 +177,12 @@
   "level_7": {
     "targets": [
       "clay"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -155,6 +203,12 @@
     "targets": [
       "cloud"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -173,6 +227,12 @@
   "level_9": {
     "targets": [
       "flower"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -193,6 +253,12 @@
     "targets": [
       "fog"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -211,6 +277,12 @@
   "level_11": {
     "targets": [
       "gas"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -231,6 +303,12 @@
     "targets": [
       "mountain"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -249,6 +327,12 @@
   "level_13": {
     "targets": [
       "rain"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -269,6 +353,12 @@
     "targets": [
       "sparks"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -287,6 +377,12 @@
   "level_15": {
     "targets": [
       "stone"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -307,6 +403,12 @@
     "targets": [
       "swamp"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -325,6 +427,12 @@
   "level_17": {
     "targets": [
       "ceramics"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -345,6 +453,12 @@
     "targets": [
       "fruit"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -363,6 +477,12 @@
   "level_19": {
     "targets": [
       "mud"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -383,6 +503,12 @@
     "targets": [
       "pollen"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -401,6 +527,12 @@
   "level_21": {
     "targets": [
       "river"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -421,6 +553,12 @@
     "targets": [
       "seeds"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -439,6 +577,12 @@
   "level_23": {
     "targets": [
       "storm"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -459,6 +603,12 @@
     "targets": [
       "wind"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -477,6 +627,12 @@
   "level_25": {
     "targets": [
       "downpour"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -497,6 +653,12 @@
     "targets": [
       "lake"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -515,6 +677,12 @@
   "level_27": {
     "targets": [
       "lightning"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -535,6 +703,12 @@
     "targets": [
       "sandstorm"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -553,6 +727,12 @@
   "level_29": {
     "targets": [
       "slush"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -573,6 +753,12 @@
     "targets": [
       "tree"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -591,6 +777,12 @@
   "level_31": {
     "targets": [
       "waves"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -611,6 +803,12 @@
     "targets": [
       "coal"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -629,6 +827,12 @@
   "level_33": {
     "targets": [
       "crater"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -649,6 +853,12 @@
     "targets": [
       "leaves"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -667,6 +877,12 @@
   "level_35": {
     "targets": [
       "mushroom"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -687,6 +903,12 @@
     "targets": [
       "wood"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -705,6 +927,12 @@
   "level_37": {
     "targets": [
       "mycelium"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {
@@ -725,6 +953,12 @@
     "targets": [
       "rustling"
     ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
+    ],
     "objectives": [
       {
         "type": "FinishByReactions",
@@ -743,6 +977,12 @@
   "level_39": {
     "targets": [
       "echo"
+    ],
+    "startElements": [
+      "water",
+      "earth",
+      "air",
+      "fire"
     ],
     "objectives": [
       {

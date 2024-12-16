@@ -3,65 +3,54 @@ using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Application.Menus.Common.Books
 {
     internal class Book
     {
-        public readonly GameObject GameObject;
         public readonly RectTransform RectTransform;
 
         public readonly EventManager<ElementId> OnElementCreated = new();
 
         public readonly GameObject InteractiveElementsContainer;
+        public readonly GameObject BookElementsContainer;
+
+        public readonly HashSet<ElementId> DiscoveredElements = new();
         
         public Book( GameObject gameObject )
         {
-            GameObject = gameObject.ThrowIfNull( nameof( Book ) );
             RectTransform = gameObject.GetComponent<RectTransform>();
-            InteractiveElementsContainer = GameObject
-               .FindChild( "interactive_elements_container" )
-               .ThrowIfNull( nameof( InteractiveElementsContainer ) );
+
+            var childManager = new GameObjectChildrenContainer( gameObject );
+            InteractiveElementsContainer = childManager.Get( "interactive_elements_container" );
+            BookElementsContainer = childManager.Get( "book_elements_container" );
+
             OnElementCreated.AddWithHighestPriority( Draw );
         }
 
-        public void Load()
+        public void Load( IEnumerable<ElementId> starterElements )
         {
             Unload();
+            
+            DiscoveredElements.Clear();
+            DiscoveredElements.AddRange( starterElements );
 
             var elements = new List<GameObject>();
-            foreach ( Element element in ElementsRepository.GetAll() )
+            foreach ( var elementId in DiscoveredElements )
             {
-                if ( !ElementsDataRepository.Get( element.Id ).IsDiscovered )
-                {
-                    continue;
-                }
+                var element = ElementsRepository.Get( elementId );
 
                 GameObject elementGameObject = element
                    .CreateGameObject( false )
-                   .WithParent( GameObject );
+                   .WithParent( BookElementsContainer );
                 elementGameObject.AddIconDragAndDrop( element, this );
                 elements.Add( elementGameObject );
             }
             
             // Used to show all elements at once
             elements.ForEach( x => x.SetActive( true ) );
-        }
-
-        public void Draw( ElementId elementId )
-        {
-            var elementData = ElementsDataRepository.Get( elementId );
-            if ( elementData.IsDiscovered )
-            {
-                return;
-            }
-
-            Element element = ElementsRepository.Get( elementId );
-            elementData.IsDiscovered = true;
-                  
-            GameObject elementGameObject = element.CreateGameObject().WithParent( GameObject );
-            elementGameObject.AddIconDragAndDrop( element, this );
         }
 
         public void Unload()
@@ -71,15 +60,23 @@ namespace Assets.Scripts.Application.Menus.Common.Books
                 Object.Destroy( element.gameObject ); 
             }
 
-            foreach ( var gameObject in GameObject.FindChildren() )
+            foreach ( var gameObject in BookElementsContainer.FindChildren() )
             {
-                if ( gameObject == InteractiveElementsContainer )
-                {
-                    continue;
-                }
-                
                 Object.Destroy( gameObject );
             }
+        }
+
+        private void Draw( ElementId elementId )
+        {
+            if ( DiscoveredElements.Contains( elementId ) )
+            {
+                return;
+            }
+
+            DiscoveredElements.Add( elementId );
+            Element element = ElementsRepository.Get( elementId );
+            GameObject elementGameObject = element.CreateGameObject().WithParent( BookElementsContainer );
+            elementGameObject.AddIconDragAndDrop( element, this );
         }
     }
 }

@@ -27,11 +27,6 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Repositories
 
         public static List<ElementId> GetAll() => _data.Keys.ToList();
 
-        public static HashSet<ElementId> GetDiscoveredElements() => _data
-           .Where( x => x.Value.IsDiscovered )
-           .Select( x => x.Key )
-           .ToHashSet();
-
         public static bool Exists( ElementId id ) => _data.ContainsKey( id );
 
         public static ElementId GetByParents( ElementId firstParent, ElementId secondParent )

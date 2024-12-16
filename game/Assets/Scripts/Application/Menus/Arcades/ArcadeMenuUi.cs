@@ -5,12 +5,10 @@ using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Application.Ui.Arcades
+namespace Assets.Scripts.Application.Menus.Arcades
 {
     internal class ArcadeMenuUi
     {
-        private readonly GameObject _gameObject;
-        
         public readonly EventManager GetBackButtonEventManager = new();
         public readonly EventManager<LevelType> ChooseLevelEventManger = new();
 
@@ -22,8 +20,6 @@ namespace Assets.Scripts.Application.Ui.Arcades
         
         public ArcadeMenuUi( GameObject gameObject )
         {
-            _gameObject = gameObject;
-            
             var childContainer = new GameObjectChildrenContainer( gameObject );
 
             Level = new LevelUi( childContainer.Get( "level" ) );

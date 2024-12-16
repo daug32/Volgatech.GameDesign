@@ -42,7 +42,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             {
                 Statistics.ReactionsNumber.Increment();
 
-                if ( !LevelDataRepository.Get( CurrentLevel!.Value ).IsLevelCompleted( ElementsDataRepository.GetDiscoveredElements() ) )
+                if ( !LevelDataRepository.Get( CurrentLevel!.Value ).IsLevelCompleted( Book.DiscoveredElements ) )
                 {
                     return;
                 }
@@ -101,7 +101,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             LevelCompleted.Hide();
             LevelSettings.Hide();
 
-            Book.Load();
+            Book.Load( LevelDataRepository.Get( levelType ).StartElements );
             CurrentLevel = levelType;
             Statistics = new LevelStatistics();
             Timer.SetActive( true );

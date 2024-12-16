@@ -6,7 +6,6 @@ using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
 using Assets.Scripts.Application.Menus.Arcades.Repositories;
 using Assets.Scripts.Application.Menus.Common.Stars;
-using Assets.Scripts.Application.Ui.Arcades;
 using Assets.Scripts.Application.Users;
 using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
