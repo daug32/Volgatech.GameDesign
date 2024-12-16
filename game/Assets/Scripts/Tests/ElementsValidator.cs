@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Repositories;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 

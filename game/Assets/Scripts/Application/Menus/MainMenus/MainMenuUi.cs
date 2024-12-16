@@ -1,4 +1,5 @@
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts.Utils.Models.Atomics
 {
     public class StoppableTime
     {

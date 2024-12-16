@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Utils
 {
-    internal static class ThrowUtils
+    internal static class FluentAssertion
     {
         public static T ThrowIfNull<T>( this T? obj, string paramName = null, string message = null )
             where T : struct

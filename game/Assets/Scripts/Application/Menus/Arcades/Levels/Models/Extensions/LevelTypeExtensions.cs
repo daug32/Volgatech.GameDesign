@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Models.Extensions
 {
     internal static class LevelTypeExtensions 
     {

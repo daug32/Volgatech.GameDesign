@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Atomics;
 using TMPro;
 using UnityEngine;
 

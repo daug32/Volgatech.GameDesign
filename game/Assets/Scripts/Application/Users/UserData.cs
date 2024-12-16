@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 
 namespace Assets.Scripts.Application.Users

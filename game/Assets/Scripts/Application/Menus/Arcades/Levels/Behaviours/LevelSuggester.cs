@@ -1,5 +1,5 @@
 ﻿using System;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
 
 namespace Assets.Scripts.Application.Menus.Arcades.Levels.Behaviours
 {

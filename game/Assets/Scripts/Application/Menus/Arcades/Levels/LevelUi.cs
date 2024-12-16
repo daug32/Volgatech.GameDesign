@@ -1,12 +1,13 @@
 using Assets.Scripts.Application.GameSettings;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Behaviours;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Repositories;
 using Assets.Scripts.Application.Menus.Common.Books;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 using UnityEngine.UI;
 

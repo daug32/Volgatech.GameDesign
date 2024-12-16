@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts.Utils.Models.Events
 {
     public class EventManager<T>
     {

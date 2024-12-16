@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui
+﻿namespace Assets.Scripts.Application.Menus.Arcades.Levels.Models
 {
     internal enum LevelType
     {

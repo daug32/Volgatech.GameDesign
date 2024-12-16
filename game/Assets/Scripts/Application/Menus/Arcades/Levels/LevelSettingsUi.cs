@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Extensions;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Repositories;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Application.Menus.Common.Stars;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

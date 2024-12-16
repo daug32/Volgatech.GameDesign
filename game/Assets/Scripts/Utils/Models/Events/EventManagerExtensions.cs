@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts.Utils.Models.Events
 {
     public static class EventManagerExtensions
     {

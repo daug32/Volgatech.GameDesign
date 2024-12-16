@@ -3,6 +3,7 @@ using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using Unity.VisualScripting;
 using UnityEngine;
 

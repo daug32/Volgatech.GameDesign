@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating
 {
     internal class LevelRating
     {

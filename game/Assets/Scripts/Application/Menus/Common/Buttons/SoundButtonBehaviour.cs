@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Assets.Scripts.Application.GameSettings;
-using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,20 +17,19 @@ namespace Assets.Scripts.Application.Menus.Common.Buttons
 
         private void SetUpComponents()
         {
-            var btnImage = gameObject.GetComponent<Image>() ?? gameObject.AddComponent<Image>();
-            UpdateIcon();
+            Image image = CreateOrUpdateIcon();
             
             var btnComponent = gameObject.GetComponent<Button>() ?? gameObject.AddComponent<Button>();
             btnComponent.onClick.AddListener( OnCLick.Trigger );
-            btnComponent.targetGraphic = btnImage;
+            btnComponent.targetGraphic = image;
 
             OnCLick.AddWithHighestPriority( SoundSettings.SwitchSound );
-            SoundSettings.OnSoundStateChangedEvent.AddWithCommonPriority( UpdateIcon );
+            SoundSettings.OnSoundStateChangedEvent.AddWithCommonPriority( () => CreateOrUpdateIcon() );
         }
 
-        private void UpdateIcon()
+        private Image CreateOrUpdateIcon()
         {
-            var image = gameObject.GetComponent<Image>();
+            var image = gameObject.GetComponent<Image>() ?? gameObject.AddComponent<Image>();
 
             var sprite = SoundSettings.IsSoundEnabled
                 ? Resources.Load<Sprite>( "Icons/ui/sound" )
@@ -42,6 +41,8 @@ namespace Assets.Scripts.Application.Menus.Common.Buttons
 
             image.sprite = sprite;
             image.preserveAspect = true;
+
+            return image;
         }
     }
 }

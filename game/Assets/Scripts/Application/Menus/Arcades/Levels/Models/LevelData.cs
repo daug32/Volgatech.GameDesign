@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Models
 {
     internal class LevelData
     {

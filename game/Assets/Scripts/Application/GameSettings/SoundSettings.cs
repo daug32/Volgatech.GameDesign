@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Utils.Models.Events;
 
 namespace Assets.Scripts.Application.GameSettings
 {

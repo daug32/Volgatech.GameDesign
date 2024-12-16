@@ -1,10 +1,9 @@
-using Assets.Scripts.Application.Menus.Arcades.LevelsMenu;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Handlers
+namespace Assets.Scripts.Application.Menus.Arcades.LevelsMenu.Handlers
 {
-    internal static class ArcadeMenuRemover
+    internal static class LevelsMenuRemover
     {
         public static void Remove( LevelsMenuUi levelsMenuUi )
         {

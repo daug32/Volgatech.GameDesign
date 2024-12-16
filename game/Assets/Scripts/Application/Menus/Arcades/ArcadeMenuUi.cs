@@ -1,8 +1,9 @@
 using Assets.Scripts.Application.Menus.Arcades.Levels;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Repositories;
 using Assets.Scripts.Application.Menus.Arcades.LevelsMenu;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 
 namespace Assets.Scripts.Application.Menus.Arcades

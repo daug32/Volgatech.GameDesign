@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Extensions;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
-using Assets.Scripts.Application.Menus.Arcades.LevelsMenu;
-using Assets.Scripts.Application.Menus.Arcades.Repositories;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Extensions;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Repositories;
 using Assets.Scripts.Application.Menus.Common.Stars;
 using Assets.Scripts.Application.Users;
 using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Handlers
+namespace Assets.Scripts.Application.Menus.Arcades.LevelsMenu.Handlers
 {
-    internal static class ArcadeMenuDrawer
+    internal static class LevelsMenuDrawer
     {
         public static void Draw( LevelsMenuUi levelsMenuUi )
         {            

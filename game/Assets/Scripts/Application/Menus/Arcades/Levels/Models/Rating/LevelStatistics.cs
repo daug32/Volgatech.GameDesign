@@ -1,8 +1,8 @@
 using System;
 using Assets.Scripts.Application.Users;
-using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Atomics;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating
 {
     internal class LevelStatistics
     {

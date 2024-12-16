@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 
 namespace Assets.Scripts.Application.Menus.Researches

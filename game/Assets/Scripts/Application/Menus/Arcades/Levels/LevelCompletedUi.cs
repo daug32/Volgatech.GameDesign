@@ -1,6 +1,7 @@
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui.Rating;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

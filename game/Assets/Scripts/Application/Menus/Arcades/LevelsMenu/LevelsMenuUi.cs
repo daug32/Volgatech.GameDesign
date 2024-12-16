@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Application.Menus.Arcades.Handlers;
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+﻿using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+using Assets.Scripts.Application.Menus.Arcades.LevelsMenu.Handlers;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 
 namespace Assets.Scripts.Application.Menus.Arcades.LevelsMenu
@@ -31,11 +32,11 @@ namespace Assets.Scripts.Application.Menus.Arcades.LevelsMenu
 
             if ( isActive )
             {
-                ArcadeMenuDrawer.Draw( this );
+                LevelsMenuDrawer.Draw( this );
             }
             else
             {
-                ArcadeMenuRemover.Remove( this );
+                LevelsMenuRemover.Remove( this );
             }
         }
     }

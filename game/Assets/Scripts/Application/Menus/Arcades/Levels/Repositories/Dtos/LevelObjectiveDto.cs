@@ -1,8 +1,8 @@
-using Assets.Scripts.Application.Menus.Arcades.Levels.Ui;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Assets.Scripts.Application.Menus.Arcades.Repositories.Dtos
+namespace Assets.Scripts.Application.Menus.Arcades.Levels.Repositories.Dtos
 {
     internal class LevelObjectiveDto
     {

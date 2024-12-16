@@ -2,6 +2,7 @@
 using Assets.Scripts.Application.Menus.Common.Books;
 using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
 
 namespace Assets.Scripts.Application.Menus.Sandbox
