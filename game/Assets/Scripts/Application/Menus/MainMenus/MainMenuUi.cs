@@ -1,3 +1,5 @@
+using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Utils.Models.Events;
 using UnityEngine;
@@ -19,12 +21,20 @@ namespace Assets.Scripts.Application.Menus.MainMenus
             _gameObject = gameObject.ThrowIfNull( nameof( gameObject ) );
 
             var mainMenuChildrenContainer = new GameObjectChildrenContainer( gameObject );
-            OnSoundButtonPressedEvent.SubscribeOnClick( mainMenuChildrenContainer.Get( "sound_button" ) );
+            OnSoundButtonPressedEvent
+               .SubscribeOnClick( mainMenuChildrenContainer.Get( "sound_button" ) )
+               .AddWithLowestPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
             
             var mainListChildrenContainer = new GameObjectChildrenContainer( mainMenuChildrenContainer.Get( "main_list" ) );
-            OnOpenArcadeEvent.SubscribeOnClick( mainListChildrenContainer.Get( "arcade_button" ) ); 
-            OnOpenSandboxEvent.SubscribeOnClick( mainListChildrenContainer.Get( "sandbox_button" ) );
-            OnOpenResearchesMenuEvent.SubscribeOnClick( mainListChildrenContainer.Get( "tree_button" ) );
+            OnOpenArcadeEvent
+               .SubscribeOnClick( mainListChildrenContainer.Get( "arcade_button" ) )
+               .AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
+            OnOpenSandboxEvent
+               .SubscribeOnClick( mainListChildrenContainer.Get( "sandbox_button" ) )
+               .AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
+            OnOpenResearchesMenuEvent
+               .SubscribeOnClick( mainListChildrenContainer.Get( "tree_button" ) )
+               .AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
             mainListChildrenContainer.Get( "exit_button" ).GetComponent<Button>().onClick.AddListener( UnityEngine.Application.Quit );
         }
 

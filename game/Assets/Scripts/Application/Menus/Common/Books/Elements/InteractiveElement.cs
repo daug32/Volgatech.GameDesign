@@ -1,3 +1,5 @@
+using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers;
 using Assets.Scripts.Utils;
 using UnityEngine;

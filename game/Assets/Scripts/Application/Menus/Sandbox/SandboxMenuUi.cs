@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Application.Menus.Common.Books;
 using Assets.Scripts.Application.Users.Repositories;
 using Assets.Scripts.Utils;
@@ -21,8 +22,10 @@ namespace Assets.Scripts.Application.Menus.Sandbox
 
             var childManager = new GameObjectChildrenContainer( gameObject );
             _book = new Book( childManager.Get( "book" ) );
-            _book.OnElementCreatedEvent.AddWithCommonPriority( elementId => UserDataRepository.Get().DiscoveredElements.Add( elementId ) );
-            OnOpenMainMenuEvent.SubscribeOnClick( childManager.Get( "settings_button" ) );
+            _book.OnElementCreationSuccessEvent.AddWithCommonPriority( elementId => UserDataRepository.Get().DiscoveredElements.Add( elementId ) );
+            OnOpenMainMenuEvent
+               .SubscribeOnClick( childManager.Get( "settings_button" ) )
+               .AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
         }
 
         public void SetActive( bool isActive )

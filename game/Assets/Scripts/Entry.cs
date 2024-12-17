@@ -13,7 +13,7 @@ namespace Assets.Scripts
                 ElementsValidator.Validate();
             #endif
             
-            UiInitializer.Initialize();
+            UiInitializer.Initialize( this );
         }
     }
 }

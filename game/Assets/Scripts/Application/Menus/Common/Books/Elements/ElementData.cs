@@ -4,11 +4,13 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
 {
     internal class ElementData
     {
-        public List<HashSet<ElementId>> Parents { get; private set; }
+        public int DisplayOrder { get; }
+        public List<HashSet<ElementId>> Parents { get; }
 
-        public ElementData( List<HashSet<ElementId>> parents )
+        public ElementData( List<HashSet<ElementId>> parents, int displayOrder )
         {
             Parents = parents;
+            DisplayOrder = displayOrder;
         }
     }
 }

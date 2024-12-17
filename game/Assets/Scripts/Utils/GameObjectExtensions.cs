@@ -15,7 +15,8 @@ namespace Assets.Scripts.Utils
         }
 
         public static GameObject FindChild( this GameObject gameObject, string childName ) =>
-            FindChildren( gameObject ).FirstOrDefault( x => x.name == childName );
+            FindChildren( gameObject )
+               .FirstOrDefault( x => x.name == childName );
 
         public static IEnumerable<GameObject> FindChildren( this GameObject gameObject )
         {
@@ -28,6 +29,13 @@ namespace Assets.Scripts.Utils
 
                 yield return childTransform.gameObject;
             }
+        }
+
+        public static GameObject WithSize( this GameObject gameObject, Vector2 size )
+        {
+            var rectTransform = gameObject.GetComponent<RectTransform>() ?? gameObject.AddComponent<RectTransform>();
+            rectTransform.sizeDelta = size;
+            return gameObject;
         }
     }
 }

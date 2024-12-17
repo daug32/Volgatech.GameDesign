@@ -108,6 +108,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
         public void OnDrop( PointerEventData eventData )
         {
             if ( !CanDnd() ) return;
+            Debug.Log( "OnDrop" );
 
             if ( eventData.pointerDrag == null )
             {

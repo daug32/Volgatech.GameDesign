@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
+﻿using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
+using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
 using Assets.Scripts.Application.Menus.Arcades.LevelsMenu.Handlers;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Utils.Models.Events;
@@ -23,7 +25,12 @@ namespace Assets.Scripts.Application.Menus.Arcades.LevelsMenu
             var childManager = new GameObjectChildrenContainer( gameObject );
             LevelsContainer = childManager.Get( "levels" );
             ExampleLevel = LevelsContainer.FindChild( "example_level" );
-            OnOpenMainMenuEvent.SubscribeOnClick( childManager.Get( "back_button" ) );
+
+            OnSelectLevelEvent.AddWithCommonPriority( _ => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
+
+            OnOpenMainMenuEvent
+               .SubscribeOnClick( childManager.Get( "back_button" ) )
+               .AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
         }
 
         public void SetActive( bool isActive )

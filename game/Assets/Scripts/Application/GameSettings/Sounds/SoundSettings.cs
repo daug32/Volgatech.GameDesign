@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Utils.Models.Events;
 
-namespace Assets.Scripts.Application.GameSettings
+namespace Assets.Scripts.Application.GameSettings.Sounds
 {
     public static class SoundSettings
     {

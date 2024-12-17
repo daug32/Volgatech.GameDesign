@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Application.Menus.Common.Books.Elements;
 using Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
@@ -17,7 +20,8 @@ namespace Assets.Scripts.Application.Menus.Common.Books
         public readonly GameObject InteractiveElementsContainer;
         public readonly GameObject BookElementsContainer;
 
-        public readonly EventManager<ElementId> OnElementCreatedEvent = new();
+        public readonly EventManager<ElementId> OnElementCreationSuccessEvent = new();
+        public readonly EventManager<ElementId> OnElementCreationFailureEvent = new();
         
         public Book( GameObject gameObject )
         {
@@ -27,7 +31,9 @@ namespace Assets.Scripts.Application.Menus.Common.Books
             InteractiveElementsContainer = childManager.Get( "interactive_elements_container" );
             BookElementsContainer = childManager.Get( "book_elements_container" );
 
-            OnElementCreatedEvent.AddWithHighestPriority( Draw );
+            OnElementCreationFailureEvent.AddWithHighestPriority( _ => SoundSourceBehaviour.Instance.PlaySound( SoundType.ElementCreationFailed ) );
+            OnElementCreationSuccessEvent.AddWithHighestPriority( _ => SoundSourceBehaviour.Instance.PlaySound( SoundType.ElementCreationSuccess ) );
+            OnElementCreationSuccessEvent.AddWithHighestPriority( Draw );
         }
 
         public void Load( IEnumerable<ElementId> starterElements )
@@ -36,12 +42,20 @@ namespace Assets.Scripts.Application.Menus.Common.Books
             
             DiscoveredElements.Clear();
             DiscoveredElements.AddRange( starterElements );
+            var orderedElements = DiscoveredElements
+               .Select( x => new
+                {
+                    ElementId = x,
+                    Data = ElementsDataRepository.Get( x ),
+                    Element = ElementsRepository.Get( x ),
+                } )
+               .OrderBy( x => x.Data.DisplayOrder )
+               .Select( x => x.Element )
+               .ToList();
 
             var elements = new List<GameObject>();
-            foreach ( var elementId in DiscoveredElements )
+            foreach ( var element in orderedElements )
             {
-                var element = ElementsRepository.Get( elementId );
-
                 GameObject elementGameObject = element
                    .CreateGameObject( false )
                    .WithParent( BookElementsContainer );

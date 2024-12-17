@@ -1,4 +1,5 @@
 using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Behaviours;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Models;
 using Assets.Scripts.Application.Menus.Arcades.Levels.Models.Rating;
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
         public readonly LevelTimerUi Timer;
 
         public readonly EventManager<LevelType> OnLevelCompletedEvent = new();
+        public readonly EventManager OnOpenSettingsEvent = new();
         public readonly EventManager OnOpenMainMenuEvent = new();
 
         public LevelUi( GameObject gameObject )
@@ -40,7 +42,7 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
 
             // Elements
             Book = new Book( childrenContainer.Get( "book" ) );
-            Book.OnElementCreatedEvent.AddWithCommonPriority( _ =>
+            Book.OnElementCreationSuccessEvent.AddWithCommonPriority( _ =>
             {
                 Statistics.ReactionsNumber.Increment();
 
@@ -57,7 +59,9 @@ namespace Assets.Scripts.Application.Menus.Arcades.Levels
             LevelSettings.OnCloseSettingsEvent.AddWithCommonPriority( HideSettings );
             LevelSettings.OnOpenMainMenuEvent.AddWithCommonPriority( OnOpenMainMenuEvent.Trigger );
             LevelSettings.OnRestartLevelEvent.AddWithCommonPriority( () => LoadLevel( CurrentLevel.ThrowIfNull( "Can't restart because current level is not loaded" ) ) );
-            childrenContainer.Get( "settings_button" ).GetComponent<Button>().onClick.AddListener( ShowSettings );
+            OnOpenSettingsEvent.SubscribeOnClick( childrenContainer.Get( "settings_button" ) );
+            OnOpenSettingsEvent.AddWithCommonPriority( ShowSettings );
+            OnOpenSettingsEvent.AddWithCommonPriority( () => SoundSourceBehaviour.Instance.PlaySound( SoundType.UiButtonPress ) );
 
             // Level completed
             LevelCompleted = new LevelCompletedUi( childrenContainer.Get( "success" ) );

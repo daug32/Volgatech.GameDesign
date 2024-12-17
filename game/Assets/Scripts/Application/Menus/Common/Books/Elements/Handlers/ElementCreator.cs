@@ -1,3 +1,5 @@
+using Assets.Scripts.Application.GameSettings;
+using Assets.Scripts.Application.GameSettings.Sounds;
 using Assets.Scripts.Application.Menus.Common.Books.Repositories;
 
 namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
@@ -12,10 +14,11 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements.Handlers
             ElementId newElementId = CreateNewElement( firstParentId, secondParentId, relatedBook );
             if ( newElementId == null )
             {
+                SoundSourceBehaviour.Instance.PlaySound( SoundType.ElementCreationFailed );
                 return;
             }
 
-            relatedBook.OnElementCreatedEvent.Trigger( newElementId );
+            relatedBook.OnElementCreationSuccessEvent.Trigger( newElementId );
             
             RemoveUsedElements( firstParentId, secondParentId );
         }

@@ -10,12 +10,12 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
         public readonly ElementId Id;
         public readonly string AssetsPath;
 
-        private readonly Sprite _sprite;
+        public readonly Sprite Sprite;
 
         public Element( Sprite sprite )
         {
             Id = new ElementId( sprite.name );
-            _sprite = sprite;
+            Sprite = sprite;
         }
 
         public override string ToString() => $"Element (id: ${Guid}, path: ${AssetsPath})";
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Application.Menus.Common.Books.Elements
             var elementUiImage = elementGameObject.AddComponent<Image>();
             elementGameObject.name = BuildName();
             elementUiImage.preserveAspect = true;
-            elementUiImage.sprite = _sprite;
+            elementUiImage.sprite = Sprite;
 
             if ( setActive )
             {
